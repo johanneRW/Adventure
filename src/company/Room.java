@@ -3,25 +3,29 @@ package company;
 public class Room {
 
     //ved ikke om dette giver mening i sidste ende, men har forsøgt at lave en omskrivning af "adam og eva" koden til at oprette døre
-    private String roomName;
-    private String roomDesipciton;
+    // rummets navn og beskrivelse ændres sig ikke undervejs, derfor er de final.
+    private final String ROOM_NAME;
+    private final String ROOM_DESCRIPTION;
     private Room doorNorth;
     private Room doorEast;
     private Room doorWest;
     private Room doorSouth;
+    //Det kan være at help skal afhænge af hvilket rum spilleren befinder sig i.
+    private String help;
 
 
-    //vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
-    public Room(String roomName) {
-        this.roomName = roomName;
+    //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
+    public Room(String roomName,String roomDescription) {
+        this.ROOM_DESCRIPTION =roomDescription;
+        this.ROOM_NAME = roomName;
         this.doorNorth = null;
         this.doorEast = null;
         this.doorWest = null;
         this.doorSouth = null;
     }
 
-    // opret en forbindelse til et andet rum, når der bliver oprettet en dør i en retning,
-    // bliver der automatisk oprettet en dør i modsat retning tilbage til rummet, så man ikke glemmer en forbindelse
+    // Opret en forbindelse til et andet rum, når der bliver oprettet en dør i en retning,
+    // Bliver der automatisk oprettet en dør i modsat retning tilbage til rummet, så man ikke glemmer en forbindelse
     //Der oprettes en for hver kompasretning.
     public void createDoorNorth(Room anotherRoom) {
         if (doorNorth == null) {
@@ -48,8 +52,7 @@ public class Room {
         }
     }
 // Vi laver get-sætninger til at flytte rundt mellem rum, gemme de forbindelser vi har lavet i createDoor...
-
-    public Room getdoorNorth() {
+    public Room getDoorNorth() {
         return doorNorth;
     }
     public Room getDoorSouth() {
@@ -63,47 +66,39 @@ public class Room {
     }
 
     //Der skal laves beskrivelser af alle rum, så der kan printes en beskrivelse ud ved kommando look
-    public String getRoomDescription() {
-        return "You are in " + roomName + roomDesipciton;
+    public String getROOM_DESCRIPTION() {
+        return "You are in " + ROOM_NAME +". "+ ROOM_DESCRIPTION;
     }
 
     // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.
     @Override
     public String toString() {
-        String north;
+        String north, south, east, west;
         if (doorNorth == null) {
-            north = "ingen";
+            north = "none";
         } else {
-            north = doorNorth.roomName;
-
+            north = doorNorth.ROOM_NAME;
         }
-        String east;
         if (doorEast == null) {
-            east = "ingen";
+            east = "none";
         } else {
-            east = doorEast.roomName;
-
+            east = doorEast.ROOM_NAME;
         }
-        String west;
         if (doorWest == null) {
-            west = "ingen";
+            west = "none";
         } else {
-            west = doorWest.roomName;
-
+            west = doorWest.ROOM_NAME;
         }
-        String south;
         if (doorSouth == null) {
-            south = "ingen";
+            south = "none";
         } else {
-            south = doorSouth.roomName;
+            south = doorSouth.ROOM_NAME;
         }
-        return "Room{" +
-                "roomName='" + roomName + '\'' +
+        return "RoomName=" + ROOM_NAME +
                 ", doorNorth=" + north +
                 ", doorEast=" + east +
                 ", doorWest=" + west +
-                ", doorSouth=" + south +
-                '}';
+                ", doorSouth=" + south;
     }
 }
 

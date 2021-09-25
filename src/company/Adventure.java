@@ -6,31 +6,39 @@ public class Adventure {
 
     public static void main(String[] args) {
         boolean gameRunning = true;
-        //kommandoer: "go north", "go east", "go south" og "go west", "n", "e", "s", "w",
+        Scanner input = new Scanner(System.in);
+        //TODO: beslut om spillet skal tale dansk eller engelsk med brugeren
+
+        //Lav de ønskede rum
+        //TODO: Opret alle rum.
+        //TODO: Giv rum bedre beskrivelser
+        Room room1 = new Room("room1", """
+                Dette er der første rum""");
+        Room room2 = new Room("room2", """
+                Dette er det andet rum""");
+        //lav forbindelse mellem rummene
+        room1.createDoorEast(room2);
+
+        //Tjek af at der kan laves døre/forbindelse til andre rum.
+        //TODO:sout skal fjernes når rum og forbindelse er oprettet og dobbelttjekket.
+        System.out.println(room1);
+        System.out.println(room2);
+
+        //I følge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
+        Room currentRoom = room1;
+
+        //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
         //help - for at få en instruktion og oversigt over mulige kommandoer
         //look - for at få gentaget beskrivelsen af det rum man er i
 
-
-        //Tjek af at der kan laves døre/forbindelse til andre rum.
-        Room room1 = new Room("room1");
-        Room room2 = new Room("room2");
-        room1.createDoorEast(room2);
-        System.out.println(room1);
-        System.out.println(room2);
-
-
-        Room currentRoom = room1;
-
-        Scanner input = new Scanner(System.in);
-
-
         System.out.println("""
-                Welcome to Adventure. 
-                You can move around i the game by, typing go+"direction" 
+                Welcome to Adventure.
+                                
+                You can move around in the game by typing "go" followed by "north", "south", "east", "west".
                 You can also type the first letter of the direction you want to move.
-                If you want to look around just type "look" or l, type "help" or h for help.
-                If you want to quit the game type exit.
+                If you want to look around, just type "look" or 'l', type "help" or 'h' for help.
+                If you want to quit the game, type "exit".
 
                 What do you want to do first?""");
         while (gameRunning) {
@@ -38,43 +46,45 @@ public class Adventure {
             command = command.toLowerCase();
 
             if (command.equals("go north") || command.equals("n") || command.equals("north")) {
-                if (currentRoom.getdoorNorth() != null) {
-                    currentRoom = currentRoom.getdoorNorth();
-                    System.out.println("going north");
+                if (currentRoom.getDoorNorth() != null) {
+                    currentRoom = currentRoom.getDoorNorth();
+                    System.out.println("Going north");
                 } else {
                     System.out.println("You can't go that way");
                 }
             } else if (command.equals("go west") || command.equals("w") || command.equals("west")) {
                 if (currentRoom.getDoorWest() != null) {
                     currentRoom = currentRoom.getDoorWest();
-                    System.out.println("going west");
+                    System.out.println("Going west");
                 } else {
                     System.out.println("You can't go that way");
                 }
             } else if (command.equals("go east") || command.equals("e") || command.equals("east")) {
                 if (currentRoom.getDoorEast() != null) {
                     currentRoom = currentRoom.getDoorEast();
-                    System.out.println("going east");
+                    System.out.println("Going east");
                 } else {
                     System.out.println("You can't go that way");
                 }
             } else if (command.equals("go south") || command.equals("s") || command.equals("south")) {
                 if (currentRoom.getDoorSouth() != null) {
                     currentRoom = currentRoom.getDoorSouth();
-                    System.out.println("going south");
+                    System.out.println("Going south");
                 } else {
                     System.out.println("You can't go that way");
                 }
             } else if (command.equals("look") || command.equals("l")) {
-                System.out.println("looking around");
-                System.out.println(currentRoom.getRoomDescription());
+                System.out.println("Looking around");
+                System.out.println(currentRoom.getROOM_DESCRIPTION());
             } else if (command.equals("help") || command.equals("h")) {
-                System.out.println("want help?");
+                System.out.println("Want help?");
+                //TODO: Måske skal der indsættes endnu en if-sætning, hvor brugeren kan sige ja eller nej?
             } else if (command.equals("exit")) {
-                System.out.println("goodbye!");
+                System.out.println("Goodbye!");
                 gameRunning = false;
             } else {
-                System.out.println("I don't know to \"" + command + "\" try typing something else");
+                //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
+                System.out.println("I don't know how to \"" + command + "\", try typing something else");
             }
         }
     }
