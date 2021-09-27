@@ -91,9 +91,9 @@ public class Adventure {
                 }
             } /*else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
-                System.out.println("I don't know how to \"" + command + "\", try typing something else");
-            }*/
+                System.out.println("I don't know how to \"" + command + "\", try typing something else");*/
+            }
         }
     }
-}
+
 

@@ -10,9 +10,12 @@ public class Room {
     private Room doorEast;
     private Room doorWest;
     private Room doorSouth;
-    //Det kan være at help skal afhænge af hvilket rum spilleren befinder sig i.
+    //Det kan være at "help" skal afhænge af hvilket rum spilleren befinder sig i.
     private String help;
+    private String finalRoom;
 
+//TODO: hvordan skal spillet slutte i rum 5? Der skal formentlig laves en getter der siger "Tillykke" og kode der ændres gameRunning til false.
+    //TODO: skal spillet vide hvad det "sidste" er, eller hvilken handling der slutter spillet? Måske skal rummet have en dør der leder til "slut"
 
     //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
     public Room(String roomName,String roomDescription) {
@@ -53,7 +56,7 @@ public class Room {
     }
 // Vi laver get-sætninger til at flytte rundt mellem rum, gemme de forbindelser vi har lavet i createDoor...
     public Room getDoorNorth() {
-        return doorNorth;
+        return doorNorth ;
     }
     public Room getDoorSouth() {
         return doorSouth;
@@ -70,7 +73,7 @@ public class Room {
         return "You are in " + ROOM_NAME +". "+ ROOM_DESCRIPTION;
     }
 
-    // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.
+    // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.
     @Override
     public String toString() {
         String north, south, east, west;
