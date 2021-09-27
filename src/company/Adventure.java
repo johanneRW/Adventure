@@ -11,38 +11,38 @@ public class Adventure {
 
         //Lav de ønskede rum
         //TODO: Giv rum og hjælp bedre beskrivelser
-        Room room1 = new Room("room1", """
+        Room theEarth1 = new Room("the Earth (1)", """
                 Dette er det første rum""","Hjælp til rum1");
-        Room room2 = new Room("room2", """
+        Room saturn2 = new Room("Saturn (2)", """
                 Dette er det andet rum""","Hjælp til rum2");
-        Room room3 = new Room("room3", """
+        Room neptune3 = new Room("Neptune (3)", """
                 Dette er det tredje rum""","Hjælp til rum3");
-        Room room4 = new Room("room4", """
+        Room jupiter4 = new Room("Jupiter (4)", """
                 Dette er det fjerde rum""","Hjælp til rum4");
-        Room room5 = new Room("room5", """
+        Room pluto5 = new Room("Pluto (5)", """
                 Dette er det femte rum""","Hjælp til rum5");
-        Room room6 = new Room("room6", """
+        Room mercury6 = new Room("Mercury (6)", """
                 Dette er det sjette rum""","Hjælp til rum6");
-        Room room7 = new Room("room7", """
+        Room venus7 = new Room("Venus (7)", """
                 Dette er det syvende rum""","Hjælp til rum7");
-        Room room8 = new Room("room8", """
+        Room mars8 = new Room("Mars (8)", """
                 Dette er det ottende rum""","Hjælp til rum8");
-        Room room9 = new Room("room9", """
+        Room uranus9 = new Room(" Uranus (9)", """
                 Dette er det niende rum""","Hjælp til rum9");
 
         //lav forbindelse mellem rummene
-        room1.createDoorEast(room2);
-        room1.createDoorSouth(room4);
-        room2.createDoorEast(room3);
-        room3.createDoorSouth(room6);
-        room4.createDoorSouth(room7);
-        room5.createDoorSouth(room8);
-        room6.createDoorSouth(room9);
-        room7.createDoorEast(room8);
-        room8.createDoorEast(room9);
+        theEarth1.createDoorEast(saturn2);
+        theEarth1.createDoorSouth(jupiter4);
+        saturn2.createDoorEast(neptune3);
+        neptune3.createDoorSouth(mercury6);
+        jupiter4.createDoorSouth(venus7);
+        pluto5.createDoorSouth(mars8);
+        mercury6.createDoorSouth(uranus9);
+        venus7.createDoorEast(mars8);
+        mars8.createDoorEast(uranus9);
 
         //I følge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
-        Room currentRoom = room1;
+        Room currentRoom = theEarth1;
 
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
