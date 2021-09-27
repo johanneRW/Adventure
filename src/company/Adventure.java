@@ -82,7 +82,7 @@ public class Adventure {
                 String answer = input.nextLine();
                 answer = answer.toLowerCase();
                 if (answer.equals("yes")) {
-                    System.out.println("Sending you back to your home planet -Goodbye!");
+                    System.out.println("Goodbye");
                     gameRunning = false;
                 } else if (answer.equals("no")) {
                     System.out.println("Alright! Let's keep going then :)");
