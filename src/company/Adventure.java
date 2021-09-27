@@ -95,8 +95,16 @@ public class Adventure {
                 System.out.println(currentRoom.getROOM_DESCRIPTION());
             } else if (command.equals("help") || command.equals("h")) {
                 System.out.println("Want help?");
-                //TODO: Måske skal der indsættes endnu en if-sætning, hvor brugeren kan sige ja eller nej?
-            } if (command.equals("exit")) {
+                String answer = input.nextLine();
+                answer = answer.toLowerCase();
+                if (answer.equals("yes")) {
+                    System.out.println(" Okay, here's help");
+                } else if (answer.equals("no")) {
+                    System.out.println("Okay, suit yourself! :)");
+                }
+            }
+
+            if (command.equals("exit")) {
                 System.out.println("Are you sure you want to leave the game?");
                 String answer = input.nextLine();
                 answer = answer.toLowerCase();
