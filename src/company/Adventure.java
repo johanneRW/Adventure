@@ -34,7 +34,7 @@ public class Adventure {
                 Mercury is the fastest planet, zipping around the Sun every 88 Earth days.""","From freezing cold to flaming HOT! This is killing me! Hurry! Find your way to a safer place!");
         Room venus7 = new Room("Venus (7)", """
                 Venus spins slowly in the opposite direction from most planets. 
-                A thick atmosphere traps heat in a runaway greenhouse effect, making it the hottest planet in our solar system.""","Hjælp til rum7");
+                A thick atmosphere traps heat in a runaway greenhouse effect, making it the hottest planet in our solar system.""","If you want to continue getting my help, you better get your butt out of here, cause my motherboard is quickly melting :(!");
         Room mars8 = new Room("Mars (8)", """
                 Mars is a dusty, cold, desert world with a very thin atmosphere. 
                 There is strong evidence Mars was —billions of years ago— wetter and warmer, with a thicker atmosphere.""","I can sense it! WE ARE SO CLOSE!!! Don't lose it now! \nOH NO! Some aliens are blocking the portal, quick! Do something! ");
