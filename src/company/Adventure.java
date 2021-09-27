@@ -12,23 +12,35 @@ public class Adventure {
         //Lav de ønskede rum
         //TODO: Giv rum og hjælp bedre beskrivelser
         Room theEarth1 = new Room("the Earth (1)", """
-                Dette er det første rum""","Hjælp til rum1");
+                Earth—our home planet—is the only place we know of so far that’s inhabited by living things. 
+                It's also the only planet in our solar system with liquid water on the surface.""","Hjælp til rum1");
         Room saturn2 = new Room("Saturn (2)", """
-                Dette er det andet rum""","Hjælp til rum2");
+                Adorned with a dazzling, complex system of icy rings, Saturn is unique in our solar system. 
+                The other giant planets have rings, but none are as spectacular as Saturn's.""","Hjælp til rum2");
         Room neptune3 = new Room("Neptune (3)", """
-                Dette er det tredje rum""","Hjælp til rum3");
+                Neptune —the eighth and most distant major planet orbiting our Sun—
+                is dark, cold and whipped by supersonic winds. 
+                It was the first planet located through mathematical calculations, rather than by telescope.""","Hjælp til rum3");
         Room jupiter4 = new Room("Jupiter (4)", """
-                Dette er det fjerde rum""","Hjælp til rum4");
+                Jupiter is more than twice as massive than the other planets of our solar system combined. 
+                The giant planet's Great Red spot is a centuries-old storm bigger than Earth.""","Hjælp til rum4");
         Room pluto5 = new Room("Pluto (5)", """
-                Dette er det femte rum""","Hjælp til rum5");
+                Pluto is a complex world of ice mountains and frozen plains. 
+                Once considered the ninth planet, Pluto is the largest member of the Kuiper Belt 
+                and the best known of a new class of worlds called dwarf planets.""","Hjælp til rum5");
         Room mercury6 = new Room("Mercury (6)", """
-                Dette er det sjette rum""","Hjælp til rum6");
+                Mercury—the smallest planet in our solar system and closest to the Sun—
+                is only slightly larger than Earth's Moon. 
+                Mercury is the fastest planet, zipping around the Sun every 88 Earth days.""","Hjælp til rum6");
         Room venus7 = new Room("Venus (7)", """
-                Dette er det syvende rum""","Hjælp til rum7");
+                Venus spins slowly in the opposite direction from most planets. 
+                A thick atmosphere traps heat in a runaway greenhouse effect, making it the hottest planet in our solar system.""","Hjælp til rum7");
         Room mars8 = new Room("Mars (8)", """
-                Dette er det ottende rum""","Hjælp til rum8");
+                Mars is a dusty, cold, desert world with a very thin atmosphere. 
+                There is strong evidence Mars was —billions of years ago— wetter and warmer, with a thicker atmosphere.""","Hjælp til rum8");
         Room uranus9 = new Room(" Uranus (9)", """
-                Dette er det niende rum""","Hjælp til rum9");
+                Uranus—seventh planet from the Sun—rotates at a nearly 90-degree angle from the plane of its orbit. 
+                This unique tilt makes Uranus appear to spin on its side.""","Hjælp til rum9");
 
         //lav forbindelse mellem rummene
         theEarth1.createDoorEast(saturn2);
