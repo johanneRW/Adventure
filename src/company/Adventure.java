@@ -7,28 +7,28 @@ public class Adventure {
     public static void main(String[] args) {
         boolean gameRunning = true;
         Scanner input = new Scanner(System.in);
-        //TODO: beslut om spillet skal tale dansk eller engelsk med brugeren
+        //TODO: spillet skal tale engelsk med brugeren
 
         //Lav de ønskede rum
-        //TODO: Giv rum bedre beskrivelser
+        //TODO: Giv rum og hjælp bedre beskrivelser
         Room room1 = new Room("room1", """
-                Dette er det første rum""");
+                Dette er det første rum""","Hjælp til rum1");
         Room room2 = new Room("room2", """
-                Dette er det andet rum""");
+                Dette er det andet rum""","Hjælp til rum2");
         Room room3 = new Room("room3", """
-                Dette er det tredje rum""");
+                Dette er det tredje rum""","Hjælp til rum3");
         Room room4 = new Room("room4", """
-                Dette er det fjerde rum""");
+                Dette er det fjerde rum""","Hjælp til rum4");
         Room room5 = new Room("room5", """
-                Dette er det femte rum""");
+                Dette er det femte rum""","Hjælp til rum5");
         Room room6 = new Room("room6", """
-                Dette er det sjette rum""");
+                Dette er det sjette rum""","Hjælp til rum6");
         Room room7 = new Room("room7", """
-                Dette er det syvende rum""");
+                Dette er det syvende rum""","Hjælp til rum7");
         Room room8 = new Room("room8", """
-                Dette er det ottende rum""");
+                Dette er det ottende rum""","Hjælp til rum8");
         Room room9 = new Room("room9", """
-                Dette er det niende rum""");
+                Dette er det niende rum""","Hjælp til rum9");
 
         //lav forbindelse mellem rummene
         room1.createDoorEast(room2);
@@ -63,7 +63,7 @@ public class Adventure {
             command = command.toLowerCase();
 
             if (command.equals("exit")) {
-                System.out.println("Are you sure you want to leave the game?");
+                System.out.println("Are you sure you want to leave the game? \"yes\" or \"no\"");
                 String answer = input.nextLine();
                 answer = answer.toLowerCase();
                 if (answer.equals("yes")) {
@@ -104,11 +104,12 @@ public class Adventure {
                 System.out.println("Looking around");
                 System.out.println(currentRoom.getROOM_DESCRIPTION());
             } else if (command.equals("help") || command.equals("h")) {
-                System.out.println("Want help?");
+                System.out.println("Want help? Type \"yes\" or \"no\"");
                 String answer = input.nextLine();
                 answer = answer.toLowerCase();
-                if (answer.equals("yes")) {
+                if (answer.equals("yes")){
                     System.out.println(" Okay, here's help");
+                    System.out.println(currentRoom.getROOM_HELP());
                 } else if (answer.equals("no")) {
                     System.out.println("Okay, suit yourself! :)");
                 }

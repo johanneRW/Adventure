@@ -6,6 +6,7 @@ public class Room {
     // rummets navn og beskrivelse ændres sig ikke undervejs, derfor er de final.
     private final String ROOM_NAME;
     private final String ROOM_DESCRIPTION;
+    private final String ROOM_HELP;
     private Room doorNorth;
     private Room doorEast;
     private Room doorWest;
@@ -18,9 +19,10 @@ public class Room {
     //TODO: skal spillet vide hvad det "sidste" er, eller hvilken handling der slutter spillet? Måske skal rummet have en dør der leder til "slut"
 
     //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
-    public Room(String roomName,String roomDescription) {
+    public Room(String roomName,String roomDescription,String roomHelp) {
         this.ROOM_DESCRIPTION =roomDescription;
         this.ROOM_NAME = roomName;
+        this.ROOM_HELP=roomHelp;
         this.doorNorth = null;
         this.doorEast = null;
         this.doorWest = null;
@@ -72,6 +74,8 @@ public class Room {
     public String getROOM_DESCRIPTION() {
         return "You are in " + ROOM_NAME +". "+ ROOM_DESCRIPTION;
     }
+
+    public String getROOM_HELP(){return ROOM_HELP;}
 
     // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.
     @Override
