@@ -27,14 +27,14 @@ public class Adventure {
         Room pluto5 = new Room("Pluto (5)", """
                 Pluto is a complex world of ice mountains and frozen plains. 
                 Once considered the ninth planet, Pluto is the largest member of the Kuiper Belt 
-                and the best known of a new class of worlds called dwarf planets.""","We are finally here! Oh it's so peaceful here. So quiet, let's stay here for ever.");
+                and the best known of a new class of worlds called dwarf planets. ""","We are finally here! Oh it's so peaceful here. So quiet, let's stay here for ever.");
         Room mercury6 = new Room("Mercury (6)", """
                 Mercury—the smallest planet in our solar system and closest to the Sun—
                 is only slightly larger than Earth's Moon. 
                 Mercury is the fastest planet, zipping around the Sun every 88 Earth days.""","From freezing cold to flaming HOT! This is killing me! Hurry! Find your way to a safer place!");
         Room venus7 = new Room("Venus (7)", """
                 Venus spins slowly in the opposite direction from most planets. 
-                A thick atmosphere traps heat in a runaway greenhouse effect, making it the hottest planet in our solar system.""","Hjælp til rum7");
+                A thick atmosphere traps heat in a runaway greenhouse effect, making it the hottest planet in our solar system.""","If you want to continue getting my help, you better get your butt out of here, cause my motherboard is quickly melting :(!");
         Room mars8 = new Room("Mars (8)", """
                 Mars is a dusty, cold, desert world with a very thin atmosphere. 
                 There is strong evidence Mars was —billions of years ago— wetter and warmer, with a thicker atmosphere.""","I can sense it! WE ARE SO CLOSE!!! Don't lose it now! \nOH NO! Some aliens are blocking the portal, quick! Do something! ");
