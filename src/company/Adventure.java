@@ -10,19 +10,36 @@ public class Adventure {
         //TODO: beslut om spillet skal tale dansk eller engelsk med brugeren
 
         //Lav de ønskede rum
-        //TODO: Opret alle rum.
         //TODO: Giv rum bedre beskrivelser
         Room room1 = new Room("room1", """
-                Dette er der første rum""");
+                Dette er det første rum""");
         Room room2 = new Room("room2", """
                 Dette er det andet rum""");
+        Room room3 = new Room("room3", """
+                Dette er det tredje rum""");
+        Room room4 = new Room("room4", """
+                Dette er det fjerde rum""");
+        Room room5 = new Room("room5", """
+                Dette er det femte rum""");
+        Room room6 = new Room("room6", """
+                Dette er det sjette rum""");
+        Room room7 = new Room("room7", """
+                Dette er det syvende rum""");
+        Room room8 = new Room("room8", """
+                Dette er det ottende rum""");
+        Room room9 = new Room("room9", """
+                Dette er det niende rum""");
+
         //lav forbindelse mellem rummene
         room1.createDoorEast(room2);
-
-        //Tjek af at der kan laves døre/forbindelse til andre rum.
-        //TODO:sout skal fjernes når rum og forbindelse er oprettet og dobbelttjekket.
-        System.out.println(room1);
-        System.out.println(room2);
+        room1.createDoorSouth(room4);
+        room2.createDoorEast(room3);
+        room3.createDoorSouth(room6);
+        room4.createDoorSouth(room7);
+        room5.createDoorSouth(room8);
+        room6.createDoorSouth(room9);
+        room7.createDoorEast(room8);
+        room8.createDoorEast(room9);
 
         //I følge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
         Room currentRoom = room1;
