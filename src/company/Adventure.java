@@ -10,11 +10,11 @@ public class Adventure {
 
         //Lav de ønskede rum, beskrivelser og hjælp.
         Room theEarth1 = new Room("the Earth (1)", """
-                Earth—our home planet—is the only place we know of so far that’s inhabited by living things.
+                Earth —our home planet— is the only place we know of so far that’s inhabited by living things.
                 It's also the only planet in our solar system with liquid water on the surface.""","You are standing on Earth! There are two teleporters, one is at west, and the other at east. Try, and see where you can go!");
         Room saturn2 = new Room("Saturn (2)", """
                 Adorned with a dazzling, complex system of icy rings, Saturn is unique in our solar system.
-                The other giant planets have rings, but none are as spectacular as Saturn's.""","You can just pass by this one, there's nothing to see here! Winter on Earth suddenly doesn't seem so bad anymore!");
+                The other giant planets have rings, but none are as spectacular as Saturn's.""","You can just pass by this one, there's nothing to see here, except for these spectacular rings!! Winter on Earth suddenly doesn't seem so bad anymore though!");
         Room neptune3 = new Room("Neptune (3)", """
                 Neptune —the eighth and most distant major planet orbiting our Sun—
                 is dark, cold and whipped by supersonic winds.
@@ -27,7 +27,7 @@ public class Adventure {
                 Once considered the ninth planet, Pluto is the largest member of the Kuiper Belt.
                 and the best known of a new class of worlds called dwarf planets. ""","We are finally here! Oh it's so peaceful here. So quiet, let's stay here for ever.");
         Room mercury6 = new Room("Mercury (6)", """
-                Mercury—the smallest planet in our solar system and closest to the Sun—
+                Mercury —the smallest planet in our solar system and closest to the Sun—
                 is only slightly larger than Earth's Moon.
                 Mercury is the fastest planet, zipping around the Sun every 88 Earth days.""","From freezing cold to flaming HOT! This is killing me! Hurry! Find your way to a safer place!");
         Room venus7 = new Room("Venus (7)", """
@@ -37,7 +37,7 @@ public class Adventure {
                 Mars is a dusty, cold, desert world with a very thin atmosphere.
                 There is strong evidence Mars was —billions of years ago— wetter and warmer, with a thicker atmosphere.""","I can sense it! WE ARE SO CLOSE!!! Don't lose it now! \nOH NO! Some aliens are blocking the portal, quick! Do something! ");
         Room uranus9 = new Room("Uranus (9)", """
-                Uranus—seventh planet from the Sun—rotates at a nearly 90-degree angle from the plane of its orbit.
+                Uranus —seventh planet from the Sun— rotates at a nearly 90-degree angle from the plane of its orbit.
                 This unique tilt makes Uranus appear to spin on its side.""","BRRR! Not exactly Utopia, is it?");
 
         //lav forbindelse mellem rummene
@@ -60,7 +60,7 @@ public class Adventure {
         //look - for at få gentaget beskrivelsen af det rum man er i
 
         System.out.println("""
-                Welcome to 'the rediscovering of Pluto'-Adventure.
+                Welcome to 'the rediscovering of Pluto' -Adventure.
                 I the year 2006 we lost our smallest planet.
                 You are on a mission to rediscover our small friend.
                 On you quest you will find some teleportes that will send you to other plannets.

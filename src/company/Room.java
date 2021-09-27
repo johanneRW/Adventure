@@ -22,7 +22,7 @@ public class Room {
     public Room(String roomName,String roomDescription,String roomHelp) {
         this.ROOM_DESCRIPTION =roomDescription;
         this.ROOM_NAME = roomName;
-        this.ROOM_HELP=roomHelp;
+        this.ROOM_HELP = roomHelp;
         this.doorNorth = null;
         this.doorEast = null;
         this.doorWest = null;
