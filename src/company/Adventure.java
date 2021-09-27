@@ -27,7 +27,7 @@ public class Adventure {
         Room pluto5 = new Room("Pluto (5)", """
                 Pluto is a complex world of ice mountains and frozen plains. 
                 Once considered the ninth planet, Pluto is the largest member of the Kuiper Belt 
-                and the best known of a new class of worlds called dwarf planets.""","We are finally here! Oh it's so peaceful here. So quiet, let's stay here for ever.");
+                and the best known of a new class of worlds called dwarf planets. ""","We are finally here! Oh it's so peaceful here. So quiet, let's stay here for ever.");
         Room mercury6 = new Room("Mercury (6)", """
                 Mercury—the smallest planet in our solar system and closest to the Sun—
                 is only slightly larger than Earth's Moon. 
