@@ -62,7 +62,17 @@ public class Adventure {
             String command = input.nextLine();
             command = command.toLowerCase();
 
-            if (command.equals("go north") || command.equals("n") || command.equals("north")) {
+            if (command.equals("exit")) {
+                System.out.println("Are you sure you want to leave the game?");
+                String answer = input.nextLine();
+                answer = answer.toLowerCase();
+                if (answer.equals("yes")) {
+                    System.out.println("Goodbye");
+                    gameRunning = false;
+                } else if (answer.equals("no")) {
+                    System.out.println("Alright! Let's keep going then :)");
+                }
+            } else if (command.equals("go north") || command.equals("n") || command.equals("north")) {
                 if (currentRoom.getDoorNorth() != null) {
                     currentRoom = currentRoom.getDoorNorth();
                     System.out.println("Going north");
@@ -102,23 +112,12 @@ public class Adventure {
                 } else if (answer.equals("no")) {
                     System.out.println("Okay, suit yourself! :)");
                 }
-            }
-
-            if (command.equals("exit")) {
-                System.out.println("Are you sure you want to leave the game?");
-                String answer = input.nextLine();
-                answer = answer.toLowerCase();
-                if (answer.equals("yes")) {
-                    System.out.println("Goodbye");
-                    gameRunning = false;
-                } else if (answer.equals("no")) {
-                    System.out.println("Alright! Let's keep going then :)");
-                }
-            } /*else {
+            } else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
-                System.out.println("I don't know how to \"" + command + "\", try typing something else");*/
+                System.out.println("I don't know how to \"" + command + "\", try typing something else");
             }
         }
     }
+}
 
 
