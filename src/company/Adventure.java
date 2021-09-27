@@ -23,12 +23,11 @@ public class Adventure {
                 Jupiter is more than twice as massive than the other planets of our solar system combined.
                 The giant planet's Great Red spot is a centuries-old storm bigger than Earth.""", "Oh God! The storm! I can't see a thing! Hurry! Get out of here!");
         Room pluto5 = new Room("Pluto (5)", """
-                YOU FOUND IT!! What a marvellous feat, CONGRATULATION!!\n
+                YOU FOUND IT!! What a marvellous feat! 
+                
                 Pluto is a complex world of ice mountains and frozen plains.
                 Once considered the ninth planet, Pluto is the largest member of the Kuiper Belt.
-                and the best known of a new class of worlds called dwarf planets, now Pluto can be returned to its rightful place among the real planets.
-                                
-                The End!""", "We are finally here! Oh it's so peaceful here. So quiet, let's stay here for ever.");
+                and the best known of a new class of worlds called dwarf planets, now Pluto can be returned to its rightful place among the real planets.""", "We are finally here! Oh it's so peaceful here. So quiet, let's stay here for ever.");
         Room mercury6 = new Room("Mercury (6)", """
                 Mercury — the smallest planet in our solar system and closest to the Sun —
                 is only slightly larger than Earth's Moon.
@@ -66,7 +65,7 @@ public class Adventure {
         //look - for at få gentaget beskrivelsen af det rum man er i
 
         System.out.println("""
-                Welcome to 'the rediscovering of Pluto' -Adventure game.
+                Welcome to 'the rediscovering of Pluto'-Adventure game.
                                 
                 I the year 2006 we lost our smallest planet, it was demoted, and categorised as a dwarf planet.
                 But we belive that Pluto belongs among the real planets, so your mission is:
@@ -100,6 +99,10 @@ public class Adventure {
                     currentRoom = currentRoom.getDoorNorth();
                     System.out.println("Teleporting north...");
                     System.out.println(currentRoom.getROOM_DESCRIPTION());
+                    if (currentRoom.equals(finalRoom)) {
+                        gameRunning = false;
+                        System.out.println("CONGRATULATION!!\n\nThe End");
+                    }
                 } else {
                     System.out.println("You can't go that way, ther isn't a teleporter.");
                 }
@@ -108,6 +111,10 @@ public class Adventure {
                     currentRoom = currentRoom.getDoorWest();
                     System.out.println("Teleporting west...");
                     System.out.println(currentRoom.getROOM_DESCRIPTION());
+                    if (currentRoom.equals(finalRoom)) {
+                        gameRunning = false;
+                        System.out.println("CONGRATULATION!!\n\nThe End");
+                    }
                 } else {
                     System.out.println("You can't go that way, ther isn't a teleporter.");
                 }
@@ -116,14 +123,22 @@ public class Adventure {
                     currentRoom = currentRoom.getDoorEast();
                     System.out.println("Teleporting east...");
                     System.out.println(currentRoom.getROOM_DESCRIPTION());
+                    if (currentRoom.equals(finalRoom)) {
+                        gameRunning = false;
+                        System.out.println("CONGRATULATION!!\n\nThe End");
+                    }
                 } else {
-                    System.out.println("You can't go that way, ther isn't a teleporter.y");
+                    System.out.println("You can't go that way, ther isn't a teleporter.");
                 }
             } else if (command.equals("go south") || command.equals("s") || command.equals("south")) {
                 if (currentRoom.getDoorSouth() != null) {
                     currentRoom = currentRoom.getDoorSouth();
                     System.out.println("Teleporting south...");
                     System.out.println(currentRoom.getROOM_DESCRIPTION());
+                    if (currentRoom.equals(finalRoom)) {
+                        gameRunning = false;
+                        System.out.println("CONGRATULATION!!\n\nThe End");
+                    }
                 } else {
                     System.out.println("You can't go that way, ther isn't a teleporter.");
                 }
@@ -144,6 +159,7 @@ public class Adventure {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
             }
+
         }
     }
 }

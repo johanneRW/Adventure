@@ -11,10 +11,6 @@ public class Room {
     private Room doorEast;
     private Room doorWest;
     private Room doorSouth;
-    private String finalRoom;
-
-//TODO: hvordan skal spillet slutte i rum 5? Der skal formentlig laves en getter der siger "Tillykke" og kode der ændres gameRunning til false.
-    //TODO: skal spillet vide hvad det "sidste" er, eller hvilken handling der slutter spillet? Måske skal rummet have en dør der leder til "slut"
 
     //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
     public Room(String roomName,String roomDescription,String roomHelp) {
