@@ -62,13 +62,18 @@ public class Adventure {
         //look - for at få gentaget beskrivelsen af det rum man er i
 
         System.out.println("""
-                Welcome to Adventure.
+                Welcome to 'the rediscovering of Pluto'-Adventure.
+                I the year 2006 we lost our smallest planet.
+                You are on a mission to rediscover our small friend.
+                On you quest you will find some teleportes that will send you to other plannets.
+                
                                 
                 You can move around in the game by typing "go" followed by "north", "south", "east", "west".
                 You can also type the first letter of the direction you want to move.
                 If you want to look around, just type "look" or 'l', type "help" or 'h' for help.
                 If you want to quit the game, type "exit".
-
+                
+                You are at this moment placed on Earth.
                 What do you want to do first?""");
         while (gameRunning) {
             String command = input.nextLine();
