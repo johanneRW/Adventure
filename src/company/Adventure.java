@@ -79,13 +79,20 @@ public class Adventure {
             } else if (command.equals("help") || command.equals("h")) {
                 System.out.println("Want help?");
                 //TODO: Måske skal der indsættes endnu en if-sætning, hvor brugeren kan sige ja eller nej?
-            } else if (command.equals("exit")) {
-                System.out.println("Goodbye!");
-                gameRunning = false;
-            } else {
+            } if (command.equals("exit")) {
+                System.out.println("Are you sure you want to leave the game?");
+                String answer = input.nextLine();
+                answer = answer.toLowerCase();
+                if (answer.equals("yes")) {
+                    System.out.println("Goodbye");
+                    gameRunning = false;
+                } else if (answer.equals("no")) {
+                    System.out.println("Alright! Let's keep going then :)");
+                }
+            } /*else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
-            }
+            }*/
         }
     }
 }
