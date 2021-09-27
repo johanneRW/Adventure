@@ -11,8 +11,6 @@ public class Room {
     private Room doorEast;
     private Room doorWest;
     private Room doorSouth;
-    //Det kan være at "help" skal afhænge af hvilket rum spilleren befinder sig i.
-    private String help;
     private String finalRoom;
 
 //TODO: hvordan skal spillet slutte i rum 5? Der skal formentlig laves en getter der siger "Tillykke" og kode der ændres gameRunning til false.
