@@ -10,8 +10,6 @@ public class Adventure {
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
-
-
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
         //help - for at få en instruktion og oversigt over mulige kommandoer
@@ -48,8 +46,8 @@ public class Adventure {
                     System.out.println("Alright! Let's keep going then :)");
                 }
             } else if (command.equals("go north") || command.equals("n") || command.equals("north")) {
-                if (spaceMap.currentRoom.getDoorNorth() != null) {
-                    spaceMap.currentRoom = spaceMap.currentRoom.getDoorNorth();
+                if (spaceMap.currentRoom.getConnectionNorth() != null) {
+                    spaceMap.currentRoom = spaceMap.currentRoom.getConnectionNorth();
                     System.out.println("Teleporting north...\n");
                     System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
                    checkIfFinal();
@@ -57,8 +55,8 @@ public class Adventure {
                     System.out.println("You can't go that way - there isn't a teleporter.");
                 }
             } else if (command.equals("go west") || command.equals("w") || command.equals("west")) {
-                if (spaceMap.currentRoom.getDoorWest() != null) {
-                    spaceMap.currentRoom = spaceMap.currentRoom.getDoorWest();
+                if (spaceMap.currentRoom.getConnectionWest() != null) {
+                    spaceMap.currentRoom = spaceMap.currentRoom.getConnectionWest();
                     System.out.println("Teleporting west...\n");
                     System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
                     checkIfFinal();
@@ -66,8 +64,8 @@ public class Adventure {
                     System.out.println("You can't go that way - there isn't a teleporter.");
                 }
             } else if (command.equals("go east") || command.equals("e") || command.equals("east")) {
-                if (spaceMap.currentRoom.getDoorEast() != null) {
-                    spaceMap.currentRoom = spaceMap.currentRoom.getDoorEast();
+                if (spaceMap.currentRoom.getConnectionEast() != null) {
+                    spaceMap.currentRoom = spaceMap.currentRoom.getConnectionEast();
                     System.out.println("Teleporting east...\n");
                     System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
                     checkIfFinal();
@@ -75,8 +73,8 @@ public class Adventure {
                     System.out.println("You can't go that way - there isn't a teleporter.");
                 }
             } else if (command.equals("go south") || command.equals("s") || command.equals("south")) {
-                if (spaceMap.currentRoom.getDoorSouth() != null) {
-                    spaceMap.currentRoom = spaceMap.currentRoom.getDoorSouth();
+                if (spaceMap.currentRoom.getConnectionSouth() != null) {
+                    spaceMap.currentRoom = spaceMap.currentRoom.getConnectionSouth();
                     System.out.println("Teleporting south...\n");
                     System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
                     checkIfFinal();
@@ -100,10 +98,8 @@ public class Adventure {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
             }
-
         }
     }
-
     private static void checkIfFinal() {
         if (spaceMap.currentRoom.equals(spaceMap.getFinalRoom())) {
             gameRunning = false;

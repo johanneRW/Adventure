@@ -5,10 +5,9 @@ public class Map {
     private Room finalRoom;
 
     public Map() {
-        //Lav de ønskede rum, beskrivelser og hjælp-tekst.
-
         //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
 
+        //De ønskede rum, beskrivelser og hjælpe-tekst.
         Room theEarth1 = new Room("the Earth (1)", """
                 Earth — our home planet — is the only place we know of so far that’s inhabited by living things.
                 It's also the only planet in our solar system with liquid water on the surface.""",
@@ -52,19 +51,18 @@ public class Map {
                 "BRRR! Not exactly Utopia, is it?");
 
         //lav forbindelse mellem rummene
-        theEarth1.createDoorEast(saturn2);
-        theEarth1.createDoorSouth(jupiter4);
-        saturn2.createDoorEast(neptune3);
-        neptune3.createDoorSouth(mercury6);
-        jupiter4.createDoorSouth(venus7);
-        pluto5.createDoorSouth(mars8);
-        mercury6.createDoorSouth(uranus9);
-        venus7.createDoorEast(mars8);
-        mars8.createDoorEast(uranus9);
+        theEarth1.createConnectionEast(saturn2);
+        theEarth1.createConnectionSouth(jupiter4);
+        saturn2.createConnectionEast(neptune3);
+        neptune3.createConnectionSouth(mercury6);
+        jupiter4.createConnectionSouth(venus7);
+        pluto5.createConnectionSouth(mars8);
+        mercury6.createConnectionSouth(uranus9);
+        venus7.createConnectionEast(mars8);
+        mars8.createConnectionEast(uranus9);
 
         //Ifølge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
         this.currentRoom = theEarth1;
-
         //Det hemmelige rum, hvor spillet slutter
         this.finalRoom = pluto5;
     }

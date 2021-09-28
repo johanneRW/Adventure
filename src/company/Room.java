@@ -7,61 +7,61 @@ public class Room {
     private final String ROOM_NAME;
     private final String ROOM_DESCRIPTION;
     private final String ROOM_HELP;
-    private Room doorNorth;
-    private Room doorEast;
-    private Room doorWest;
-    private Room doorSouth;
+    private Room connectionNorth;
+    private Room connectionEast;
+    private Room connectionWest;
+    private Room connectionSouth;
 
     //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
     public Room(String roomName,String roomDescription,String roomHelp) {
         this.ROOM_DESCRIPTION =roomDescription;
         this.ROOM_NAME = roomName;
         this.ROOM_HELP = roomHelp;
-        this.doorNorth = null;
-        this.doorEast = null;
-        this.doorWest = null;
-        this.doorSouth = null;
+        this.connectionNorth = null;
+        this.connectionEast = null;
+        this.connectionWest = null;
+        this.connectionSouth = null;
     }
 
     // Opret en forbindelse til et andet rum, når der bliver oprettet en dør i en retning,
     // Bliver der automatisk oprettet en dør i modsat retning tilbage til rummet, så man ikke glemmer en forbindelse
     //Der oprettes en for hver kompasretning.
-    public void createDoorNorth(Room anotherRoom) {
-        if (doorNorth == null) {
-            doorNorth = anotherRoom;
-            anotherRoom.createDoorSouth(this);
+    public void createConnectionNorth(Room anotherRoom) {
+        if (connectionNorth == null) {
+            connectionNorth = anotherRoom;
+            anotherRoom.createConnectionSouth(this);
         }
     }
-    public void createDoorEast(Room anotherRoom) {
-        if (doorEast == null) {
-            doorEast = anotherRoom;
-            anotherRoom.createDoorWest(this);
+    public void createConnectionEast(Room anotherRoom) {
+        if (connectionEast == null) {
+            connectionEast = anotherRoom;
+            anotherRoom.createConnectionWest(this);
         }
     }
-    public void createDoorWest(Room anotherRoom) {
-        if (doorWest == null) {
-            doorWest = anotherRoom;
-            anotherRoom.createDoorEast(this);
+    public void createConnectionWest(Room anotherRoom) {
+        if (connectionWest == null) {
+            connectionWest = anotherRoom;
+            anotherRoom.createConnectionEast(this);
         }
     }
-    public void createDoorSouth(Room anotherRoom) {
-        if (doorSouth == null) {
-            doorSouth = anotherRoom;
-            anotherRoom.createDoorNorth(this);
+    public void createConnectionSouth(Room anotherRoom) {
+        if (connectionSouth == null) {
+            connectionSouth = anotherRoom;
+            anotherRoom.createConnectionNorth(this);
         }
     }
 // Vi laver get-sætninger til at flytte rundt mellem rum, gemme de forbindelser vi har lavet i createDoor...
-    public Room getDoorNorth() {
-        return doorNorth ;
+    public Room getConnectionNorth() {
+        return connectionNorth;
     }
-    public Room getDoorSouth() {
-        return doorSouth;
+    public Room getConnectionSouth() {
+        return connectionSouth;
     }
-    public Room getDoorEast() {
-        return doorEast;
+    public Room getConnectionEast() {
+        return connectionEast;
     }
-    public Room getDoorWest() {
-        return doorWest;
+    public Room getConnectionWest() {
+        return connectionWest;
     }
 
     //Der skal laves beskrivelser af alle rum, så der kan printes en beskrivelse ud ved kommando look
@@ -75,25 +75,25 @@ public class Room {
     @Override
     public String toString() {
         String north, south, east, west;
-        if (doorNorth == null) {
+        if (connectionNorth == null) {
             north = "none";
         } else {
-            north = doorNorth.ROOM_NAME;
+            north = connectionNorth.ROOM_NAME;
         }
-        if (doorEast == null) {
+        if (connectionEast == null) {
             east = "none";
         } else {
-            east = doorEast.ROOM_NAME;
+            east = connectionEast.ROOM_NAME;
         }
-        if (doorWest == null) {
+        if (connectionWest == null) {
             west = "none";
         } else {
-            west = doorWest.ROOM_NAME;
+            west = connectionWest.ROOM_NAME;
         }
-        if (doorSouth == null) {
+        if (connectionSouth == null) {
             south = "none";
         } else {
-            south = doorSouth.ROOM_NAME;
+            south = connectionSouth.ROOM_NAME;
         }
         return "RoomName=" + ROOM_NAME +
                 ", doorNorth=" + north +
