@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 public class Adventure {
 
-    private static boolean gameRunning = true;
+    public static boolean gameRunning = true;
     private static Map spaceMap = new Map();
     private static Player player = new Player();
 
     public static void main(String[] args) {
+/*
 
         // sout til at tjekke om ting bliver taget op og lagt tilbage
         System.out.println(pickUpItem("kage"));
@@ -17,8 +18,9 @@ public class Adventure {
         System.out.println(spaceMap.currentRoom.items);
         System.out.println(player.getInventory());
         System.out.println( pickUpItem("søm"));
-
-
+        pickUpItem("placeholder");
+        System.out.println(player.getInventory());
+*/
         Scanner input = new Scanner(System.in);
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
@@ -60,7 +62,7 @@ public class Adventure {
                     spaceMap.currentRoom = spaceMap.currentRoom.getConnectionNorth();
                     System.out.println("Teleporting north...\n");
                     System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
-                    checkIfFinal();
+                    spaceMap.checkIfFinal();
                 } else {
                     System.out.println("You can't go that way - there isn't a teleporter.");
                 }
@@ -69,7 +71,7 @@ public class Adventure {
                     spaceMap.currentRoom = spaceMap.currentRoom.getConnectionWest();
                     System.out.println("Teleporting west...\n");
                     System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
-                    checkIfFinal();
+                    spaceMap.checkIfFinal();
                 } else {
                     System.out.println("You can't go that way - there isn't a teleporter.");
                 }
@@ -78,7 +80,7 @@ public class Adventure {
                     spaceMap.currentRoom = spaceMap.currentRoom.getConnectionEast();
                     System.out.println("Teleporting east...\n");
                     System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
-                    checkIfFinal();
+                    spaceMap.checkIfFinal();
                 } else {
                     System.out.println("You can't go that way - there isn't a teleporter.");
                 }
@@ -87,7 +89,7 @@ public class Adventure {
                     spaceMap.currentRoom = spaceMap.currentRoom.getConnectionSouth();
                     System.out.println("Teleporting south...\n");
                     System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
-                    checkIfFinal();
+                    spaceMap.checkIfFinal();
                 } else {
                     System.out.println("You can't go that way - there isn't a teleporter.");
                 }
@@ -110,15 +112,6 @@ public class Adventure {
             }
         }
     }
-
-    //TODO: spiller skal have den korrekte ting med ind i final-room før spillet slutter
-    private static void checkIfFinal() {
-        if (spaceMap.currentRoom.equals(spaceMap.getFinalRoom())&&(findItemInInventory(spaceMap.getFinalItem().getItemName()))) {
-            gameRunning = false;
-            System.out.println("\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");
-        }
-    }
-
     public static boolean findItemInInventory(String itemName) {
         boolean found = false;
         for (int i = 0; i < player.inventory.size(); i++) {
@@ -129,7 +122,6 @@ public class Adventure {
         }
        return found;
     }
-
 
     public static String pickUpItem(String itemName) {
         boolean found = false;
@@ -142,7 +134,6 @@ public class Adventure {
                 player.inventory.add(currentItem);
             }
         }
-
         if (!found) {
             return "can't find a \"" + itemName + "\" on this planet";
         } else
@@ -151,7 +142,6 @@ public class Adventure {
 
     public static String dropItem(String itemName) {
         boolean found = false;
-
         for (int i = 0; i < player.inventory.size(); i++) {
             Item currentItem = player.inventory.get(i);
             if (currentItem.getItemName().equals(itemName)) {
@@ -160,7 +150,6 @@ public class Adventure {
                 spaceMap.currentRoom.items.add(currentItem);
             }
         }
-
         if (!found) {
             return "can't find a \"" + itemName + "\" in your inventory";
         } else

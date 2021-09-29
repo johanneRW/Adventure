@@ -1,7 +1,7 @@
 package company;
 
 public class Map {
-    public  Room currentRoom;
+    public Room currentRoom;
     private Room finalRoom;
     private Item finalItem;
 
@@ -71,19 +71,31 @@ public class Map {
         this.finalRoom = pluto5;
 
         //TODO: læg items i de forskellige rum.
-        Item kage=new Item("kage");
+        Item kage = new Item("kage");
         Item lommeur = new Item("lommeur");
+        Item placeholder = new Item("placeholder");
         //TODO:fordel items på rum
         theEarth1.putItemInRoom(kage);
         theEarth1.putItemInRoom(lommeur);
-        Item placeholder = new Item("placeholder");
+       theEarth1.putItemInRoom(placeholder);
 
         //TODO: der vælges et final item.
-        this.finalItem=placeholder;
+        this.finalItem = placeholder;
 
     }
+
     public Room getFinalRoom() {
         return finalRoom;
     }
-    public Item getFinalItem() {return finalItem;}
+
+    public Item getFinalItem() {
+        return finalItem;
+    }
+    //TODO: spiller skal have den korrekte ting med ind i final-room før spillet slutter, hvad skal det være?
+    public void checkIfFinal() {
+        if (currentRoom.equals(getFinalRoom()) && (Adventure.findItemInInventory(getFinalItem().getItemName()))) {
+            Adventure.gameRunning = false;
+            System.out.println("\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");
+        }
+    }
 }
