@@ -1,7 +1,7 @@
 package company;
 
 public class Map {
-    public Room currentRoom;
+    public  Room currentRoom;
     private Room finalRoom;
 
     public Map() {
@@ -50,6 +50,9 @@ public class Map {
                 This unique tilt makes Uranus appear to spin on its side.""",
                 "BRRR! Not exactly Utopia, is it?");
 
+
+        //TODO: skal kortet ændres? og skal der tilføjes andre "rum"?
+
         //lav forbindelse mellem rummene
         theEarth1.createConnectionEast(saturn2);
         theEarth1.createConnectionSouth(jupiter4);
@@ -61,12 +64,16 @@ public class Map {
         venus7.createConnectionEast(mars8);
         mars8.createConnectionEast(uranus9);
 
+        //TODO: der skal ligges item i rum.
+
         //Ifølge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
         this.currentRoom = theEarth1;
         //Det hemmelige rum, hvor spillet slutter
         this.finalRoom = pluto5;
-    }
+Item kage =new Item("kage");
+        theEarth1.putItemInRoom("kage");
 
+    }
     public Room getFinalRoom() {
         return finalRoom;
     }

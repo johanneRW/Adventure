@@ -1,5 +1,7 @@
 package company;
 
+import java.util.ArrayList;
+
 public class Room {
 
     //ved ikke om dette giver mening i sidste ende, men har forsøgt at lave en omskrivning af "adam og eva" koden til at oprette døre
@@ -11,16 +13,19 @@ public class Room {
     private Room connectionEast;
     private Room connectionWest;
     private Room connectionSouth;
+    private ArrayList<Item> items;
 
     //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
-    public Room(String roomName,String roomDescription,String roomHelp) {
-        this.ROOM_DESCRIPTION =roomDescription;
+    public Room(String roomName, String roomDescription, String roomHelp) {
+        this.ROOM_DESCRIPTION = roomDescription;
         this.ROOM_NAME = roomName;
         this.ROOM_HELP = roomHelp;
         this.connectionNorth = null;
         this.connectionEast = null;
         this.connectionWest = null;
         this.connectionSouth = null;
+        this.items = new ArrayList<>();
+        //TODO: der skal være en itemlist i hvert rum.
     }
 
     // Opret en forbindelse til et andet rum, når der bliver oprettet en dør i en retning,
@@ -32,44 +37,53 @@ public class Room {
             anotherRoom.createConnectionSouth(this);
         }
     }
+
     public void createConnectionEast(Room anotherRoom) {
         if (connectionEast == null) {
             connectionEast = anotherRoom;
             anotherRoom.createConnectionWest(this);
         }
     }
+
     public void createConnectionWest(Room anotherRoom) {
         if (connectionWest == null) {
             connectionWest = anotherRoom;
             anotherRoom.createConnectionEast(this);
         }
     }
+
     public void createConnectionSouth(Room anotherRoom) {
         if (connectionSouth == null) {
             connectionSouth = anotherRoom;
             anotherRoom.createConnectionNorth(this);
         }
     }
-// Vi laver get-sætninger til at flytte rundt mellem rum, gemme de forbindelser vi har lavet i createDoor...
+
+    // Vi laver get-sætninger til at flytte rundt mellem rum, gemme de forbindelser vi har lavet i createDoor...
     public Room getConnectionNorth() {
         return connectionNorth;
     }
+
     public Room getConnectionSouth() {
         return connectionSouth;
     }
+
     public Room getConnectionEast() {
         return connectionEast;
     }
+
     public Room getConnectionWest() {
         return connectionWest;
     }
 
     //Der skal laves beskrivelser af alle rum, så der kan printes en beskrivelse ud ved kommando look
     public String getROOM_DESCRIPTION() {
-        return "You are on " + ROOM_NAME +".\n"+ ROOM_DESCRIPTION;
+        return "You are on " + ROOM_NAME + ".\n" + ROOM_DESCRIPTION;
     }
 
-    public String getROOM_HELP(){return ROOM_HELP;}
+    public String getROOM_HELP() {
+        return ROOM_HELP;
+    }
 
     // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.
     @Override
@@ -101,5 +115,42 @@ public class Room {
                 ", doorWest=" + west +
                 ", doorSouth=" + south;
     }
+
+    //når en spiller dropper noget fra sit inventory skal det overføres til rummet.
+    // når spiller tager item skal det overførs fra rummet.
+
+    public void putItemInRoom(String itemName) {
+        Room currentRoom = this;
+        Item item = new Item("itemName");
+        currentRoom.items.add(item);
+
+    }
+
+    public String getItemList() {
+        Room currentRoom = this;
+        return "listing items" + currentRoom.items;
+    }
+
+    public void addDropedItemToRoom(String itemName) {
+        Room currentRoom = this;
+        Item item = new Item("itemName");
+        currentRoom.items.add(item);
+    }
+
+    public void removePickedUPItemFromRoom(String itemName) {
+        boolean found = false;
+        Room currentRoom = this;
+        for (int i = 0; i < items.size(); i++) {
+            Item currentItem = items.get(i);
+            if (currentItem.getItemName().equals(itemName)) {
+                items.remove(i);
+                found = true;
+            }
+        }
+        if (!found) {
+
+        }
+    }
 }
+
 

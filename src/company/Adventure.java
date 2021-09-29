@@ -6,7 +6,7 @@ public class Adventure {
 
     private static boolean gameRunning = true;
     private static Map spaceMap =new Map();
-
+    private static Player player = new Player();
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
@@ -34,7 +34,7 @@ public class Adventure {
         while (gameRunning) {
             String command = input.nextLine();
             command = command.toLowerCase();
-
+//TODO:der skal tilføjes dialog til at tage og ligge ting (inventory, take, drop)
             if (command.equals("exit")) {
                 System.out.println("Are you sure you want to leave the game? \"yes\" or \"no\"");
                 String answer = input.nextLine();
@@ -100,6 +100,7 @@ public class Adventure {
             }
         }
     }
+    //TODO: skal evt. også interagere med et item før spil er færdig, eller have de korrekte ting med ind i rummet
     private static void checkIfFinal() {
         if (spaceMap.currentRoom.equals(spaceMap.getFinalRoom())) {
             gameRunning = false;
