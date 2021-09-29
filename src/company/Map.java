@@ -3,6 +3,7 @@ package company;
 public class Map {
     public  Room currentRoom;
     private Room finalRoom;
+    private Item finalItem;
 
     public Map() {
         //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
@@ -64,17 +65,25 @@ public class Map {
         venus7.createConnectionEast(mars8);
         mars8.createConnectionEast(uranus9);
 
-        //TODO: der skal ligges item i rum.
-
         //Ifølge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
         this.currentRoom = theEarth1;
         //Det hemmelige rum, hvor spillet slutter
         this.finalRoom = pluto5;
-Item kage =new Item("kage");
-        theEarth1.putItemInRoom("kage");
+
+        //TODO: læg items i de forskellige rum.
+        Item kage=new Item("kage");
+        Item lommeur = new Item("lommeur");
+        //TODO:fordel items på rum
+        theEarth1.putItemInRoom(kage);
+        theEarth1.putItemInRoom(lommeur);
+        Item placeholder = new Item("placeholder");
+
+        //TODO: der vælges et final item.
+        this.finalItem=placeholder;
 
     }
     public Room getFinalRoom() {
         return finalRoom;
     }
+    public Item getFinalItem() {return finalItem;}
 }

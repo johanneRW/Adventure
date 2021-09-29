@@ -13,7 +13,7 @@ public class Item {
     //brug marrid til at flytte rundt mellem arrylister(inventory)
     private String itemName;
     private String itemDecription;
-   private Room currentLocation;
+    private Room currentLocation;
 
 
     public Item(String itemName, String itemDecription, Room currentLocation) {
@@ -27,12 +27,22 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public Room getCurrentLocationOfItem(){
-        return currentLocation;}
+    public Room getCurrentLocationOfItem() {
+        return currentLocation;
+    }
 
-    public String getItemName(){
-return itemName;}
+    public String getItemName() {
+        return itemName;
+    }
 
-    public String getItemDecription(){return itemDecription;}
+    public String getItemDecription() {
+        return itemDecription;
+    }
+
+    @Override
+    public String toString() {
+        return  itemName;
 
     }
+}
+

@@ -13,7 +13,7 @@ public class Room {
     private Room connectionEast;
     private Room connectionWest;
     private Room connectionSouth;
-    private ArrayList<Item> items;
+    public ArrayList<Item> items;
 
     //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
     public Room(String roomName, String roomDescription, String roomHelp) {
@@ -86,7 +86,8 @@ public class Room {
     }
 
     // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.
-    @Override
+    //denne override er kommenteret ud, i stedet for at være slettet, da det kan være der bliver brug for den under opbygning af nyt kort;
+   /* @Override
     public String toString() {
         String north, south, east, west;
         if (connectionNorth == null) {
@@ -114,42 +115,19 @@ public class Room {
                 ", doorEast=" + east +
                 ", doorWest=" + west +
                 ", doorSouth=" + south;
+    }*/
+
+    @Override
+    public String toString() {
+        return ROOM_NAME;
     }
 
     //når en spiller dropper noget fra sit inventory skal det overføres til rummet.
     // når spiller tager item skal det overførs fra rummet.
 
-    public void putItemInRoom(String itemName) {
+    public void putItemInRoom(Item item) {
         Room currentRoom = this;
-        Item item = new Item("itemName");
         currentRoom.items.add(item);
-
-    }
-
-    public String getItemList() {
-        Room currentRoom = this;
-        return "listing items" + currentRoom.items;
-    }
-
-    public void addDropedItemToRoom(String itemName) {
-        Room currentRoom = this;
-        Item item = new Item("itemName");
-        currentRoom.items.add(item);
-    }
-
-    public void removePickedUPItemFromRoom(String itemName) {
-        boolean found = false;
-        Room currentRoom = this;
-        for (int i = 0; i < items.size(); i++) {
-            Item currentItem = items.get(i);
-            if (currentItem.getItemName().equals(itemName)) {
-                items.remove(i);
-                found = true;
-            }
-        }
-        if (!found) {
-
-        }
     }
 }
 

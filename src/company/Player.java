@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
     private String playerName;
-    private ArrayList<Item> inventory;
+    public ArrayList<Item> inventory;
 
     //TODO: en spiller skal kunne samle items op og ligge dem i rum.
     //TODO: skal der være en max grænse for items?
