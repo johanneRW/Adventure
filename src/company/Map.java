@@ -57,7 +57,8 @@ public class Map {
                 "BRRR! Not exactly Utopia, is it?");
         Room theSun10 = new Room("The Sun", """
                 The Sun is a yellow dwarf star, a hot ball of glowing gases at the heart of our solar system. 
-                Its gravity holds everything from the biggest planets to tiny debris in its orbit.""", "You're burning up i can't help you");
+                Its gravity holds everything from the biggest planets to tiny debris in its orbit.""",
+                "You're burning up, I can't help you");
 
 
         //TODO: skal kortet ændres? og skal der tilføjes andre "rum"?
@@ -82,29 +83,36 @@ public class Map {
         this.finalRoom = pluto5;
         this.gameOverRoom = theSun10;
 
-        Item water = new Item("water", "a very important substands");
-        Item lithium = new Item("Lithium","Lithium is a highly flammable element, which can be used to start a fire.");
-        Item laserGun = new Item("Laser gun","A friendly entity has offered you this laser gun.");
-        Item molbydenum = new Item("Molbydenum","At this point we're just making stuff up.");
-        Item neptunium = new Item("Neptunium","Neptunium is an element that can be found on Neptune.");
-        Item uran = new Item("Uran","Uran is an element that can be found on Uranus.");
-        Item boron = new Item("Boron","Boron is an element that has been studied and experimented with, as a potential ingredient in organic medicine.");
-        Item plutonium = new Item("Plutonium","Plutonium is found on Pluto. Plutonium is the element with the highest atomic number to occur in nature.");
-        Item batteries = new Item("Batteries", "Just some batteries, I wonder how they got on this planet?");
+
+        Item water = new Item("water", "a very important substance");
+        Item lithium = new Item("lithium", "Lithium is a highly flammable element, which can be used to start a fire.");
+        Item laserGun = new Item("laser gun", "A friendly entity has offered you this laser gun.");
+        Item molbydenum = new Item("molybdenum", "At this point we're just making stuff up.");
+        Item neptunium = new Item("neptunium", "Neptunium is an element that can be found on Neptune.");
+        Item uran = new Item("uran", "Uran is an element that can be found on Uranus.");
+        Item boron = new Item("boron", "Boron is an element that has been studied and experimented with, as a potential ingredient in organic medicine.");
+        Item plutonium = new Item("plutonium", "Plutonium is found on Pluto. Plutonium is the element with the highest atomic number to occur in nature.");
+        Item batteries = new Item("batteries", "just some batteries, I wonder how they got on this planet?");
+        Item nothing= new Item ("nothing", "comes from nothing");
+        Item cat = new Item("cat", "a four-legged creature far away from home");
+        Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System.");
+        Item tea = new Item("tea", "an oddly satisfying warm drink.");
 
         //TODO:fordel items på rum
         theEarth1.putItemInRoom(water);
+        theEarth1.putItemInRoom(tea);
         mercury6.putItemInRoom(lithium);
         mars8.putItemInRoom(boron);
         jupiter4.putItemInRoom(laserGun);
         neptune3.putItemInRoom(neptunium);
         uranus9.putItemInRoom(uran);
         venus7.putItemInRoom(molbydenum);
+        venus7.putItemInRoom(cat);
         pluto5.putItemInRoom(plutonium);
-        getRandomRoom().putItemInRoom(batteries);
+        saturn2.putItemInRoom(nothing);
+        jupiter4.putItemInRoom(book);
+        //getRandomRoom().putItemInRoom(batteries);
 
-
-        //TODO: skal final item ligge på pluto, og spilleren skal samle det op, eller skal final item ligge et andet sted og spiller skal have det med?
 
         //Items der skal være i spillerens inventory før spillet kan slutte.
         this.finalItem = boron;
@@ -144,7 +152,7 @@ public class Map {
         else return false;
     }
 
-    public Room getRandomRoom() {
+   /* public Room getRandomRoom() {
         Random random = new Random();
 
         int randomRoom = random.nextInt(9) + 1;
@@ -152,6 +160,5 @@ public class Map {
             return theEarth1;
         }
 
-    }
+    }*/
 }
-

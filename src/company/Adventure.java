@@ -8,8 +8,10 @@ public class Adventure {
     private static Map spaceMap = new Map();
     private static Player player = new Player();
 
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
         //help - for at få en instruktion og oversigt over mulige kommandoer
@@ -61,7 +63,7 @@ public class Adventure {
             } else if (command.equals("look") || command.equals("l")) {
                 System.out.println("Looking around...");
                 System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
-                System.out.println("Items on this plannet:" + spaceMap.currentRoom.items);
+                System.out.println("Items on this planet:" + spaceMap.currentRoom.items);
             } else if (command.equals("help") || command.equals("h")) {
                 System.out.println("Want help? Type \"yes\" or \"no\"");
                 String answer = input.nextLine();
@@ -123,10 +125,10 @@ public class Adventure {
         } else if (spaceMap.currentRoom.getRoomCount() == 2) {
             return "Back on " + spaceMap.currentRoom.getROOM_NAME();
         } else if (spaceMap.currentRoom.getRoomCount() == 3) {
-            return "...And we're back on " + spaceMap.currentRoom.getROOM_NAME() + "\nItems on this plannet:" + spaceMap.currentRoom.items;
+            return "... And we're back on " + spaceMap.currentRoom.getROOM_NAME() + "\nItems on this planet:" + spaceMap.currentRoom.items;
         } else
             return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
-                    "\nItems on this plannet:" + spaceMap.currentRoom.items;
+                    "\nItems on this planet:" + spaceMap.currentRoom.items;
     }
 
     public static boolean findItemInInventory(String itemName) {
@@ -142,7 +144,7 @@ public class Adventure {
 
     public static String pickUpItem(String itemName) {
         //der må max være 3 Items i en spillers inventory ad gangen.
-        if (player.inventory.size() <= 2) {
+        if (player.inventory.size() <= 4) {
             boolean found = false;
             for (int i = 0; i < spaceMap.currentRoom.items.size(); i++) {
                 Item currentItem = spaceMap.currentRoom.items.get(i);
@@ -156,7 +158,7 @@ public class Adventure {
                 return "Can't find a \"" + itemName + "\" on this planet";
             } else
                 return itemName + " is added to your inventory";
-        } else return "You can't have more than 3 items in your inventory\n You'll have to drop something";
+        } else return "You can't have more than 5 items in your inventory\nYou'll have to drop something";
     }
 
     public static String dropItem(String itemName) {

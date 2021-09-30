@@ -5,15 +5,13 @@ import java.util.ArrayList;
 public class Player {
     private String playerName;
     public ArrayList<Item> inventory;
-    public StringBuilder stringBuilder = new StringBuilder();
-
-    //Spiller starter altid med en Radio;
     private Item radio = new Item("radio","Unfortunately it's rund out of batteries");
 
+    //Spiller starter altid med en Radio;
     public Player(String playerName) {
         this.playerName = playerName;
         this.inventory = new ArrayList<>();
-    inventory.add(radio);
+       inventory.add(radio);
 
     }
 
@@ -23,6 +21,7 @@ public class Player {
     }
 
     public String getInventory() {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < inventory.size(); i++) {
             Item currentItem = inventory.get(i);
             stringBuilder.append(currentItem.getItemName());
