@@ -1,6 +1,7 @@
 package company;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Room {
 
@@ -94,6 +95,8 @@ public class Room {
         Room currentRoom = this;
         currentRoom.items.add(item);
     }
+
+
 
     public void upDateRoomCount() {
         this.roomCount++;

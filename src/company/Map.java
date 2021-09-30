@@ -1,5 +1,7 @@
 package company;
 
+import java.util.Random;
+
 public class Map {
     public Room currentRoom;
     private Room finalRoom;
@@ -85,6 +87,7 @@ public class Map {
         Item uran = new Item("Uran","Uran is an element that can be found on Uranus.");
         Item boron = new Item("Boron","Boron is an element that has been studied and experimented with, as a potential ingredient in organic medicine.");
         Item plutonium = new Item("Plutonium","Plutonium is found on Pluto. Plutonium is the element with the highest atomic number to occur in nature.");
+        Item batteries = new Item("Batteries", "Just some batteries, I wonder how they got on this planet?");
 
         //TODO:fordel items på rum
         theEarth1.putItemInRoom(earthGrundstof);
@@ -95,6 +98,9 @@ public class Map {
         uranus9.putItemInRoom(uran);
         venus7.putItemInRoom(molbydenum);
         pluto5.putItemInRoom(plutonium);
+        getRandomRoom().putItemInRoom(batteries);
+
+
         //TODO: skal final item ligge på pluto, og spilleren skal samle det op, eller skal final item ligge et andet sted og spiller skal have det med?
 
 
@@ -116,5 +122,15 @@ public class Map {
             Adventure.gameRunning = false;
             System.out.println("\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");
         }
+    }
+
+    public Room getRandomRoom() {
+        Random random = new Random();
+
+        int randomRoom = random.nextInt(9) + 1;
+        if (randomRoom == 1) {
+            return theEarth1;
+        }
+
     }
 }
