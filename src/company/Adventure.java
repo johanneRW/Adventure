@@ -82,19 +82,23 @@ public class Adventure {
                     System.out.println(spaceMap.currentRoom.getROOM_HELP());
                 } else if (answer.equals("no")) {
                     System.out.println("Okay, suit yourself! :)");
-                } else if (command.equals("invertory")) {
-                    //show inventory
-                    System.out.println("These are the items you are carrying: ");
-                } else if (command.equals("take" + item)) {
-                    String itemName =findItemName(command);
+                }
+                } else if (command.equals("inventory")||command.equals("i")) {
+                System.out.println( player.getInventory());
+                } else if (command.equals("take")) {
+                    System.out.println("Ok, take what?");
+                    String itemName = input.nextLine();
+                    itemName = itemName.toLowerCase();
+                    //String itemName =findItemName(answer);
                     pickUpItem(itemName);
-                } else if (command.equals("drop" + item)) {
-                    //if (playerInventory == 0){
-                        System.out.println("You aren't carrying any items.");
-                    }
-                    //else
-                        //drop item method using .remove
-
+                System.out.println(player.getInventory());
+                } else if (command.equals("drop")) {
+                    System.out.println("Ok, drop what?");
+                    String itemName = input.nextLine();
+                itemName = itemName.toLowerCase();
+                    //String itemName =findItemName(answer);
+                    dropItem(itemName);
+                System.out.println(player.getInventory());
             } else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
@@ -102,7 +106,8 @@ public class Adventure {
         }
     }
 
-    private static String findItemName(String command) {
+
+    public static String findItemName(String command) {
         int end = command.length();
         int firstSpace = command.indexOf(" ");
         int secondSpace = command.lastIndexOf(" ");

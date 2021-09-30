@@ -72,7 +72,7 @@ public class Map {
         this.finalRoom = pluto5;
 
         //TODO: opret forskellige Items
-        Item kage = new Item("kage ", """ 
+        Item kage = new Item("kage", """ 
               En dejlig ting der også mætter""");
         Item lommeur = new Item("lommeur ","tiktok tiktok");
         Item placeholder = new Item("placeholder ","En ting der afslutter spillet");
