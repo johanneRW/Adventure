@@ -10,9 +10,8 @@ public class Player {
     //TODO: skal der være en max grænse for items?
     //TODO: inventorylist
 
-    //når en spiller dropper noget fra sit inventory skal det overføres til rummet.
-    // når spiller tager item skal det overførs fra rummet.
-
+    //Når en spiller dropper noget fra sit inventory skal det overføres til rummet.
+    //Når spiller tager item skal det overførs fra rummet.
 
     public Player(String playerName) {
         this.playerName = playerName;

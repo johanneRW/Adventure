@@ -1,7 +1,5 @@
 package company;
 
-import java.util.ArrayList;
-
 public class Item {
 
 //TODO: liste af items.
@@ -10,18 +8,16 @@ public class Item {
     //TODO: skal der kunne interageres med ting?
 
     //metoder fra LampToggler3000 kan formentlig bruges til items
-    //brug marrid til at flytte rundt mellem arrylister(inventory)
+    //brug married til at flytte rundt mellem array-lister(inventory)
     private String itemName;
-    private String itemDecription;
+    private String itemDescription;
     private Room currentLocation;
 
-
-    public Item(String itemName, String itemDecription, Room currentLocation) {
+    public Item(String itemName, String itemDescription) {
         this.itemName = itemName;
-        this.itemDecription = itemDecription;
+        this.itemDescription = itemDescription;
         this.currentLocation = currentLocation;
     }
-
 
     public Item(String itemName) {
         this.itemName = itemName;
@@ -35,14 +31,13 @@ public class Item {
         return itemName;
     }
 
-    public String getItemDecription() {
-        return itemDecription;
+    public String getItemDescription() {
+        return itemDescription;
     }
 
     @Override
     public String toString() {
-        return  itemName;
-
+        return itemName + itemDescription;
     }
 }
 

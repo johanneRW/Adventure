@@ -8,10 +8,8 @@ public class Adventure {
     private static Map spaceMap = new Map();
     private static Player player = new Player();
 
-    public static void main(String[] args, String item) {
-/*
-
-        // sout til at tjekke om ting bliver taget op og lagt tilbage
+    public static void main(String[] args) {
+/*      // sout til at tjekke om ting bliver taget op og lagt tilbage
         System.out.println(pickUpItem("kage"));
         System.out.println(player.getInventory());
         System.out.println(dropItem("kage"));
@@ -22,8 +20,6 @@ public class Adventure {
         System.out.println(player.getInventory());*/
 
         Scanner input = new Scanner(System.in);
-
-
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
         //help - for at få en instruktion og oversigt over mulige kommandoer
@@ -34,9 +30,9 @@ public class Adventure {
                                 
                 In the year 2006 we lost our smallest planet. It was demoted, and categorised as a dwarf planet.
                 But we believe that Pluto belongs to the real planets, so your mission is:
-                To rediscover our small friend - Pluto.
+                To rediscover our small friend Pluto, and report its position back to headquarters once it is found.
                 On your quest you will find a number of teleporters that will send you to other planets.
-                With you, you'll have a device to tell about the planets, track items, and helping you on your quest.
+                With you, you'll have a device to tell about the planets, track items, and helping you on your way.
                                 
                 How to play:
                 You can move around in the game by typing "go" followed by "north", "south", "east", "west".
@@ -45,7 +41,7 @@ public class Adventure {
                 If you want to quit the game, type "exit".
                                 
                 At this moment you are on Earth. Take a look around.""");
-        System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION()+"\nWhat do you want to do first?");
+        System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION() + "\nWhat do you want to do first?");
 
         while (gameRunning) {
             String command = input.nextLine();
@@ -62,21 +58,21 @@ public class Adventure {
                     System.out.println("Alright! Let's keep going then :)");
                 }
             } else if (command.equals("go north") || command.equals("n") || command.equals("north")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionNorth(),"north"));
+                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionNorth(), "north"));
 
             } else if (command.equals("go west") || command.equals("w") || command.equals("west")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionWest(),"west"));
+                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionWest(), "west"));
 
             } else if (command.equals("go east") || command.equals("e") || command.equals("east")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionEast(),"east"));
+                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionEast(), "east"));
 
             } else if (command.equals("go south") || command.equals("s") || command.equals("south")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionSouth(),"south"));
+                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionSouth(), "south"));
 
             } else if (command.equals("look") || command.equals("l")) {
                 System.out.println("Looking around...");
                 System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
-                System.out.println("Items on this plannet:"+ spaceMap.currentRoom.items);
+                System.out.println("Items on this plannet:" + spaceMap.currentRoom.items);
             } else if (command.equals("help") || command.equals("h")) {
                 System.out.println("Want help? Type \"yes\" or \"no\"");
                 String answer = input.nextLine();
@@ -89,9 +85,10 @@ public class Adventure {
                 } else if (command.equals("invertory")) {
                     //show inventory
                     System.out.println("These are the items you are carrying: ");
-                } else if (command.equals("take" + item)) {
-                    //method for pick up item using .add
-                } else if (command.equals("drop" + item)) {
+                } else if (command.equals("take" + iteam)) {
+                    String itemName =findItemName(command);
+                    pickUpItem(itemName);
+                } else if (command.equals("drop" + iteam)) {
                     //if (playerInventory == 0){
                         System.out.println("You aren't carrying any items.");
                     }
@@ -105,24 +102,32 @@ public class Adventure {
         }
     }
 
-    public static String requestDirection(Room requestedRoom, String directionName){
+    private static String findItemName() {
+        //TODO:substing?
+    }
+
+    public static String requestDirection(Room requestedRoom, String directionName) {
         if (requestedRoom != null) {
             spaceMap.currentRoom = requestedRoom;
             spaceMap.currentRoom.upDateRoomCount();
             spaceMap.checkIfFinal();
-            return "Teleporting "+directionName +"...." + "\n\n" + enteringRoom();
+            return "Teleporting " + directionName + "...." + "\n\n" + enteringRoom();
 
         } else {
             return "You can't go that way - there isn't a teleporter.";
         }
     }
-    public static String enteringRoom(){
-        if (spaceMap.currentRoom.getRoomCount() == 2) {return "Back on "+spaceMap.currentRoom.getROOM_NAME();}
-        else if (spaceMap.currentRoom.getRoomCount()==3){return "...And we're back on "+spaceMap.currentRoom.getROOM_NAME();}
-        else
-              return "you are on " + spaceMap.currentRoom.getROOM_NAME()+spaceMap.currentRoom.getROOM_DESCRIPTION()+
-                                    "\nItems on this plannet:"+ spaceMap.currentRoom.items;
+
+    public static String enteringRoom() {
+        if (spaceMap.currentRoom.getRoomCount() == 2) {
+            return "Back on " + spaceMap.currentRoom.getROOM_NAME();
+        } else if (spaceMap.currentRoom.getRoomCount() == 3) {
+            return "...And we're back on " + spaceMap.currentRoom.getROOM_NAME()+ "\nItems on this plannet:" + spaceMap.currentRoom.items;
+        } else
+            return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
+                    "\nItems on this plannet:" + spaceMap.currentRoom.items;
     }
+
     public static boolean findItemInInventory(String itemName) {
         boolean found = false;
         for (int i = 0; i < player.inventory.size(); i++) {
@@ -131,12 +136,11 @@ public class Adventure {
                 found = true;
             }
         }
-       return found;
+        return found;
     }
 
     public static String pickUpItem(String itemName) {
         boolean found = false;
-
         for (int i = 0; i < spaceMap.currentRoom.items.size(); i++) {
             Item currentItem = spaceMap.currentRoom.items.get(i);
             if (currentItem.getItemName().equals(itemName)) {

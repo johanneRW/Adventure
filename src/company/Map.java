@@ -68,19 +68,21 @@ public class Map {
 
         //Ifølge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
         this.currentRoom = theEarth1;
-        //Det hemmelige rum, hvor spillet slutter
+        //Det rummet hvor spillet slutter
         this.finalRoom = pluto5;
 
-        //TODO: læg items i de forskellige rum.
-        Item kage = new Item("kage");
-        Item lommeur = new Item("lommeur");
-        Item placeholder = new Item("placeholder");
+        //TODO: opret forskellige Items
+        Item kage = new Item("kage ", """ 
+              En dejlig ting der også mætter""");
+        Item lommeur = new Item("lommeur ","tiktok tiktok");
+        Item placeholder = new Item("placeholder ","En ting der afslutter spillet");
         //TODO:fordel items på rum
         theEarth1.putItemInRoom(kage);
         theEarth1.putItemInRoom(lommeur);
-       saturn2.putItemInRoom(placeholder);
+        //TODO: skal final item ligge på pluto, og spilleren skal samle det op, eller skal final item ligge et andet sted og spiller skal have det med?
+       pluto5.putItemInRoom(placeholder);
 
-        //TODO: der vælges et final item.
+        //TODO: spiller skal have den korrekte ting med ind i final-room før spillet slutter, hvad skal det være?
         this.finalItem = placeholder;
 
     }
@@ -92,7 +94,6 @@ public class Map {
     public Item getFinalItem() {
         return finalItem;
     }
-    //TODO: spiller skal have den korrekte ting med ind i final-room før spillet slutter, hvad skal det være?
     public void checkIfFinal() {
         if (currentRoom.equals(getFinalRoom()) && (Adventure.findItemInInventory(getFinalItem().getItemName()))) {
             Adventure.gameRunning = false;

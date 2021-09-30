@@ -26,8 +26,7 @@ public class Room {
         this.connectionWest = null;
         this.connectionSouth = null;
         this.items = new ArrayList<>();
-        this.roomCount=0;
-        //TODO: der skal være en itemlist i hvert rum.
+        this.roomCount = 0;
     }
 
     // Opret en forbindelse til et andet rum, når der bliver oprettet en dør i en retning,
@@ -83,12 +82,29 @@ public class Room {
         return ROOM_DESCRIPTION;
     }
 
-    public String getROOM_NAME(){return ROOM_NAME + ".\n";
-
+    public String getROOM_NAME() {
+        return ROOM_NAME + ".\n";
     }
 
     public String getROOM_HELP() {
         return ROOM_HELP;
+    }
+
+    public void putItemInRoom(Item item) {
+        Room currentRoom = this;
+        currentRoom.items.add(item);
+    }
+
+    public void upDateRoomCount() {
+        this.roomCount++;
+    }
+
+    public int getRoomCount() {
+        return roomCount;
+    }
+    @Override
+    public String toString() {
+        return ROOM_NAME;
     }
 
     // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.
@@ -122,28 +138,6 @@ public class Room {
                 ", doorWest=" + west +
                 ", doorSouth=" + south;
     }*/
-
-    @Override
-    public String toString() {
-        return ROOM_NAME;
-    }
-
-    //når en spiller dropper noget fra sit inventory skal det overføres til rummet.
-    // når spiller tager item skal det overførs fra rummet.
-
-    public void putItemInRoom(Item item) {
-        Room currentRoom = this;
-        currentRoom.items.add(item);
-    }
-
-    public void upDateRoomCount(){
-        this.roomCount++;
-    }
-
-    public int getRoomCount() {
-        return roomCount;
-
-    }
 }
 
 
