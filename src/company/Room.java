@@ -78,7 +78,11 @@ public class Room {
 
     //Der skal laves beskrivelser af alle rum, så der kan printes en beskrivelse ud ved kommando look
     public String getROOM_DESCRIPTION() {
-        return "You are on " + ROOM_NAME + ".\n" + ROOM_DESCRIPTION;
+        return ROOM_DESCRIPTION;
+    }
+
+    public String getROOM_NAME(){return "You are on " + ROOM_NAME + ".\n";
+
     }
 
     public String getROOM_HELP() {
