@@ -8,7 +8,7 @@ public class Adventure {
     private static Map spaceMap = new Map();
     private static Player player = new Player();
 
-    public static void main(String[] args) {
+    public static void main(String[] args, String item) {
 /*
 
         // sout til at tjekke om ting bliver taget op og lagt tilbage
@@ -22,6 +22,8 @@ public class Adventure {
         System.out.println(player.getInventory());*/
 
         Scanner input = new Scanner(System.in);
+
+
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
         //help - for at få en instruktion og oversigt over mulige kommandoer
@@ -33,7 +35,7 @@ public class Adventure {
                 In the year 2006 we lost our smallest planet. It was demoted, and categorised as a dwarf planet.
                 But we believe that Pluto belongs to the real planets, so your mission is:
                 To rediscover our small friend - Pluto.
-                On you quest you will find a number of teleporters that will send you to other planets.
+                On your quest you will find a number of teleporters that will send you to other planets.
                 With you, you'll have a device to tell about the planets, track items, and helping you on your quest.
                                 
                 How to play:
@@ -84,7 +86,18 @@ public class Adventure {
                     System.out.println(spaceMap.currentRoom.getROOM_HELP());
                 } else if (answer.equals("no")) {
                     System.out.println("Okay, suit yourself! :)");
-                }
+                } else if (command.equals("invertory")) {
+                    //show inventory
+                    System.out.println("These are the items you are carrying: ");
+                } else if (command.equals("take" + item)) {
+                    //method for pick up item using .add
+                } else if (command.equals("drop" + item)) {
+                    //if (playerInventory == 0){
+                        System.out.println("You aren't carrying any items.");
+                    }
+                    //else
+                        //drop item method using .remove
+
             } else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
