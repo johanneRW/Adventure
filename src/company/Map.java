@@ -71,19 +71,24 @@ public class Map {
         //Det rummet hvor spillet slutter
         this.finalRoom = pluto5;
 
-        //TODO: opret forskellige Items
-        Item kage = new Item("kage", """ 
-              En dejlig ting der også mætter""");
-        Item lommeur = new Item("lommeur ","tiktok tiktok");
-        Item placeholder = new Item("placeholder ","En ting der afslutter spillet");
+        //TODO: opret forskellige Item
+        Item earthGrundstof = new Item("EarthGrundstof", "beskrivelse");
+        Item marsGrundstof = new Item("marsGrundstof","beskrivelse");
+        Item jupiterGrundstof = new Item("jupiterGrundstof  ","beskrivelse");
+        Item venusGrundstof = new Item("venusGrundstof  ","beskrivelse");
+        Item saturnGrundstof = new Item("saturnGrundstof  ","beskrivelse");
+        Item neptuneGrundstof = new Item("neptuneGrundstof  ","beskrivelse");
+        Item uranusGrundstof = new Item("uranusGrundstof  ","beskrivelse");
+        Item mercuryGrundstof = new Item("mercuryGrundstof  ","beskrivelse");
+        Item plutoGrundstof = new Item("plutoGrundstof  ","beskrivelse");
+
         //TODO:fordel items på rum
-        theEarth1.putItemInRoom(kage);
-        theEarth1.putItemInRoom(lommeur);
+        theEarth1.putItemInRoom(earthGrundstof);
         //TODO: skal final item ligge på pluto, og spilleren skal samle det op, eller skal final item ligge et andet sted og spiller skal have det med?
-       pluto5.putItemInRoom(placeholder);
+       pluto5.putItemInRoom(plutoGrundstof);
 
         //TODO: spiller skal have den korrekte ting med ind i final-room før spillet slutter, hvad skal det være?
-        this.finalItem = placeholder;
+        this.finalItem = plutoGrundstof;
 
     }
 

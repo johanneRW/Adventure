@@ -16,6 +16,7 @@ public class Player {
     public Player(String playerName) {
         this.playerName = playerName;
         this.inventory = new ArrayList<>();
+
     }
 
     public Player() {

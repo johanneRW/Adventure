@@ -19,6 +19,8 @@ public class Adventure {
         pickUpItem("placeholder");
         System.out.println(player.getInventory());*/
 
+        Item radio = new Item("Radio","Unfortunately it's rund out of batteries");
+        player.inventory.add(radio);
         Scanner input = new Scanner(System.in);
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
