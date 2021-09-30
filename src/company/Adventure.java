@@ -95,6 +95,7 @@ public class Adventure {
     public static String requestDirection(Room requestedRoom, String directionName){
         if (requestedRoom != null) {
             spaceMap.currentRoom = requestedRoom;
+            spaceMap.currentRoom.upDateRoomCount();
             spaceMap.checkIfFinal();
             return "Teleporting "+directionName +"...." + "\n\n" + enteringRoom();
 
@@ -103,7 +104,10 @@ public class Adventure {
         }
     }
     public static String enteringRoom(){
-              return spaceMap.currentRoom.getROOM_NAME()+spaceMap.currentRoom.getROOM_DESCRIPTION()+
+        if (spaceMap.currentRoom.getRoomCount() == 2) {return "Back on "+spaceMap.currentRoom.getROOM_NAME();}
+        else if (spaceMap.currentRoom.getRoomCount()==3){return "...And we're back on "+spaceMap.currentRoom.getROOM_NAME();}
+        else
+              return "you are on " + spaceMap.currentRoom.getROOM_NAME()+spaceMap.currentRoom.getROOM_DESCRIPTION()+
                                     "\nItems on this plannet:"+ spaceMap.currentRoom.items;
     }
     public static boolean findItemInInventory(String itemName) {
