@@ -14,6 +14,7 @@ public class Room {
     private Room connectionWest;
     private Room connectionSouth;
     public ArrayList<Item> items;
+    private int roomCount;
 
     //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
     public Room(String roomName, String roomDescription, String roomHelp) {
@@ -25,6 +26,7 @@ public class Room {
         this.connectionWest = null;
         this.connectionSouth = null;
         this.items = new ArrayList<>();
+        this.roomCount=0;
         //TODO: der skal være en itemlist i hvert rum.
     }
 
@@ -81,7 +83,7 @@ public class Room {
         return ROOM_DESCRIPTION;
     }
 
-    public String getROOM_NAME(){return "You are on " + ROOM_NAME + ".\n";
+    public String getROOM_NAME(){return ROOM_NAME + ".\n";
 
     }
 
@@ -132,6 +134,15 @@ public class Room {
     public void putItemInRoom(Item item) {
         Room currentRoom = this;
         currentRoom.items.add(item);
+    }
+
+    public void upDateRoomCount(){
+        this.roomCount++;
+    }
+
+    public int getRoomCount() {
+        return roomCount;
+
     }
 }
 
