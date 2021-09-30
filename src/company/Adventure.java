@@ -9,18 +9,6 @@ public class Adventure {
     private static Player player = new Player();
 
     public static void main(String[] args) {
-/*      // sout til at tjekke om ting bliver taget op og lagt tilbage
-        System.out.println(pickUpItem("kage"));
-        System.out.println(player.getInventory());
-        System.out.println(dropItem("kage"));
-        System.out.println(spaceMap.currentRoom.items);
-        System.out.println(player.getInventory());
-        System.out.println( pickUpItem("søm"));
-        pickUpItem("placeholder");
-        System.out.println(player.getInventory());*/
-
-        Item radio = new Item("Radio","Unfortunately it's rund out of batteries");
-        player.inventory.add(radio);
         Scanner input = new Scanner(System.in);
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
         // exit - for at afbryde spillet helt, og afslutte programmet
@@ -48,7 +36,6 @@ public class Adventure {
         while (gameRunning) {
             String command = input.nextLine();
             command = command.toLowerCase();
-//TODO:der skal tilføjes dialog til at tage og ligge ting (inventory, take, drop)
             if (command.equals("exit")) {
                 System.out.println("Are you sure you want to leave the game? \"yes\" or \"no\"");
                 String answer = input.nextLine();
@@ -85,21 +72,22 @@ public class Adventure {
                 } else if (answer.equals("no")) {
                     System.out.println("Okay, suit yourself! :)");
                 }
-                } else if (command.equals("inventory")||command.equals("i")) {
-                System.out.println( player.getInventory());
-                } else if (command.equals("take")) {
-                    System.out.println("Ok, take what?");
-                    String itemName = input.nextLine();
-                    itemName = itemName.toLowerCase();
-                    //String itemName =findItemName(answer);
-                    pickUpItem(itemName);
+            } else if (command.equals("inventory") || command.equals("i")) {
                 System.out.println(player.getInventory());
-                } else if (command.equals("drop")) {
-                    System.out.println("Ok, drop what?");
-                    String itemName = input.nextLine();
+            } else if (command.equals("take")) {
+                System.out.println("Ok, take what?");
+                String itemName = input.nextLine();
                 itemName = itemName.toLowerCase();
-                    //String itemName =findItemName(answer);
-                    dropItem(itemName);
+                //String itemName =findItemName(answer);
+                String result = pickUpItem(itemName);
+                System.out.println(result);
+                System.out.println(player.getInventory());
+            } else if (command.equals("drop")) {
+                System.out.println("Ok, drop what?");
+                String itemName = input.nextLine();
+                itemName = itemName.toLowerCase();
+                //String itemName =findItemName(answer);
+                dropItem(itemName);
                 System.out.println(player.getInventory());
             } else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
@@ -113,7 +101,6 @@ public class Adventure {
         int firstSpace = command.indexOf(" ");
         String itemName = command.substring(firstSpace);
 
-
         return itemName;
     }
 
@@ -121,19 +108,22 @@ public class Adventure {
         if (requestedRoom != null) {
             spaceMap.currentRoom = requestedRoom;
             spaceMap.currentRoom.upDateRoomCount();
-            spaceMap.checkIfFinal();
+            enteringRoom();
             return "Teleporting " + directionName + "...." + "\n\n" + enteringRoom();
-
-        } else {
-            return "You can't go that way - there isn't a teleporter.";
-        }
+        } else return "You can't go that way - there isn't a teleporter.";
     }
 
     public static String enteringRoom() {
-        if (spaceMap.currentRoom.getRoomCount() == 2) {
+        if (spaceMap.checkIfGameOver()) {
+            return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
+                    "\nUnfortunately you burned up and therefore the game is over.";
+        } else if (spaceMap.checkIfFinal()) {
+            return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
+                    "\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.";
+        } else if (spaceMap.currentRoom.getRoomCount() == 2) {
             return "Back on " + spaceMap.currentRoom.getROOM_NAME();
         } else if (spaceMap.currentRoom.getRoomCount() == 3) {
-            return "...And we're back on " + spaceMap.currentRoom.getROOM_NAME()+ "\nItems on this plannet:" + spaceMap.currentRoom.items;
+            return "...And we're back on " + spaceMap.currentRoom.getROOM_NAME() + "\nItems on this plannet:" + spaceMap.currentRoom.items;
         } else
             return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
                     "\nItems on this plannet:" + spaceMap.currentRoom.items;
@@ -151,19 +141,22 @@ public class Adventure {
     }
 
     public static String pickUpItem(String itemName) {
-        boolean found = false;
-        for (int i = 0; i < spaceMap.currentRoom.items.size(); i++) {
-            Item currentItem = spaceMap.currentRoom.items.get(i);
-            if (currentItem.getItemName().equals(itemName)) {
-                spaceMap.currentRoom.items.remove(i);
-                found = true;
-                player.inventory.add(currentItem);
+        //der må max være 3 Items i en spillers inventory ad gangen.
+        if (player.inventory.size() <= 2) {
+            boolean found = false;
+            for (int i = 0; i < spaceMap.currentRoom.items.size(); i++) {
+                Item currentItem = spaceMap.currentRoom.items.get(i);
+                if (currentItem.getItemName().equals(itemName)) {
+                    spaceMap.currentRoom.items.remove(i);
+                    found = true;
+                    player.inventory.add(currentItem);
+                }
             }
-        }
-        if (!found) {
-            return "Can't find a \"" + itemName + "\" on this planet";
-        } else
-            return itemName + " is added to your inventory";
+            if (!found) {
+                return "Can't find a \"" + itemName + "\" on this planet";
+            } else
+                return itemName + " is added to your inventory";
+        } else return "You can't have more than 3 items in your inventory\n You'll have to drop something";
     }
 
     public static String dropItem(String itemName) {

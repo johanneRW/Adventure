@@ -1,5 +1,7 @@
 package company;
 
+import java.util.ArrayList;
+
 public class Item {
 
 //TODO: liste af items.
@@ -37,7 +39,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return itemName + " " + itemDescription;
+        return itemName +", "+ itemDescription;
     }
 }
 

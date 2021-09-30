@@ -6,7 +6,8 @@ public class Map {
     public Room currentRoom;
     private Room finalRoom;
     private Item finalItem;
-    private Item finalItem2;
+    private Item secondFinalItem;
+    private Room gameOverRoom;
 
     public Map() {
         //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
@@ -54,7 +55,9 @@ public class Map {
                 Uranus — seventh planet from the Sun — rotates at a nearly 90-degree angle from the plane of its orbit.
                 This unique tilt makes Uranus appear to spin on its side.""",
                 "BRRR! Not exactly Utopia, is it?");
-        Room theSun10 = new Room("The Sun (10)", "you are dead", "I cant help you");
+        Room theSun10 = new Room("The Sun", """
+                The Sun is a yellow dwarf star, a hot ball of glowing gases at the heart of our solar system. 
+                Its gravity holds everything from the biggest planets to tiny debris in its orbit.""", "You're burning up i can't help you");
 
 
         //TODO: skal kortet ændres? og skal der tilføjes andre "rum"?
@@ -72,14 +75,14 @@ public class Map {
         saturn2.createConnectionSouth(pluto5);
         uranus9.createConnectionSouth(neptune3);
         neptune3.createConnectionWest(pluto5);
+        mars8.createConnectionSouth(saturn2);
 
-        //Ifølge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
+        //Definer start-, slut- og gameover-rum
         this.currentRoom = theEarth1;
-        //Det rummet hvor spillet slutter
         this.finalRoom = pluto5;
+        this.gameOverRoom = theSun10;
 
-        //TODO: opret forskellige Item
-        Item earthGrundstof = new Item("EarthGrundstof", "beskrivelse");
+        Item water = new Item("water", "a very important substands");
         Item lithium = new Item("Lithium","Lithium is a highly flammable element, which can be used to start a fire.");
         Item laserGun = new Item("Laser gun","A friendly entity has offered you this laser gun.");
         Item molbydenum = new Item("Molbydenum","At this point we're just making stuff up.");
@@ -90,7 +93,7 @@ public class Map {
         Item batteries = new Item("Batteries", "Just some batteries, I wonder how they got on this planet?");
 
         //TODO:fordel items på rum
-        theEarth1.putItemInRoom(earthGrundstof);
+        theEarth1.putItemInRoom(water);
         mercury6.putItemInRoom(lithium);
         mars8.putItemInRoom(boron);
         jupiter4.putItemInRoom(laserGun);
@@ -103,25 +106,42 @@ public class Map {
 
         //TODO: skal final item ligge på pluto, og spilleren skal samle det op, eller skal final item ligge et andet sted og spiller skal have det med?
 
+        //Items der skal være i spillerens inventory før spillet kan slutte.
+        this.finalItem = boron;
+        //this.secondFinalItem = lithium;
+    }
 
-        //TODO: spiller skal have den korrekte ting med ind i final-room før spillet slutter, hvad skal det være?
-        this.finalItem = lithium;
-        this.finalItem2 = boron;
-
+    public Room getGameOverRoom() {
+        return gameOverRoom;
     }
 
     public Room getFinalRoom() {
         return finalRoom;
     }
 
+    public Item getSecondFinalItem() {
+        return secondFinalItem;
+    }
+
     public Item getFinalItem() {
         return finalItem;
     }
-    public void checkIfFinal() {
-        if (currentRoom.equals(getFinalRoom()) && (Adventure.findItemInInventory(getFinalItem().getItemName()))) {
+
+    public boolean checkIfFinal() {
+        if (currentRoom.equals(finalRoom) && (Adventure.findItemInInventory(finalItem.getItemName()))){
+                //&& (Adventure.findItemInInventory(getSecondFinalItem().getItemName()))) {
             Adventure.gameRunning = false;
-            System.out.println("\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");
+            return true;
         }
+        else return false;
+    }
+
+    public boolean checkIfGameOver() {
+        if (currentRoom.equals(gameOverRoom)) {
+            Adventure.gameRunning = false;
+            return true;
+        }
+        else return false;
     }
 
     public Room getRandomRoom() {
@@ -134,3 +154,4 @@ public class Map {
 
     }
 }
+
