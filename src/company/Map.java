@@ -4,6 +4,7 @@ public class Map {
     public Room currentRoom;
     private Room finalRoom;
     private Item finalItem;
+    private Item finalItem2;
 
     public Map() {
         //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
@@ -51,20 +52,24 @@ public class Map {
                 Uranus — seventh planet from the Sun — rotates at a nearly 90-degree angle from the plane of its orbit.
                 This unique tilt makes Uranus appear to spin on its side.""",
                 "BRRR! Not exactly Utopia, is it?");
+        Room theSun10 = new Room("The Sun (10)", "you are dead", "I cant help you");
 
 
         //TODO: skal kortet ændres? og skal der tilføjes andre "rum"?
 
         //lav forbindelse mellem rummene
-        theEarth1.createConnectionEast(saturn2);
-        theEarth1.createConnectionSouth(jupiter4);
-        saturn2.createConnectionEast(neptune3);
-        neptune3.createConnectionSouth(mercury6);
-        jupiter4.createConnectionSouth(venus7);
-        pluto5.createConnectionSouth(mars8);
-        mercury6.createConnectionSouth(uranus9);
-        venus7.createConnectionEast(mars8);
-        mars8.createConnectionEast(uranus9);
+        theEarth1.createConnectionEast(mercury6);
+        theEarth1.createConnectionWest(venus7);
+        mercury6.createConnectionEast(theSun10);
+        mercury6.createConnectionSouth(jupiter4);
+        mercury6.createConnectionWest(venus7);
+        venus7.createConnectionSouth(mars8);
+        mars8.createConnectionEast(jupiter4);
+        jupiter4.createConnectionSouth(uranus9);
+        uranus9.createConnectionWest(saturn2);
+        saturn2.createConnectionSouth(pluto5);
+        uranus9.createConnectionSouth(neptune3);
+        neptune3.createConnectionWest(pluto5);
 
         //Ifølge instruktionen skal bruger starte i rum 1, derfor er dette startværdien.
         this.currentRoom = theEarth1;
@@ -73,22 +78,29 @@ public class Map {
 
         //TODO: opret forskellige Item
         Item earthGrundstof = new Item("EarthGrundstof", "beskrivelse");
-        Item marsGrundstof = new Item("marsGrundstof","beskrivelse");
-        Item jupiterGrundstof = new Item("jupiterGrundstof  ","beskrivelse");
-        Item venusGrundstof = new Item("venusGrundstof  ","beskrivelse");
-        Item saturnGrundstof = new Item("saturnGrundstof  ","beskrivelse");
-        Item neptuneGrundstof = new Item("neptuneGrundstof  ","beskrivelse");
-        Item uranusGrundstof = new Item("uranusGrundstof  ","beskrivelse");
-        Item mercuryGrundstof = new Item("mercuryGrundstof  ","beskrivelse");
-        Item plutoGrundstof = new Item("plutoGrundstof  ","beskrivelse");
+        Item lithium = new Item("Lithium","Lithium is a highly flammable element, which can be used to start a fire.");
+        Item laserGun = new Item("Laser gun","A friendly entity has offered you this laser gun.");
+        Item molbydenum = new Item("Molbydenum","At this point we're just making stuff up.");
+        Item neptunium = new Item("Neptunium","Neptunium is an element that can be found on Neptune.");
+        Item uran = new Item("Uran","Uran is an element that can be found on Uranus.");
+        Item boron = new Item("Boron","Boron is an element that has been studied and experimented with, as a potential ingredient in organic medicine.");
+        Item plutonium = new Item("Plutonium","Plutonium is found on Pluto. Plutonium is the element with the highest atomic number to occur in nature.");
 
         //TODO:fordel items på rum
         theEarth1.putItemInRoom(earthGrundstof);
+        mercury6.putItemInRoom(lithium);
+        mars8.putItemInRoom(boron);
+        jupiter4.putItemInRoom(laserGun);
+        neptune3.putItemInRoom(neptunium);
+        uranus9.putItemInRoom(uran);
+        venus7.putItemInRoom(molbydenum);
+        pluto5.putItemInRoom(plutonium);
         //TODO: skal final item ligge på pluto, og spilleren skal samle det op, eller skal final item ligge et andet sted og spiller skal have det med?
-       pluto5.putItemInRoom(plutoGrundstof);
+
 
         //TODO: spiller skal have den korrekte ting med ind i final-room før spillet slutter, hvad skal det være?
-        this.finalItem = plutoGrundstof;
+        this.finalItem = lithium;
+        this.finalItem2 = boron;
 
     }
 

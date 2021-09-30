@@ -108,21 +108,12 @@ public class Adventure {
         }
     }
 
-
-    public static String findItemName(String command) {
+    private static String findItemName(String command) {
         int end = command.length();
         int firstSpace = command.indexOf(" ");
-        int secondSpace = command.lastIndexOf(" ");
-        String itemName = command.substring(firstSpace, secondSpace);
+        String itemName = command.substring(firstSpace);
 
 
-        if (secondSpace == firstSpace) {
-            itemName = command.substring(firstSpace + 1);
-
-        } else {
-            itemName = command.substring(firstSpace + 1, secondSpace);
-
-        }
         return itemName;
     }
 
