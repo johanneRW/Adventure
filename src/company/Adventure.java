@@ -85,10 +85,10 @@ public class Adventure {
                 } else if (command.equals("invertory")) {
                     //show inventory
                     System.out.println("These are the items you are carrying: ");
-                } else if (command.equals("take" + iteam)) {
+                } else if (command.equals("take" + item)) {
                     String itemName =findItemName(command);
                     pickUpItem(itemName);
-                } else if (command.equals("drop" + iteam)) {
+                } else if (command.equals("drop" + item)) {
                     //if (playerInventory == 0){
                         System.out.println("You aren't carrying any items.");
                     }
@@ -102,8 +102,21 @@ public class Adventure {
         }
     }
 
-    private static String findItemName() {
-        //TODO:substing?
+    private static String findItemName(String command) {
+        int end = command.length();
+        int firstSpace = command.indexOf(" ");
+        int secondSpace = command.lastIndexOf(" ");
+        String itemName = command.substring(firstSpace, secondSpace);
+
+
+        if (secondSpace == firstSpace) {
+            itemName = command.substring(firstSpace + 1);
+
+        } else {
+            itemName = command.substring(firstSpace + 1, secondSpace);
+
+        }
+        return itemName;
     }
 
     public static String requestDirection(Room requestedRoom, String directionName) {
