@@ -10,10 +10,11 @@ public class Adventure {
 
     public static void main(String[] args) {
 /*
-        //sout til at tjekke om ting bliver taget op og lagt tilbage
+
+        // sout til at tjekke om ting bliver taget op og lagt tilbage
         System.out.println(pickUpItem("kage"));
         System.out.println(player.getInventory());
-       System.out.println(dropItem("kage"));
+        System.out.println(dropItem("kage"));
         System.out.println(spaceMap.currentRoom.items);
         System.out.println(player.getInventory());
         System.out.println( pickUpItem("søm"));
