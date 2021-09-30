@@ -31,7 +31,8 @@ public class Map {
                                 
                 Pluto is a complex world of ice mountains and frozen plains.
                 Still considered the ninth planet by some, Pluto is the largest member of the Kuiper Belt.
-                It is the best known of a new class of worlds called dwarf planets. But now Pluto can be returned to its rightful place among the other planets.""",
+                It is the best known of a new class of worlds called dwarf planets.
+                But now Pluto can be returned to its rightful place among the other planets, you just need to report back to headquarter.""",
                 "We are finally here! Oh, it's so peaceful here. So quiet, let's stay here forever.");
         Room mercury6 = new Room("Mercury (6)", """
                 Mercury — the smallest planet in our solar system and closest to the Sun —
@@ -77,7 +78,7 @@ public class Map {
         //TODO:fordel items på rum
         theEarth1.putItemInRoom(kage);
         theEarth1.putItemInRoom(lommeur);
-       theEarth1.putItemInRoom(placeholder);
+       saturn2.putItemInRoom(placeholder);
 
         //TODO: der vælges et final item.
         this.finalItem = placeholder;
