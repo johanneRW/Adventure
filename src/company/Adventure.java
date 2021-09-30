@@ -60,13 +60,13 @@ public class Adventure {
                     System.out.println("Alright! Let's keep going then :)");
                 }
             } else if (command.equals("go north") || command.equals("n") || command.equals("north")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionSouth(),"north"));
+                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionNorth(),"north"));
 
             } else if (command.equals("go west") || command.equals("w") || command.equals("west")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionSouth(),"west"));
+                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionWest(),"west"));
 
             } else if (command.equals("go east") || command.equals("e") || command.equals("east")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionSouth(),"east"));
+                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionEast(),"east"));
 
             } else if (command.equals("go south") || command.equals("s") || command.equals("south")) {
                 System.out.println(requestDirection(spaceMap.currentRoom.getConnectionSouth(),"south"));
@@ -97,6 +97,7 @@ public class Adventure {
             spaceMap.currentRoom = requestedRoom;
             spaceMap.checkIfFinal();
             return "Teleporting "+directionName +"...." + "\n\n" + enteringRoom();
+
         } else {
             return "You can't go that way - there isn't a teleporter.";
         }
