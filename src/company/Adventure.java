@@ -13,9 +13,12 @@ public class Adventure {
         Scanner input = new Scanner(System.in);
 
         //kommandoer: "go north", "go east", "go south","go west", "n", "e", "s", "w",
-        // exit - for at afbryde spillet helt, og afslutte programmet
-        //help - for at få en instruktion og oversigt over mulige kommandoer
-        //look - for at få gentaget beskrivelsen af det rum man er i
+        // exit/Q - for at afbryde spillet helt, og afslutte programmet
+        //help/h - for at få en instruktion og oversigt over mulige kommandoer
+        //look/l- for at få gentaget beskrivelsen af det rum man er i
+        // take/t + itemName - for at samle noget op
+        //drop/d + itemName - for at ligge noget i et rum.
+        //inventory/i - for at se inventory.
 
         System.out.println("""
                 Welcome to The Rediscovering of Pluto.
@@ -29,8 +32,11 @@ public class Adventure {
                 How to play:
                 You can move around in the game by typing "go" followed by "north", "south", "east", "west".
                 You can also type the first letter of the direction you want to move.
+                You can pick items up by typing "take" followed by the name of the item, you can only carry five items at the time.
+                Likewise you can leave items on planets by tyoing "drop" followed by the name og teh item.
+                If you want to se your inventory - type "inventory or i.
                 If you want to look around, just type "look" or 'l'. Type "help" or 'h' for help.
-                If you want to quit the game, type "exit".
+                If you want to quit the game, type "exit" or 'q'.
                                 
                 At this moment you are on Earth. Take a look around.""");
         System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION() + "\nWhat do you want to do first?");
@@ -38,73 +44,75 @@ public class Adventure {
         while (gameRunning) {
             String command = input.nextLine();
             command = command.toLowerCase();
-            if (command.equals("exit")) {
-                System.out.println("Are you sure you want to leave the game? \"yes\" or \"no\"");
-                String answer = input.nextLine();
-                answer = answer.toLowerCase();
-                if (answer.equals("yes")) {
-                    System.out.println("Sending you back to your home planet - Goodbye!!!");
-                    gameRunning = false;
-                } else if (answer.equals("no")) {
-                    System.out.println("Alright! Let's keep going then :)");
-                }
-            } else if (command.equals("go north") || command.equals("n") || command.equals("north")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionNorth(), "north"));
+            int firstSpace = command.indexOf("");
+            int lastSpace = command.lastIndexOf(" ");
+            System.out.println(firstSpace);
+            System.out.println(lastSpace);
+            if (firstSpace < lastSpace) {
+                String newCommand = command.substring(0, lastSpace);
+                System.out.println(newCommand);
+                String itemName = command.substring(lastSpace + 1);
+                System.out.println(itemName);
 
-            } else if (command.equals("go west") || command.equals("w") || command.equals("west")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionWest(), "west"));
+                if (newCommand.equals("take")||newCommand.equals("t")) {
+                    String result = pickUpItem(itemName);
+                    System.out.println(result);
+                    System.out.println(player.getInventory());
+                } else if (newCommand.equals("drop")||newCommand.equals("d")) {
+                    String result = dropItem(itemName);
+                    System.out.println(result);
+                    System.out.println(player.getInventory());
+                } else
+                    //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
+                    System.out.println("I don't know how to \"" + command + "\", try typing something else");
+            }
+            if (firstSpace > lastSpace) {
+                command = command;
+                if (command.equals("exit")||command.equals("q")) {
+                    System.out.println("Are you sure you want to leave the game? \"yes\" or \"no\"");
+                    String answer = input.nextLine();
+                    answer = answer.toLowerCase();
+                    if (answer.equals("yes")||answer.equals("y")) {
+                        System.out.println("Sending you back to your home planet - Goodbye!!!");
+                        gameRunning = false;
+                    } else if (answer.equals("no")||answer.equals("n")) {
+                        System.out.println("Alright! Let's keep going then :)");
+                    }
+                } else if (command.equals("go north") || command.equals("n") || command.equals("north")) {
+                    System.out.println(requestDirection(spaceMap.currentRoom.getConnectionNorth(), "north"));
 
-            } else if (command.equals("go east") || command.equals("e") || command.equals("east")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionEast(), "east"));
+                } else if (command.equals("go west") || command.equals("w") || command.equals("west")) {
+                    System.out.println(requestDirection(spaceMap.currentRoom.getConnectionWest(), "west"));
 
-            } else if (command.equals("go south") || command.equals("s") || command.equals("south")) {
-                System.out.println(requestDirection(spaceMap.currentRoom.getConnectionSouth(), "south"));
+                } else if (command.equals("go east") || command.equals("e") || command.equals("east")) {
+                    System.out.println(requestDirection(spaceMap.currentRoom.getConnectionEast(), "east"));
 
-            } else if (command.equals("look") || command.equals("l")) {
-                System.out.println("Looking around...");
-                System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
-                System.out.println("Items on this planet:" + spaceMap.currentRoom.items);
-            } else if (command.equals("help") || command.equals("h")) {
-                System.out.println("Want help? Type \"yes\" or \"no\"");
-                String answer = input.nextLine();
-                answer = answer.toLowerCase();
-                if (answer.equals("yes")) {
-                    System.out.println("Okay, I'll scan the planet and see if I can help you.....");
-                    System.out.println(spaceMap.currentRoom.getROOM_HELP());
-                } else if (answer.equals("no")) {
-                    System.out.println("Okay, suit yourself! :)");
-                }
-            } else if (command.equals("inventory") || command.equals("i")) {
-                System.out.println(player.getInventory());
-            } else if (command.equals("take")) {
-                System.out.println("Ok, take what?");
-                String itemName = input.nextLine();
-                itemName = itemName.toLowerCase();
-                //String itemName =findItemName(answer);
-                String result = pickUpItem(itemName);
-                System.out.println(result);
-                System.out.println(player.getInventory());
-            } else if (command.equals("drop")) {
-                System.out.println("Ok, drop what?");
-                String itemName = input.nextLine();
-                itemName = itemName.toLowerCase();
-                //String itemName =findItemName(answer);
-                dropItem(itemName);
-                System.out.println(player.getInventory());
-            } else {
-                //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
-                System.out.println("I don't know how to \"" + command + "\", try typing something else");
+                } else if (command.equals("go south") || command.equals("s") || command.equals("south")) {
+                    System.out.println(requestDirection(spaceMap.currentRoom.getConnectionSouth(), "south"));
+
+                } else if (command.equals("look") || command.equals("l")) {
+                    System.out.println("Looking around...");
+                    System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION());
+                    System.out.println("Items on this planet:" + spaceMap.currentRoom.items);
+                } else if (command.equals("help") || command.equals("h")) {
+                    System.out.println("Want help? Type \"yes\" or \"no\"");
+                    String answer = input.nextLine();
+                    answer = answer.toLowerCase();
+                    if (answer.equals("yes")||answer.equals("y")) {
+                        System.out.println("Okay, I'll scan the planet and see if I can help you.....");
+                        System.out.println(spaceMap.currentRoom.getROOM_HELP());
+                    } else if (answer.equals("no")||answer.equals("n")) {
+                        System.out.println("Okay, suit yourself! :)");
+                    }
+                } else if (command.equals("inventory") || command.equals("i")||command.equals("in")) {
+                    System.out.println(player.getInventory());
+                } else
+                    //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
+                    System.out.println("I don't know how to \"" + command + "\", try typing something else");
             }
         }
     }
 
-    private static String findItemName(String command) {
-        int end = command.length();
-        int firstSpace = command.indexOf(" ");
-        String itemName = command.substring(firstSpace);
-
-        return itemName;
-    }
 
     public static String requestDirection(Room requestedRoom, String directionName) {
         if (requestedRoom != null) {
@@ -143,7 +151,7 @@ public class Adventure {
     }
 
     public static String pickUpItem(String itemName) {
-        //der må max være 3 Items i en spillers inventory ad gangen.
+        //der må max være 5 Items i en spillers inventory ad gangen.
         if (player.inventory.size() <= 4) {
             boolean found = false;
             for (int i = 0; i < spaceMap.currentRoom.items.size(); i++) {

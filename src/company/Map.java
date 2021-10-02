@@ -56,7 +56,7 @@ public class Map {
                 This unique tilt makes Uranus appear to spin on its side.""",
                 "BRRR! Not exactly Utopia, is it?");
         Room theSun10 = new Room("The Sun", """
-                The Sun is a yellow dwarf star, a hot ball of glowing gases at the heart of our solar system. 
+                The Sun is a yellow dwarf star, a hot ball of glowing gases at the heart of our solar system.
                 Its gravity holds everything from the biggest planets to tiny debris in its orbit.""",
                 "You're burning up, I can't help you");
 
