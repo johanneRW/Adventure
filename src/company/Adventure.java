@@ -33,13 +33,13 @@ public class Adventure {
                 You can move around in the game by typing "go" followed by "north", "south", "east", "west".
                 You can also type the first letter of the direction you want to move.
                 You can pick items up by typing "take" followed by the name of the item, you can only carry five items at the time.
-                Likewise you can leave items on planets by tyoing "drop" followed by the name og teh item.
+                Likewise you can leave items on planets by typing "drop" followed by the name og teh item.
                 If you want to se your inventory - type "inventory or i.
                 If you want to look around, just type "look" or 'l'. Type "help" or 'h' for help.
                 If you want to quit the game, type "exit" or 'q'.
                                 
                 At this moment you are on Earth. Take a look around.""");
-        System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION() + "\nWhat do you want to do first?");
+        System.out.println(spaceMap.currentRoom.getROOM_DESCRIPTION() + "\n\nIn your inventory at this moment:" + player.inventory+"\n\nWhat do you want to do first?");
 
         while (gameRunning) {
             String command = input.nextLine();
@@ -102,7 +102,7 @@ public class Adventure {
                     }
                 } else if (command.equals("inventory") || command.equals("i")||command.equals("in")) {
                     System.out.println(player.getInventory());
-                // jeg har ladet denne del af koden stå, så man kan smale op og efterlade items på flere måder.
+                // jeg har ladet denne del af koden stå, så man kan samle op og efterlade items på flere måder.
             } else if (command.equals("take")) {
                 System.out.println("Ok, take what?");
                 String itemName = input.nextLine();
