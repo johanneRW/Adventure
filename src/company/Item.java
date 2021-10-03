@@ -4,11 +4,6 @@ import java.util.ArrayList;
 
 public class Item {
 
-//TODO: liste af items.
-//TODO: items skal placeres i rum
-    //TODO: et item skal have en currentRoom værdi der skal kunne ændres så det kan flyttes
-    //TODO: skal der kunne interageres med ting?
-
     //metoder fra LampToggler3000 kan formentlig bruges til items
     //brug married til at flytte rundt mellem array-lister(inventory)
     private String itemName;
