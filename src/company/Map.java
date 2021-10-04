@@ -32,7 +32,7 @@ public class Map {
                 The giant planet's Great Red spot is a centuries-old storm bigger than Earth.""",
                 "Oh God! The storm! I can't see a thing! Hurry! Get out of here!");
         Room pluto5 = new Room("Pluto", """
-                YOU FOUND IT!! What a marvellous feat!
+                YOU FOUND IT!! What a marvellous feast!
                                 
                 Pluto is a complex world of ice mountains and frozen plains.
                 Still considered the ninth planet by some, Pluto is the largest member of the Kuiper Belt.
@@ -60,6 +60,9 @@ public class Map {
                 The Sun is a yellow dwarf star, a hot ball of glowing gases at the heart of our solar system.
                 Its gravity holds everything from the biggest planets to tiny debris in its orbit.""",
                 "You're burning up, I can't help you");
+
+
+
 
 
         //lav forbindelse mellem rummene
@@ -91,8 +94,8 @@ public class Map {
         Item uran = new Item("uran", "an element that can be found on Uranus.");
         Item boron = new Item("boron", "an element that has been studied and experimented with, as a potential ingredient in organic medicine.");
         Item plutonium = new Item("plutonium", "found on Pluto. Plutonium is the element with the highest atomic number to occur in nature.");
-        Item batteries = new Item("batteries", "just some batteries, I wonder how they got on this planet?");
-        Item nothing= new Item ("nothing", "(comes from nothing)");
+        Item batteries = new Item("batteries", "just some batteries, I wonder how they got on this planet..");
+        Item nothing = new Item("nothing", "(comes from nothing)");
         Item cat = new Item("cat", "a four-legged creature far far away from home");
         Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System.");
         Item tea = new Item("tea", "an oddly satisfying warm drink.");
@@ -110,14 +113,53 @@ public class Map {
         pluto5.putItemInRoom(plutonium);
         saturn2.putItemInRoom(nothing);
         jupiter4.putItemInRoom(book);
-        //getRandomRoom().putItemInRoom(batteries);
 
+        //put batteries in random room
+        int randomRoom = getRandomRoom();
+        System.out.println(randomRoom);
 
+        if (randomRoom == 1) {
+            theEarth1.putItemInRoom(batteries);
+        } else if (randomRoom == 2) {
+            saturn2.putItemInRoom(batteries);
+        }else if (randomRoom == 3) {
+            neptune3.putItemInRoom(batteries);
+        }else if (randomRoom == 4) {
+            jupiter4.putItemInRoom(batteries);
+        }else if (randomRoom == 5) {
+            pluto5.putItemInRoom(batteries);
+        }else if (randomRoom == 6) {
+            mercury6.putItemInRoom(batteries);
+        }else if (randomRoom == 7) {
+            venus7.putItemInRoom(batteries);
+        }else if (randomRoom == 8) {
+            mars8.putItemInRoom(batteries);
+        }else if (randomRoom == 9) {
+            uranus9.putItemInRoom(batteries);
+        }
 
 
         //Items der skal være i spillerens inventory før spillet kan slutte.
         this.finalItem = boron;
         this.secondFinalItem = lithium;
+    }
+
+    //getRandomRoom().putItemInRoom(batteries);
+    public static int getRandomRoom() {
+        Random random = new Random();
+        int randomRoom = random.nextInt(9) + 1;
+
+        if (randomRoom == 1) {
+        } else if (randomRoom == 2) {
+        } else if (randomRoom == 3) {
+        } else if (randomRoom == 4) {
+        } else if (randomRoom == 5) {
+        } else if (randomRoom == 6) {
+        } else if (randomRoom == 7) {
+        } else if (randomRoom == 8) {
+        } else if (randomRoom == 9) {
+        }
+        return randomRoom;
     }
 
     public Room getGameOverRoom() {
