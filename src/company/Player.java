@@ -3,8 +3,9 @@ package company;
 import java.util.ArrayList;
 
 public class Player {
+    private String playerName;
     public ArrayList<Item> inventory;
-    private Item radio = new Item("radio","unfortunately it's rund out of batteries");
+    private Item radio = new Item("radio","unfortunately it ran out of batteries...");
 
     //Spiller starter altid med en radio med når han/hun starter;
 

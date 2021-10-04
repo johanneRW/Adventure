@@ -9,6 +9,7 @@ public class Map {
     private Item secondFinalItem;
     private Room gameOverRoom;
 
+
     public Map() {
         //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
 
@@ -112,9 +113,11 @@ public class Map {
         //getRandomRoom().putItemInRoom(batteries);
 
 
+
+
         //Items der skal være i spillerens inventory før spillet kan slutte.
         this.finalItem = boron;
-        //this.secondFinalItem = lithium;
+        this.secondFinalItem = lithium;
     }
 
     public Room getGameOverRoom() {
@@ -133,14 +136,22 @@ public class Map {
         return finalItem;
     }
 
-
-   /* public Room getRandomRoom() {
-        Random random = new Random();
-
-        int randomRoom = random.nextInt(9) + 1;
-        if (randomRoom == 1) {
-            return theEarth1;
+    public boolean checkIfFinal() {
+        if (currentRoom.equals(finalRoom) && (Adventure.findItemInInventory(finalItem.getItemName()) && (Adventure.findItemInInventory(secondFinalItem.getItemName())))){
+                //&& (Adventure.findItemInInventory(getSecondFinalItem().getItemName()))) {
+            Adventure.gameRunning = false;
+            return true;
         }
+        else return false;
+    }
 
-    }*/
+    public boolean checkIfGameOver() {
+        if (currentRoom.equals(gameOverRoom)) {
+            Adventure.gameRunning = false;
+            return true;
+        }
+        else return false;
+    }
+
+
 }

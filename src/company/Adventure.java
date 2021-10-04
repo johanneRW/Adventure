@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Adventure {
 
-    private static boolean gameRunning = true;
+    public static boolean gameRunning = true;
     private static Map spaceMap = new Map();
     private static Player player = new Player();
     private static Scanner input = new Scanner(System.in);
