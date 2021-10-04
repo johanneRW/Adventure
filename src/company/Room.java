@@ -3,6 +3,7 @@ package company;
 import java.util.ArrayList;
 
 public class Room {
+Formating formating = new Formating();
 
     // rummets navn og beskrivelse ændres sig ikke undervejs, derfor er de final.
     private final String ROOM_NAME;
@@ -100,10 +101,25 @@ public class Room {
     public int getRoomCount() {
         return roomCount;
     }
-    @Override
+
+
+    public String getRoomItemDecription(){
+        if(items!=null){
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < items.size(); i++) {
+                Item currentItem = items.get(i);
+                stringBuilder.append(formating.getStringsCapitalized(currentItem.getItemName())+", "+currentItem.getItemDescription());
+                stringBuilder.append(".\n");
+            }
+            return ""+stringBuilder;}
+        else return "There doesn't seem to be anything to take on this planet";}
+   /* @Override
     public String toString() {
         return ROOM_NAME;
     }
+*/
+
+
 
     // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.
     //denne override er kommenteret ud, i stedet for at være slettet, da det kan være der bliver brug for den under opbygning af nyt kort;
