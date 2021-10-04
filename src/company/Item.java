@@ -1,11 +1,16 @@
 package company;
 
-import java.util.ArrayList;
-
 public class Item {
-
+    private Formating formating = new Formating();
     private String itemName;
-    private String itemDescription;
+    public String itemDescription;
+    private Item combination;
+
+    public Item(String itemName, String itemDescription, Item combination) {
+        this.itemName = itemName;
+        this.itemDescription = itemDescription;
+        this.combination=combination;
+    }
 
     public Item(String itemName, String itemDescription) {
         this.itemName = itemName;
@@ -17,6 +22,7 @@ public class Item {
     }
 
     public String getItemName() {
+        formating.getStringsCapitalized(itemName);
         return itemName;
     }
 
@@ -24,9 +30,18 @@ public class Item {
         return itemDescription;
     }
 
-    @Override
-    public String toString() {
-        return itemName +", "+ itemDescription;
+    public String getItemNameAndDesription(){
+        String itemNameCapitalized=formating.getStringsCapitalized(itemName);
+        return "\n"+itemNameCapitalized+", "+itemDescription+".";
     }
+
+    public Item getCombination(){
+        return combination;
+    }
+
 }
+
+
+
+
 

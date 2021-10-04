@@ -7,8 +7,8 @@ public class Map {
     private Room finalRoom;
     private Item finalItem;
     private Item secondFinalItem;
+    private Item workingRadio;
     private Room gameOverRoom;
-
 
     public Map() {
         //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
@@ -32,13 +32,13 @@ public class Map {
                 The giant planet's Great Red spot is a centuries-old storm bigger than Earth.""",
                 "Oh God! The storm! I can't see a thing! Hurry! Get out of here!");
         Room pluto5 = new Room("Pluto", """
-                YOU FOUND IT!! What a marvellous feast!
+                YOU FOUND IT!! What a marvellous feat!
                                 
                 Pluto is a complex world of ice mountains and frozen plains.
                 Still considered the ninth planet by some, Pluto is the largest member of the Kuiper Belt.
                 It is the best known of a new class of worlds called dwarf planets.
                 But now Pluto can be returned to its rightful place among the other planets, you just need to report back to headquarter.""",
-                "We are finally here! Oh, it's so peaceful here. So quiet, let's stay here forever.");
+                "We are finally here! Oh, it's so peaceful here. So quiet, let's stay here forever. Maybe just call home first?");
         Room mercury6 = new Room("Mercury", """
                 Mercury — the smallest planet in our solar system and closest to the Sun —
                 is only slightly larger than Earth's Moon.
@@ -61,10 +61,6 @@ public class Map {
                 Its gravity holds everything from the biggest planets to tiny debris in its orbit.""",
                 "You're burning up, I can't help you");
 
-
-
-
-
         //lav forbindelse mellem rummene
         theEarth1.createConnectionEast(mercury6);
         theEarth1.createConnectionWest(venus7);
@@ -85,20 +81,23 @@ public class Map {
         this.finalRoom = pluto5;
         this.gameOverRoom = theSun10;
 
+        this.workingRadio = new Item("working radio", "you can call back to headquarters, now you have added batteries");
+
 //Elementer og deres beskrivelse.
         Item water = new Item("water", "a very important substance");
-        Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire.");
-        Item laserGun = new Item("laser gun", "a friendly entity has offered you this laser gun.");
-        Item molbydenum = new Item("molybdenum", "at this point we're just making stuff up.");
-        Item neptunium = new Item("neptunium", "an element that can be found on Neptune.");
-        Item uran = new Item("uran", "an element that can be found on Uranus.");
-        Item boron = new Item("boron", "an element that has been studied and experimented with, as a potential ingredient in organic medicine.");
-        Item plutonium = new Item("plutonium", "found on Pluto. Plutonium is the element with the highest atomic number to occur in nature.");
-        Item batteries = new Item("batteries", "just some batteries, I wonder how they got on this planet..");
+        Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire");
+        Item laserGun = new Item("laser gun", "a friendly entity has offered you this laser gun");
+        Item molbydenum = new Item("molybdenum", "honestly, at this point we're just making stuff up");
+        Item neptunium = new Item("neptunium", "an element that can be found on Neptune");
+        Item uran = new Item("uran", "an element that can be found on Uranus");
+        Item boron = new Item("boron", "an element that has been studied and experimented with, as a potential ingredient in organic medicine\n" +
+                "-sounds like something worth having in your inventory");
+        Item plutonium = new Item("plutonium", "found on Pluto. Plutonium is the element with the highest atomic number to occur in nature");
+        Item batteries = new Item("batteries", "just some batteries, I wonder how they got on this planet", workingRadio);
         Item nothing = new Item("nothing", "(comes from nothing)");
         Item cat = new Item("cat", "a four-legged creature far far away from home");
-        Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System.");
-        Item tea = new Item("tea", "an oddly satisfying warm drink.");
+        Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System");
+        Item tea = new Item("tea", "an oddly satisfying warm drink");
 
         //fordel de forskellige items på rum
         theEarth1.putItemInRoom(water);
@@ -108,61 +107,40 @@ public class Map {
         jupiter4.putItemInRoom(laserGun);
         neptune3.putItemInRoom(neptunium);
         uranus9.putItemInRoom(uran);
-        venus7.putItemInRoom(molbydenum);
+        neptune3.putItemInRoom(molbydenum);
         venus7.putItemInRoom(cat);
         pluto5.putItemInRoom(plutonium);
         saturn2.putItemInRoom(nothing);
         jupiter4.putItemInRoom(book);
 
-        //put batteries in random room
-        int randomRoom = getRandomRoom();
-        System.out.println(randomRoom);
+        //Items der skal være i spillerens inventory før spillet kan slutte.
+        this.finalItem = workingRadio;
+        this.secondFinalItem = boron;
 
+        //put batteries in random room
+        //batterierne skal aldring ligge på solen ellers saturn, derfor er de ikke med i denne ligning
+        Random random = new Random();
+        int randomRoom = random.nextInt(8) + 1;
         if (randomRoom == 1) {
             theEarth1.putItemInRoom(batteries);
         } else if (randomRoom == 2) {
-            saturn2.putItemInRoom(batteries);
-        }else if (randomRoom == 3) {
             neptune3.putItemInRoom(batteries);
-        }else if (randomRoom == 4) {
+        } else if (randomRoom == 3) {
             jupiter4.putItemInRoom(batteries);
-        }else if (randomRoom == 5) {
+        } else if (randomRoom == 4) {
             pluto5.putItemInRoom(batteries);
-        }else if (randomRoom == 6) {
+        } else if (randomRoom == 5) {
             mercury6.putItemInRoom(batteries);
-        }else if (randomRoom == 7) {
+        } else if (randomRoom == 6) {
             venus7.putItemInRoom(batteries);
-        }else if (randomRoom == 8) {
+        } else if (randomRoom == 7) {
             mars8.putItemInRoom(batteries);
-        }else if (randomRoom == 9) {
+        } else if (randomRoom == 8) {
             uranus9.putItemInRoom(batteries);
         }
-
-
-        //Items der skal være i spillerens inventory før spillet kan slutte.
-        this.finalItem = boron;
-        this.secondFinalItem = lithium;
     }
 
-    //getRandomRoom().putItemInRoom(batteries);
-    public static int getRandomRoom() {
-        Random random = new Random();
-        int randomRoom = random.nextInt(9) + 1;
-
-        if (randomRoom == 1) {
-        } else if (randomRoom == 2) {
-        } else if (randomRoom == 3) {
-        } else if (randomRoom == 4) {
-        } else if (randomRoom == 5) {
-        } else if (randomRoom == 6) {
-        } else if (randomRoom == 7) {
-        } else if (randomRoom == 8) {
-        } else if (randomRoom == 9) {
-        }
-        return randomRoom;
-    }
-
-    public Room getGameOverRoom() {
+    public Room getGameOverRoom(){
         return gameOverRoom;
     }
 
@@ -178,22 +156,9 @@ public class Map {
         return finalItem;
     }
 
-    public boolean checkIfFinal() {
-        if (currentRoom.equals(finalRoom) && (Adventure.findItemInInventory(finalItem.getItemName()) && (Adventure.findItemInInventory(secondFinalItem.getItemName())))){
-                //&& (Adventure.findItemInInventory(getSecondFinalItem().getItemName()))) {
-            Adventure.gameRunning = false;
-            return true;
-        }
-        else return false;
+    public Item getWorkingRadio() {
+        return workingRadio;
     }
-
-    public boolean checkIfGameOver() {
-        if (currentRoom.equals(gameOverRoom)) {
-            Adventure.gameRunning = false;
-            return true;
-        }
-        else return false;
-    }
-
 
 }
+
