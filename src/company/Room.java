@@ -1,11 +1,9 @@
 package company;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Room {
 
-    //ved ikke om dette giver mening i sidste ende, men har forsøgt at lave en omskrivning af "adam og eva" koden til at oprette døre
     // rummets navn og beskrivelse ændres sig ikke undervejs, derfor er de final.
     private final String ROOM_NAME;
     private final String ROOM_DESCRIPTION;
@@ -17,7 +15,7 @@ public class Room {
     public ArrayList<Item> items;
     private int roomCount;
 
-    //Vi opretter et rum der har mulighed for fire døre, uden at lave dørene endnu, derfor er de sat til null
+    //Vi opretter et rum der har mulighed for fire forbindelser, uden at lave forbindelserne endnu, derfor er de sat til null
     public Room(String roomName, String roomDescription, String roomHelp) {
         this.ROOM_DESCRIPTION = roomDescription;
         this.ROOM_NAME = roomName;
@@ -29,9 +27,8 @@ public class Room {
         this.items = new ArrayList<>();
         this.roomCount = 0;
     }
-
-    // Opret en forbindelse til et andet rum, når der bliver oprettet en dør i en retning,
-    // Bliver der automatisk oprettet en dør i modsat retning tilbage til rummet, så man ikke glemmer en forbindelse
+    // Opret en forbindelse til et andet rum, når der bliver oprettet en forbindelse i en retning,
+    // Bliver der automatisk oprettet en forbindelse i modsat retning tilbage til rummet, så man ikke glemmer en forbindelse
     //Der oprettes en for hver kompasretning.
     public void createConnectionNorth(Room anotherRoom) {
         if (connectionNorth == null) {
@@ -95,8 +92,6 @@ public class Room {
         Room currentRoom = this;
         currentRoom.items.add(item);
     }
-
-
 
     public void upDateRoomCount() {
         this.roomCount++;
