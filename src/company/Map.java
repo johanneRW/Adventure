@@ -76,28 +76,29 @@ public class Map {
         neptune3.createConnectionWest(pluto5);
         mars8.createConnectionSouth(saturn2);
 
-        //Definer start-, slut- og gameover-rum
+        //Definer start-, slut- og game over-rum
         this.currentRoom = theEarth1;
         this.finalRoom = pluto5;
         this.gameOverRoom = theSun10;
 
-        this.workingRadio = new Item("working radio", "you can call back to headquarters, now you have added batteries");
+//item der kan laves af to andre items
+        this.workingRadio = new Item("working radio", "now you have added batteries, you can call back to headquarters.");
 
 //Elementer og deres beskrivelse.
-        Item water = new Item("water", "a very important substance");
-        Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire");
-        Item laserGun = new Item("laser gun", "a friendly entity has offered you this laser gun");
-        Item molbydenum = new Item("molybdenum", "honestly, at this point we're just making stuff up");
-        Item neptunium = new Item("neptunium", "an element that can be found on Neptune");
-        Item uran = new Item("uran", "an element that can be found on Uranus");
+        Item water = new Item("water", "a very important substance.");
+        Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire.");
+        Item laserGun = new Item("laser gun", "a friendly entity has offered you this laser gun.");
+        Item molbydenum = new Item("molybdenum", "honestly, at this point we're just making stuff up.");
+        Item neptunium = new Item("neptunium", "an element that can be found on Neptune.");
+        Item uran = new Item("uran", "an element that can be found on Uranus.");
         Item boron = new Item("boron", "an element that has been studied and experimented with, as a potential ingredient in organic medicine\n" +
-                "-sounds like something worth having in your inventory");
-        Item plutonium = new Item("plutonium", "found on Pluto. Plutonium is the element with the highest atomic number to occur in nature");
-        Item batteries = new Item("batteries", "just some batteries, I wonder how they got on this planet", workingRadio);
+                "-Sounds like something worth having in your inventory.");
+        Item plutonium = new Item("plutonium", "found on Pluto. Plutonium is the element with the highest atomic number to occur in nature.");
+        Item batteries = new Item("batteries", "just some batteries, I wonder how they got on this planet.", workingRadio);
         Item nothing = new Item("nothing", "(comes from nothing)");
-        Item cat = new Item("cat", "a four-legged creature far far away from home");
-        Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System");
-        Item tea = new Item("tea", "an oddly satisfying warm drink");
+        Item cat = new Item("cat", "a four-legged creature far away from home.");
+        Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System.");
+        Item tea = new Item("tea", "an oddly satisfying warm drink.");
 
         //fordel de forskellige items på rum
         theEarth1.putItemInRoom(water);
@@ -140,7 +141,7 @@ public class Map {
         }
     }
 
-    public Room getGameOverRoom(){
+    public Room getGameOverRoom() {
         return gameOverRoom;
     }
 

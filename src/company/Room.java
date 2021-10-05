@@ -3,7 +3,7 @@ package company;
 import java.util.ArrayList;
 
 public class Room {
-Formating formating = new Formating();
+    Formatting formatting = new Formatting();
 
     // rummets navn og beskrivelse ændres sig ikke undervejs, derfor er de final.
     private final String ROOM_NAME;
@@ -28,6 +28,7 @@ Formating formating = new Formating();
         this.items = new ArrayList<>();
         this.roomCount = 0;
     }
+
     // Opret en forbindelse til et andet rum, når der bliver oprettet en forbindelse i en retning,
     // Bliver der automatisk oprettet en forbindelse i modsat retning tilbage til rummet, så man ikke glemmer en forbindelse
     //Der oprettes en for hver kompasretning.
@@ -103,22 +104,35 @@ Formating formating = new Formating();
     }
 
 
-    public String getRoomItemDecription(){
-        if(items!=null){
+    public String getRoomItemDescription() {
+        if (items.size() > 0) {
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < items.size(); i++) {
                 Item currentItem = items.get(i);
-                stringBuilder.append(formating.getStringsCapitalized(currentItem.getItemName())+", "+currentItem.getItemDescription());
-                stringBuilder.append(".\n");
+                stringBuilder.append(formatting.getStringsCapitalized(currentItem.getItemName()) + ", " + currentItem.getItemDescription());
+                stringBuilder.append("\n");
             }
-            return ""+stringBuilder;}
-        else return "There doesn't seem to be anything to take on this planet";}
+            return "\nItems on this planet: \n" + stringBuilder;
+        } else return "\nItems: There doesn't seem to be anything to take on this planet";
+    }
+
+    public String getRoomItemsName() {
+        if (items.size() > 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < items.size(); i++) {
+                Item currentItem = items.get(i);
+                stringBuilder.append(currentItem.getItemName());
+                stringBuilder.append(", ");
+            }
+            return "" + stringBuilder;
+        } else return "\nItems: There doesn't seem to be anything to take on this planet";
+    }
+
    /* @Override
     public String toString() {
         return ROOM_NAME;
     }
 */
-
 
 
     // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.

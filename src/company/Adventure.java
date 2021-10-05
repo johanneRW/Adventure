@@ -9,6 +9,7 @@ public class Adventure {
     private static Map spaceMap = new Map();
     private static Player player = new Player();
     private static Scanner input = new Scanner(System.in);
+    private static Formatting formatting = new Formatting();
 
     public static void main(String[] args) {
 
@@ -67,7 +68,7 @@ public class Adventure {
                 String result = requestLook();
                 System.out.println(result);
             } else if (command.equals("inventory") || command.equals("i") || command.equals("in")) {
-                System.out.println(player.getInventoryDescription());
+                System.out.println(player.getInventoryWhitDescription());
             } else if (command.equals("help") || command.equals("h")) {
                 String question = askPlayer("help");
                 System.out.println(question);
@@ -80,16 +81,18 @@ public class Adventure {
                 String answer = getPlayerReply();
                 String exit = requestExit(answer);
                 System.out.println(exit);
-                //TODO:combine mangler stadig nogle tweaks for at gøre den mere stabil, og pakke det ind i en metode
-            }else if (command.equals("combine")) {
-                System.out.println("Which item do you want to combine?");
+                //TODO:combine mangler stadig nogle tweaks og at blive pakket det ind i en metode
+            } else if (command.equals("combine")) {
+                System.out.println("Type the name of the first item, which you want to combine:");
                 String itemName1 = getPlayerReply();
                 Item item1 = findItemByName(itemName1);
-                System.out.println("Which item do you want to combine it with?");
+                System.out.println("Type the name of the item you want to combine it with?");
                 String itemName2 = getPlayerReply();
                 Item item2 = findItemByName(itemName2);
                 String result = combineItems(item1, item2);
                 System.out.println(result);
+                //String isThisTheEnd = enteringRoom();
+                //System.out.println(isThisTheEnd);
             } else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
@@ -115,12 +118,12 @@ public class Adventure {
                 If you want to se your inventory - type "inventory or i.
                 If you want to look around, just type "look" or 'l'. Type "help" or 'h' for help.
                 If you want to quit the game, type "exit" or 'q'.
-                
+                                
                 If you want to combine two items, type "combine".
                                 
                 At this moment you are on Earth. Take a look around.\n""" +
-                spaceMap.currentRoom.getROOM_DESCRIPTION() + "\n\n" + player.getInventoryDescription() +
-                "\n\nWhat do you want to do first?";
+                spaceMap.currentRoom.getROOM_DESCRIPTION() + "\n\n" + player.getInventoryWhitDescription() +
+                "\nWhat do you want to do first?";
     }
 
     public static String requestDirection(Room requestedRoom, String directionName) {
@@ -147,7 +150,7 @@ public class Adventure {
             if (!found) {
                 return "Can't find a \"" + itemName + "\" on this planet";
             } else
-                return itemName + " is added to your inventory\n" + player.getInventory();
+                return formatting.getStringsCapitalized(itemName) + " is added to your inventory.\n" + player.getInventory();
         } else
             return "You can't have more than 5 items in your inventory\nYou'll have to drop something\n" + player.getInventory();
     }
@@ -165,7 +168,7 @@ public class Adventure {
         if (!found) {
             return "Can't find a \"" + itemName + "\" in your inventory";
         } else
-            return itemName + " is placed carefully on " + spaceMap.currentRoom.getROOM_NAME() + "\n" + player.getInventory();
+            return formatting.getStringsCapitalized(itemName) + " is placed carefully on " + spaceMap.currentRoom.getROOM_NAME() + "\n" + player.getInventory();
     }
 
     public static boolean findItemInInventory(String itemName) {
@@ -199,8 +202,7 @@ public class Adventure {
 
     private static String requestLook() {
         return "Looking around...\n" +
-                spaceMap.currentRoom.getROOM_DESCRIPTION() +
-                "\nItems on this planet: " + spaceMap.currentRoom.getRoomItemDecription();
+                spaceMap.currentRoom.getROOM_DESCRIPTION() + spaceMap.currentRoom.getRoomItemDescription();
     }
 
     private static String requestHelp(String answer) {
@@ -242,70 +244,69 @@ public class Adventure {
 
     public static String enteringRoom() {
         if (checkIfGameOver()) {
-            return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
+            return "You are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
                     "\nUnfortunately you burned up and therefore the GAME is OVER.";
         } else if (checkIfFinal()) {
-            return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
+            return "You are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
                     "\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.";
-        } else if (spaceMap.currentRoom.getRoomCount() == 2) {
-            return "Back on " + spaceMap.currentRoom.getROOM_NAME();
-        } else if (spaceMap.currentRoom.getRoomCount() == 3) {
-            return "... And we're back on " + spaceMap.currentRoom.getROOM_NAME() + "\nItems on this planet: \n" + spaceMap.currentRoom.getRoomItemDecription();
         } else if ((spaceMap.currentRoom.getRoomCount() == 0) || (spaceMap.currentRoom.getRoomCount() == 1) || (spaceMap.currentRoom.getRoomCount() == 4)) {
-            return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
-                    "\nItems on this planet: \n" + spaceMap.currentRoom.getRoomItemDecription();
+            return "You are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION()
+                    + spaceMap.currentRoom.getRoomItemDescription();
         } else
-            return answerRandomizer();
+            return descriptionRandomizer();
     }
 
-    public static String answerRandomizer() {
+    public static String descriptionRandomizer() {
         Random random = new Random();
         int answerRandomizer = random.nextInt(7) + 1;
         if (answerRandomizer == 1) {
             return "Back on " + spaceMap.currentRoom.getROOM_NAME();
         }
         if (answerRandomizer == 2) {
-            return "... And we're back on " + spaceMap.currentRoom.getROOM_NAME() + "\nItems on this planet: \n" + spaceMap.currentRoom.getRoomItemDecription();
+            return "... And we're back on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getRoomItemDescription();
         }
         if (answerRandomizer == 3) {
-            return "Once again we are on " + spaceMap.currentRoom.getROOM_NAME();
+            return "Once again we are back on " + spaceMap.currentRoom.getROOM_NAME();
         }
         if (answerRandomizer == 4) {
-            return "Bla. bla. bla. " + spaceMap.currentRoom.getROOM_NAME() + "Items" + spaceMap.currentRoom.getRoomItemDecription() + "bla. bla.";
+            return "Blah. blah. blah. " + spaceMap.currentRoom.getROOM_NAME() + "Items " + formatting.getStringsCapitalized(spaceMap.currentRoom.getRoomItemsName()) + "blah. blah.";
         }
         if (answerRandomizer == 5) {
-            return "kep getting back to " + spaceMap.currentRoom.getROOM_NAME() + "Maybe we should just stay here?";
+            return "Keep getting back to " + spaceMap.currentRoom.getROOM_NAME() + "Maybe we should just stay here?";
 
-        } else return "you are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
-                "\nItems on this planet: \n" + spaceMap.currentRoom.getRoomItemDecription();
+        } else return "You are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
+                spaceMap.currentRoom.getRoomItemDescription();
     }
 
 
     public static String combineItems(Item item1, Item item2) {
-        String result=null;
-        if((item1.getCombination()==null)||(item2.getCombination()==null)){
-            result = "You can't combine " +item1.getItemName() +" and "+item2.getItemName();
+        String result = null;
+        if ((item1 == null) || (item2 == null)) {
+            result = " you haven't given me to item names, try combine again";
+        } else if ((item1.getCombination() == null) || (item2.getCombination() == null)) {
+            result = "You can't combine " + item1.getItemName() + " and " + item2.getItemName();
+        } else if (item1.getCombination().getItemName().equals(item2.getCombination().getItemName())) {
+            String itemName1 = item1.getItemName();
+            String itemName2 = item2.getItemName();
+            removeItemForCombination(itemName1);
+            removeItemForCombination(itemName2);
+            player.inventory.add(item1.getCombination());
+            String newItemName = item1.getCombination().getItemName();
+            result = "You have combined " + itemName1 + " and " + itemName2 + " to \"" + newItemName + "\"-"
+                    + item1.getCombination().getItemNameAndDescription() + "\n" + player.getInventory();
         }
-        else if (item1.getCombination().getItemName().equals(item2.getCombination().getItemName())){
-        String itemName1 = item1.getItemName();
-        String itemName2 = item2.getItemName();
-        removeItemForCombination(itemName1);
-        removeItemForCombination(itemName2);
-        player.inventory.add(item1.getCombination());
-        String newItemName=item1.getCombination().getItemNameAndDesription();
-        result= "You have combined "+itemName1+" and "+itemName2+" to "+newItemName+ "\n"+player.getInventory();}
 
         return result;
     }
 
-   public static Item findItemByName(String itemName) {
+    public static Item findItemByName(String itemName) {
         for (int i = 0; i < player.inventory.size(); i++) {
             Item currentItem = player.inventory.get(i);
             if (currentItem.getItemName().equals(itemName)) {
                 return currentItem;
             }
         }
-       return null;
+        return null;
     }
 
     public static boolean removeItemForCombination(String itemName) {
