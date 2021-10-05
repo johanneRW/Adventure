@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Player {
     private Formatting formatting = new Formatting();
-    private static Map spaceMap = new Map();
+    private Map spaceMap = new Map();
     public ArrayList<Item> inventory;
-    private static Item radio = new Item("radio", "unfortunately it ran out of batteries...Better find some new.", spaceMap.getWorkingRadio());
+    private Item radio = new Item("radio", "unfortunately it ran out of batteries...Better find some new.", spaceMap.getWorkingRadio());
 
     //Spiller starter altid med en radio med når han/hun starter;
     public Player() {

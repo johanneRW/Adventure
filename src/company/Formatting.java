@@ -1,7 +1,7 @@
 package company;
 
 public class Formatting {
-    public static String getStringsCapitalized(String string) {
+    public String getStringsCapitalized(String string) {
         if (string.length()>0){
         String firstLetter = string.substring(0, 1);
         String capitalLetter = firstLetter.toUpperCase();

@@ -5,13 +5,16 @@ import java.util.Scanner;
 
 public class Adventure {
 
-    public static boolean gameRunning = true;
-    private static Map spaceMap = new Map();
-    private static Player player = new Player();
-    private static Scanner input = new Scanner(System.in);
-    private static Formatting formatting = new Formatting();
 
-    public static void main(String[] args) {
+
+    public static boolean gameRunning = true;
+    private Map spaceMap = new Map();
+    private Player player = new Player();
+    private Scanner input = new Scanner(System.in);
+    private Formatting formatting = new Formatting();
+
+
+    public void playGame() {
 
         System.out.println(getIntroTekst());
         while (gameRunning) {
@@ -100,7 +103,7 @@ public class Adventure {
         }
     }
 
-    private static String getIntroTekst() {
+    private String getIntroTekst() {
         return """
                 Welcome to The Rediscovering of Pluto.
                                 
@@ -126,7 +129,7 @@ public class Adventure {
                 "\nWhat do you want to do first?";
     }
 
-    public static String requestDirection(Room requestedRoom, String directionName) {
+    public String requestDirection(Room requestedRoom, String directionName) {
         if (requestedRoom != null) {
             spaceMap.currentRoom = requestedRoom;
             spaceMap.currentRoom.upDateRoomCount();
@@ -135,7 +138,7 @@ public class Adventure {
         } else return "You can't go that way - there isn't a teleporter.";
     }
 
-    public static String pickUpItem(String itemName) {
+    public String pickUpItem(String itemName) {
         //der må max være 5 Items i en spillers inventory ad gangen.
         if (player.inventory.size() <= 4) {
             boolean found = false;
@@ -155,7 +158,7 @@ public class Adventure {
             return "You can't have more than 5 items in your inventory\nYou'll have to drop something\n" + player.getInventory();
     }
 
-    public static String dropItem(String itemName) {
+    public String dropItem(String itemName) {
         boolean found = false;
         for (int i = 0; i < player.inventory.size(); i++) {
             Item currentItem = player.inventory.get(i);
@@ -171,7 +174,7 @@ public class Adventure {
             return formatting.getStringsCapitalized(itemName) + " is placed carefully on " + spaceMap.currentRoom.getROOM_NAME() + "\n" + player.getInventory();
     }
 
-    public static boolean findItemInInventory(String itemName) {
+    public boolean findItemInInventory(String itemName) {
         boolean found = false;
         for (int i = 0; i < player.inventory.size(); i++) {
             Item currentItem = player.inventory.get(i);
@@ -182,7 +185,7 @@ public class Adventure {
         return found;
     }
 
-    private static String askPlayer(String command) {
+    private String askPlayer(String command) {
         if (command.equals("drop") || command.equals("take")) {
             return "Ok, " + command + " what?";
         }
@@ -194,18 +197,18 @@ public class Adventure {
         } else return null;
     }
 
-    private static String getPlayerReply() {
+    private String getPlayerReply() {
         String reply = input.nextLine();
         reply = reply.toLowerCase();
         return reply;
     }
 
-    private static String requestLook() {
+    private String requestLook() {
         return "Looking around...\n" +
                 spaceMap.currentRoom.getROOM_DESCRIPTION() + spaceMap.currentRoom.getRoomItemDescription();
     }
 
-    private static String requestHelp(String answer) {
+    private String requestHelp(String answer) {
         if (answer.equals("yes") || answer.equals("y")) {
             return "Okay, I'll scan the planet and see if I can help you.....\n" + spaceMap.currentRoom.getROOM_HELP();
         }
@@ -214,7 +217,7 @@ public class Adventure {
         } else return null;
     }
 
-    private static String requestExit(String answer) {
+    private String requestExit(String answer) {
         if (answer.equals("yes") || answer.equals("y")) {
             gameRunning = false;
             return "Sending you back to your home planet - Goodbye!!!";
@@ -226,23 +229,24 @@ public class Adventure {
     }
 
 
-    public static boolean checkIfFinal() {
-        if (spaceMap.currentRoom.equals(spaceMap.getFinalRoom()) && (Adventure.findItemInInventory(spaceMap.getFinalItem().getItemName()))
-                && (Adventure.findItemInInventory(spaceMap.getSecondFinalItem().getItemName()))) {
+    public boolean checkIfFinal() {
+        if (spaceMap.currentRoom.equals(spaceMap.getFinalRoom()) && (findItemInInventory(spaceMap.getFinalItem().getItemName())))
+        {
             Adventure.gameRunning = false;
             return true;
-        } else return false;
+        }
+        else return false;
     }
 
 
-    public static boolean checkIfGameOver() {
+    public boolean checkIfGameOver() {
         if (spaceMap.currentRoom.equals(spaceMap.getGameOverRoom())) {
             Adventure.gameRunning = false;
             return true;
         } else return false;
     }
 
-    public static String enteringRoom() {
+    public String enteringRoom() {
         if (checkIfGameOver()) {
             return "You are on " + spaceMap.currentRoom.getROOM_NAME() + spaceMap.currentRoom.getROOM_DESCRIPTION() +
                     "\nUnfortunately you burned up and therefore the GAME is OVER.";
@@ -256,7 +260,7 @@ public class Adventure {
             return descriptionRandomizer();
     }
 
-    public static String descriptionRandomizer() {
+    public String descriptionRandomizer() {
         Random random = new Random();
         int answerRandomizer = random.nextInt(7) + 1;
         if (answerRandomizer == 1) {
@@ -279,7 +283,7 @@ public class Adventure {
     }
 
 
-    public static String combineItems(Item item1, Item item2) {
+    public String combineItems(Item item1, Item item2) {
         String result = null;
         if ((item1 == null) || (item2 == null)) {
             result = " you haven't given me to item names, try combine again";
@@ -299,7 +303,7 @@ public class Adventure {
         return result;
     }
 
-    public static Item findItemByName(String itemName) {
+    public Item findItemByName(String itemName) {
         for (int i = 0; i < player.inventory.size(); i++) {
             Item currentItem = player.inventory.get(i);
             if (currentItem.getItemName().equals(itemName)) {
@@ -309,7 +313,7 @@ public class Adventure {
         return null;
     }
 
-    public static boolean removeItemForCombination(String itemName) {
+    public boolean removeItemForCombination(String itemName) {
         boolean found = false;
         for (int i = 0; i < player.inventory.size(); i++) {
             Item currentItem = player.inventory.get(i);
