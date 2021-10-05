@@ -87,7 +87,7 @@ public class Map {
 //Elementer og deres beskrivelse.
         Item water = new Item("water", "a very important substance.");
         Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire.");
-        Item laserGun = new Item("laser gun", "a friendly entity has offered you this laser gun.");
+        Item laserGun = new Item("laser geun", "a friendly entity has offered you this laser gun.");
         Item molbydenum = new Item("molybdenum", "honestly, at this point we're just making stuff up.");
         Item neptunium = new Item("neptunium", "an element that can be found on Neptune.");
         Item uran = new Item("uran", "an element that can be found on Uranus.");

@@ -269,7 +269,7 @@ public class Adventure {
             return "Once again we are back on " + spaceMap.currentRoom.getROOM_NAME();
         }
         if (answerRandomizer == 4) {
-            return "Blah. blah. blah. " + spaceMap.currentRoom.getROOM_NAME() + "Items " + formatting.getStringsCapitalized(spaceMap.currentRoom.getRoomItemsName()) + "blah. blah.";
+            return "Blah. blah. blah. " + spaceMap.currentRoom.getROOM_NAME() + formatting.getStringsCapitalized(spaceMap.currentRoom.getRoomItemsName()) + " blah. blah.";
         }
         if (answerRandomizer == 5) {
             return "Keep getting back to " + spaceMap.currentRoom.getROOM_NAME() + "Maybe we should just stay here?";
