@@ -116,7 +116,7 @@ public class Map {
 
         //Items der skal være i spillerens inventory før spillet kan slutte.
         this.finalItem = workingRadio;
-        this.secondFinalItem = boron;
+        //this.secondFinalItem = boron;
 
         //put batteries in random room
         //batterierne skal aldring ligge på solen ellers saturn, derfor er de ikke med i denne ligning
