@@ -43,6 +43,7 @@ public class Player {
         this.health=health+healthPoint;
         return "You added "+healthPoint+" points\n"+getHealth();
     }
-
+//TODO: tilføj attack
+    //TODO:tilføj hit
 }
 

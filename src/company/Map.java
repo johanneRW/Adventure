@@ -87,7 +87,7 @@ public class Map {
 
 //item der kan laves af to andre items
         this.workingRadio = new Item("working radio", "now you have added batteries, you can call back to headquarters.");
-
+//TODO: nogle af vores items skal laves om til food og våben.
 //Elementer og deres beskrivelse.
         Item water = new Item("water", "a very important substance.");
         Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire.");
