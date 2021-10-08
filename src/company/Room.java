@@ -14,6 +14,7 @@ public class Room {
     private Room connectionSouth;
     public ArrayList<Item> items;
     private int roomCount;
+    private Enemy enemy;
 
     //Vi opretter et rum der har mulighed for fire forbindelser, uden at lave forbindelserne endnu, derfor er de sat til null
     public Room(String roomName, String roomDescription, String roomHelp) {
@@ -26,6 +27,7 @@ public class Room {
         this.connectionSouth = null;
         this.items = new ArrayList<>();
         this.roomCount = 0;
+        this.enemy = null;
     }
 
     // Opret en forbindelse til et andet rum, når der bliver oprettet en forbindelse i en retning,
@@ -103,6 +105,18 @@ public class Room {
         return ROOM_HELP;
     }
 
+    public void putEnemyInRoom(Enemy enemy) {
+        Room currentRoom = this;
+        this.enemy = enemy ;
+    }
+    public void removeEnemyFromRoom() {
+        Room currentRoom = this;
+        this.enemy = null;
+    }
+
+    public Enemy getEnemy(){
+        return enemy;
+}
    /* @Override
     public String toString() {
         return ROOM_NAME;

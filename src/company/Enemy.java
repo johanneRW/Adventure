@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Enemy {
 
-    private Map spaceMap = new Map();
     public ArrayList<Item> enemyInventory;
     private String enemieName;
     public Room currentRoom;
@@ -12,10 +11,10 @@ public class Enemy {
     private Weapon weaponName;
     private boolean isDead;
 
-    public Enemy(String enemyName, int health, Weapon weaponName, Room currentRoom) {
+    public Enemy(String enemyName, int health, Weapon weaponName) {
         this.isDead = isDead;
         isDead = false;
-        this.enemyInventory = enemyInventory;
+        this.enemyInventory = new ArrayList<>();
         enemyInventory.add(weaponName);
         this.enemieName = enemieName;
         this.currentRoom = currentRoom;
@@ -23,23 +22,25 @@ public class Enemy {
         this.weaponName = weaponName;
 
     }
-
-    public boolean checkIsDead() {
-        if (health < 1) {
-            isDead = true;
-            dropItem();
-            currentRoom.items.add(weaponName);
-        } else {
-            isDead = false;
-        }
-        return isDead;
-    }
-    public Room getEnemyCurrentRoom(){
-        return currentRoom;
+    public Weapon getWeaponName(){
+        return weaponName;
     }
 
-    public int getHealth(){
+    public int getEnemyHealth(){
         return health;
+    }
+
+    public int loseHealth(int healthPoint) {
+        this.health = health - healthPoint;
+        return getEnemyHealth();
+    }
+
+
+
+
+    public Enemy getEnemyCurrentRoom(){
+        Enemy enemy =currentRoom.getEnemy();
+        return enemy;
     }
 }
 //TODO:oprette en enemy der har et fast våben

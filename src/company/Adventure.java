@@ -80,7 +80,7 @@ public class Adventure {
             } else if (command.equals("look") || command.equals("l")) {
                 String result = requestLook();
                 System.out.println(result);
-            } else if (command.equals("inventory") || command.equals("i") || command.equals("in")||command.equals("inv")){
+            } else if (command.equals("inventory") || command.equals("i") || command.equals("in") || command.equals("inv")) {
                 System.out.println(getInventoryWhitDescription());
             } else if (command.equals("help") || command.equals("h")) {
                 String question = askPlayer("help");
@@ -95,7 +95,7 @@ public class Adventure {
                 String exit = requestExit(answer);
                 System.out.println(exit);
             } else if (command.equals("combine")) {
-                System.out.println(getInventory()+
+                System.out.println(getInventory() +
                         "\nType in the name of the first item, which you want to combine:");
                 String itemName1 = getPlayerReply();
                 Item item1 = findItemByName(player.inventory, itemName1);
@@ -105,9 +105,10 @@ public class Adventure {
                 String result = combineItems(item1, item2);
                 System.out.println(result);
                 checkIfFinal();
-                if(checkIfFinal()){
-                    System.out.println("\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");}
-                if(!checkIfFinal()){
+                if (checkIfFinal()) {
+                    System.out.println("\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");
+                }
+                if (!checkIfFinal()) {
                     System.out.println("\n" + getInventory());
                 }//TODO: tilføj kommandoer: health, eat, equip og attack
             } else {
@@ -188,11 +189,11 @@ public class Adventure {
     }
 
     public String enteringRoom() {
-        String roomIntroduction="You are on " + player.currentRoom.getROOM_NAME() + player.currentRoom.getROOM_DESCRIPTION();
+        String roomIntroduction = "You are on " + player.currentRoom.getROOM_NAME() + player.currentRoom.getROOM_DESCRIPTION();
         if (checkIfGameOver()) {
-            return roomIntroduction+ "\nUnfortunately you burned up and therefore the GAME is OVER.";
+            return roomIntroduction + "\nUnfortunately you burned up and therefore the GAME is OVER.";
         } else if (checkIfFinal()) {
-            return roomIntroduction+ "\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.";
+            return roomIntroduction + "\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.";
         } else if ((player.currentRoom.getRoomCount() == 0) || (player.currentRoom.getRoomCount() == 1) || (player.currentRoom.getRoomCount() == 4)) {
             return roomIntroduction + getRoomItemDescription();
         } else
@@ -405,24 +406,60 @@ public class Adventure {
 
     Dette er den grundlæggende attack-sekvens – I er velkomne til at gøre den mere avanceret :)*/
 
-    public boolean attack(){
-        if (player.currentRoom.equals(spaceMap.enemy.currentRoom){
-            player.hit(player.getCurrentWeapon());
-            enemy.isDead();
-            if(!isDead){
-            enemy.getHealt();}
+    public void attack() {
+        if (player.currentRoom.getEnemy() != null) {
+            Enemy enemy = player.currentRoom.getEnemy();
 
-           else{ player.getHealth();}
-           enemy.hit(enemy.getWeapon());
-           player.isPlayerDead();
-           player.getHealth();
+            hitEnemy(player.getCurrentWeapon(), enemy);
+            if (checkIsEnemyDead()== false) {
+                Weapon weaponName =enemy.getWeaponName();
+                playerTakeHit(weaponName);
+
+            }
         }
     }
 
-public int hit(){
+    public void hitEnemy(Weapon weapon, Enemy enemy) {
+        int damage = weapon.getDamage();
+        enemy.loseHealth(damage);
+        enemy.getEnemyHealth();
+        checkIsEnemyDead();
+    }
 
-}
-}
+
+    public void playerTakeHit(Weapon weapon) {
+            int damage = weapon.getDamage();
+            player.loseHealth(damage);
+            player.getHealth();
+            isPlayerDead();
+
+
+        }
+
+
+    public boolean checkIsEnemyDead() {
+        boolean isDead;
+        Enemy enemy=player.currentRoom.getEnemy();
+        if (enemy.getEnemyHealth()< 1) {
+            isDead = true;
+            Weapon weapon= enemy.getWeaponName();
+            dropItem(weapon.getItemName());
+            findItemByName(enemy.enemyInventory, weapon.getItemName());
+            player.currentRoom.items.add(weapon);
+            player.currentRoom.removeEnemyFromRoom();
+        } else {
+            isDead = false;
+        }
+        return isDead;
+    }
+
+    public boolean isPlayerDead() {
+        boolean isDead;
+        if (player.getHealth()< 0) {
+            gameRunning = false;
+            isDead= true;
+        }else {isDead= false;}
+    return isDead;}}
 
 
 

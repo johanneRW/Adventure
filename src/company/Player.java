@@ -32,8 +32,8 @@ public class Player {
         this.health=health+healthPoint;
     }
 
-    public String getHealth(){
-        return "Your health is "+health+" health-points.";
+    public int getHealth(){
+        return health;
     }
 
     public String loseHealth(int healthPoint){
@@ -49,12 +49,7 @@ public class Player {
         return currentWeapon;
     }
 
-    public boolean isPlayerDead() {
-        if (health < 0) {
-            gameRunning = false;
-        return true;
-    }else {return false;}
-    }
+
     //TODO:metode til at skifte våben.
 //TODO: tilføj attack
     //TODO:tilføj hit

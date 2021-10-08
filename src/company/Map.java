@@ -144,9 +144,11 @@ public class Map {
             uranus9.putItemInRoom(batteries);
         }
 
-Weapon weaponTest=new MeleeWeapon("placeholder", "placeholder", 4, 5);
+Weapon weaponTest=new MeleeWeapon("testVåben", "placeholder", 4, 5);
 
-        Enemy testEnemy = new Enemy("test", 3, weaponTest, mars8);
+        Enemy testEnemy = new Enemy("test", 3, weaponTest);
+        //placer enemy i rum
+        mars8.putEnemyInRoom(testEnemy);
     }
 
     public Room getGameOverRoom() {
