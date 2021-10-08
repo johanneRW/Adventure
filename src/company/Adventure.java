@@ -1,5 +1,6 @@
 package company;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -49,7 +50,7 @@ public class Adventure {
                 String result = pickUpItem(itemName);
                 System.out.println(result);
             } else if ((itemName != null) && (command.equals("drop") || command.equals("d"))) {
-                String result = dropItem(itemName);
+                String result = dropItem(player.inventory, itemName);
                 System.out.println(result);
                 // jeg har ladet vores første udgave af take og drop blive, så man kan samle op og efterlade items på flere måder.
             } else if ((itemName == null) && (command.equals("take") || command.equals("t"))) {
@@ -62,7 +63,7 @@ public class Adventure {
                 String question = askPlayer("drop");
                 System.out.println(question);
                 itemName = getPlayerReply();
-                String result = dropItem(itemName);
+                String result = dropItem(player.inventory, itemName);
                 System.out.println(result);
                 //har fjernet "go" fra equals, da substring nu sortere ordet fra, og det derfor aldrig vil blive brugt.
             } else if (command.equals("n") || command.equals("north")) {
@@ -111,6 +112,13 @@ public class Adventure {
                 if (!checkIfFinal()) {
                     System.out.println("\n" + getInventory());
                 }//TODO: tilføj kommandoer: health, eat, equip og attack
+            } else if (command.equals("attack")) {
+                attack();
+            } else if (command.equals("equip")) {
+                System.out.println("which weapon do you want to use?");
+                String weaponName = getPlayerReply();
+                equipPlayer(weaponName);
+                //TODO: der skal være et output, så spiller ved at det er sket
             } else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
@@ -343,12 +351,12 @@ public class Adventure {
         }
     }
 
-    public String dropItem(String itemName) {
-        Item foundItem = findItemByName(player.inventory, itemName);
+    public String dropItem(ArrayList<Item> list, String itemName) {
+        Item foundItem = findItemByName(list, itemName);
         if (foundItem == null) {
             return "Can't find a \"" + itemName + "\" in your inventory";
         } else {
-            removeItem(player.inventory, itemName);
+            removeItem(list, itemName);
             player.currentRoom.items.add(foundItem);
             return getStringsCapitalized(itemName) + " is placed carefully on " + player.currentRoom.getROOM_NAME() + "\n" + getInventory();
         }
@@ -392,61 +400,79 @@ public class Adventure {
 
 
 
-    /*Attack er endnu mere kompliceret – hvis der ikke angives et navn, angribes den nærmeste fjende i rummet, hvis der ikke er nogle fjender i rummet, angribes den tomme luft. Men for eksempel skydevåben har et begrænset antal skud i sig, og prøver man at angribe med et tømt våben, skal man have at vide at det mislykkes. Hvis man ikke har et våben “equipped” skal man også få at vide at det mislykkes.
-
+    /*Attack er endnu mere kompliceret – hvis der ikke angives et navn, angribes den nærmeste fjende i rummet, hvis der ikke er nogle fjender i rummet, angribes den tomme luft.
+    Men for eksempel skydevåben har et begrænset antal skud i sig, og prøver man at angribe med et tømt våben, skal man have at vide at det mislykkes.
+    Hvis man ikke har et våben “equipped” skal man også få at vide at det mislykkes.
     Attack af fjender er endnu, endnu mere kompliceret – så her følger en detaljeret gennemgang af hvad der skal foregå:
-
     Først angribes fjenden med det våben som spilleren har equippet. Fjenden mister health svarende til den damage våbenet giver
-
-    Derefter angriber fjenden spilleren – det sker med det samme, og spilleren kan ikke nå at flygte ud af rummet, selv ikke hvis der er angrebet med et langdistance våben. Fjenden er også udstyret med et våben, og spilleren mister health svarende til den damage dét våben giver.
-
-    Forudsat at begge parter stadig er i live, er attack-sekvensen sådan set ovre – og spilleren kan vælge at gå ud af rummet eller skifte våben, eller attack’e igen. Fjender angriber ikke uprovokeret (i hvert fald ikke i grundversionen)
-
+    Derefter angriber fjenden spilleren – det sker med det samme, og spilleren kan ikke nå at flygte ud af rummet, selv ikke hvis der er angrebet med et langdistance våben.
+    Fjenden er også udstyret med et våben, og spilleren mister health svarende til den damage dét våben giver.
+    Forudsat at begge parter stadig er i live, er attack-sekvensen sådan set ovre – og spilleren kan vælge at gå ud af rummet eller skifte våben, eller attack’e igen.
+    Fjender angriber ikke uprovokeret (i hvert fald ikke i grundversionen)
     Hvis fjenden mister al sin health, dør vedkommende, og drop’er sit våben (som spilleren efterfølgende kan samle op), og forsvinder selv fra rummet – måske efterlader den et lig i form af et item, som spilleren også kan samle op.
-
     Dette er den grundlæggende attack-sekvens – I er velkomne til at gøre den mere avanceret :)*/
 
-    public void attack() {
-        if (player.currentRoom.getEnemy() != null) {
-            Enemy enemy = player.currentRoom.getEnemy();
-
-            hitEnemy(player.getCurrentWeapon(), enemy);
-            if (checkIsEnemyDead()== false) {
-                Weapon weaponName =enemy.getWeaponName();
-                playerTakeHit(weaponName);
-
-            }
+    public void equipPlayer(String weaponName) {
+        Item foundItem = findItemByName(player.inventory, weaponName);
+        if (foundItem == null) {
+            foundItem = findItemByName(player.currentRoom.items, weaponName);
         }
+        player.setCurrentWeapon((Weapon) foundItem);
+        System.out.println("weapons in hands: " + foundItem);
     }
 
-    public void hitEnemy(Weapon weapon, Enemy enemy) {
+    public void attack() {
+        if (player.getCurrentWeapon() != null) {
+            if (player.currentRoom.getEnemy() != null) {
+                Enemy enemy = player.currentRoom.getEnemy();
+
+                System.out.println("hitting enemy");
+                boolean enemyDead = hitEnemy(player.getCurrentWeapon(), enemy);
+                if (!enemyDead) {
+                    Weapon weaponName = enemy.getWeaponName();
+                    playerTakeHit(weaponName);
+                }
+            } else System.out.println("ther doesn't seems to be anyone to attack");
+        } else System.out.println("you haven't got any weapons");
+    }
+
+    public boolean hitEnemy(Weapon weapon, Enemy enemy) {
         int damage = weapon.getDamage();
         enemy.loseHealth(damage);
-        enemy.getEnemyHealth();
-        checkIsEnemyDead();
+        //checkIsEnemyDead();
+        if (checkIsEnemyDead() == true) {
+            System.out.println("you won the battle!");
+            return true;
+        } else {
+            enemy.getEnemyHealth();
+            System.out.println("enemys health: " + enemy.getEnemyHealth());
+            return false;
+        }
     }
 
 
     public void playerTakeHit(Weapon weapon) {
+        if (player.currentRoom.getEnemy() != null) {
             int damage = weapon.getDamage();
             player.loseHealth(damage);
             player.getHealth();
             isPlayerDead();
+            System.out.println("enemy hit you, your health is: " + player.getHealth());
+        } else System.out.println("you have won");
 
 
-        }
+    }
 
 
     public boolean checkIsEnemyDead() {
         boolean isDead;
-        Enemy enemy=player.currentRoom.getEnemy();
-        if (enemy.getEnemyHealth()< 1) {
-            isDead = true;
-            Weapon weapon= enemy.getWeaponName();
-            dropItem(weapon.getItemName());
+        Enemy enemy = player.currentRoom.getEnemy();
+        if (enemy.getEnemyHealth() < 1) {
+            Weapon weapon = enemy.getWeaponName();
+            dropItem(enemy.enemyInventory, weapon.getItemName());
             findItemByName(enemy.enemyInventory, weapon.getItemName());
-            player.currentRoom.items.add(weapon);
             player.currentRoom.removeEnemyFromRoom();
+            isDead = true;
         } else {
             isDead = false;
         }
@@ -455,11 +481,15 @@ public class Adventure {
 
     public boolean isPlayerDead() {
         boolean isDead;
-        if (player.getHealth()< 0) {
+        if (player.getHealth() < 0) {
             gameRunning = false;
-            isDead= true;
-        }else {isDead= false;}
-    return isDead;}}
+            isDead = true;
+        } else {
+            isDead = false;
+        }
+        return isDead;
+    }
+}
 
 
 

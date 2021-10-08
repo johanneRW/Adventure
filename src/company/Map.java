@@ -13,7 +13,7 @@ public class Map {
     private Room currentRoom;
     private Room startRoom;
 
-    public Map () {
+    public Map() {
 
         //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
 
@@ -144,11 +144,13 @@ public class Map {
             uranus9.putItemInRoom(batteries);
         }
 
-Weapon weaponTest=new MeleeWeapon("testVåben", "placeholder", 4, 5);
+        Weapon weaponTest = new MeleeWeapon("testvåben", "placeholder", 4, 5);
+        Weapon weaponTest2 = new MeleeWeapon("testvåben2", "placeholder", 7, 5);
 
-        Enemy testEnemy = new Enemy("test", 3, weaponTest);
+        Enemy testEnemy = new Enemy("test", 10, weaponTest);
         //placer enemy i rum
         mars8.putEnemyInRoom(testEnemy);
+        theEarth1.putItemInRoom(weaponTest2);
     }
 
     public Room getGameOverRoom() {
@@ -171,8 +173,8 @@ Weapon weaponTest=new MeleeWeapon("testVåben", "placeholder", 4, 5);
         return workingRadio;
     }
 
-    public Room getStartRoom()
-    {return startRoom;
+    public Room getStartRoom() {
+        return startRoom;
     }
 }
 

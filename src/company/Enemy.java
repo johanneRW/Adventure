@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Enemy {
 
     public ArrayList<Item> enemyInventory;
-    private String enemieName;
+    private String enemyName;
     public Room currentRoom;
     private int health;
     private Weapon weaponName;
@@ -16,33 +16,39 @@ public class Enemy {
         isDead = false;
         this.enemyInventory = new ArrayList<>();
         enemyInventory.add(weaponName);
-        this.enemieName = enemieName;
+        this.enemyName = enemyName;
         this.currentRoom = currentRoom;
         this.health = health;
         this.weaponName = weaponName;
 
     }
-    public Weapon getWeaponName(){
+
+    public Weapon getWeaponName() {
         return weaponName;
     }
 
-    public int getEnemyHealth(){
+    public int getEnemyHealth() {
         return health;
     }
 
     public int loseHealth(int healthPoint) {
         this.health = health - healthPoint;
-        return getEnemyHealth();
+        return health;
     }
 
 
-
-
-    public Enemy getEnemyCurrentRoom(){
-        Enemy enemy =currentRoom.getEnemy();
+    public Enemy getEnemyCurrentRoom() {
+        Enemy enemy = currentRoom.getEnemy();
         return enemy;
     }
+
+    @Override
+    public String toString() {
+        return "\nOther lifeforms on this planet: " + enemyName;
+    }
 }
+
+
 //TODO:oprette en enemy der har et fast våben
 //TODO: når enemies dør skal våbenet ligges i rummet.
 //TODO: Våbnet skal fungere som et Item. dvs. det skal kunne samles op når enemies er død

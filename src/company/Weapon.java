@@ -1,12 +1,12 @@
 package company;
 
-public abstract class Weapon extends Item{
+public abstract class Weapon extends Item {
     private int damage;
     private int ammo;
     protected boolean isMeleeWeapon;
 
-    public Weapon(String itemName, String itemDescription, int damage, int ammo){
-        super(itemName,itemDescription);
+    public Weapon(String itemName, String itemDescription, int damage, int ammo) {
+        super(itemName, itemDescription);
         this.damage = damage;
         this.ammo = ammo;
         this.isMeleeWeapon = false;
@@ -35,5 +35,9 @@ public abstract class Weapon extends Item{
 
     }
 
+    @Override
+    public String toString() {
+        return getItemName();
 
+    }
 }

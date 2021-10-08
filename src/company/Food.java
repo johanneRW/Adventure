@@ -1,19 +1,19 @@
 package company;
 
-public class Food extends Item{
+public class Food extends Item {
 
     private int healthPoints;
 
     public Food(String itemName, String itemDescription, int healthPoints) {
-        super(itemName,itemDescription);
+        super(itemName, itemDescription);
         this.healthPoints = healthPoints;
     }
 
-    public int getHealthPoints(){
+    public int getHealthPoints() {
         return healthPoints;
     }
 
-    public  void setHealthPoints(){
+    public void setHealthPoints() {
         this.healthPoints = healthPoints;
     }
 

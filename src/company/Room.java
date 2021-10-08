@@ -92,9 +92,10 @@ public class Room {
         return connectionWest;
     }
 
-    //Der skal laves beskrivelser af alle rum, så der kan printes en beskrivelse ud ved kommando look
     public String getROOM_DESCRIPTION() {
-        return ROOM_DESCRIPTION;
+        if(enemy==null) {
+        return ROOM_DESCRIPTION; }
+        else return ROOM_DESCRIPTION +enemy;
     }
 
     public String getROOM_NAME() {

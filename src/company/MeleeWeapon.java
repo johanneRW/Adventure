@@ -1,9 +1,9 @@
 package company;
 
-public class MeleeWeapon extends Weapon{
+public class MeleeWeapon extends Weapon {
 
     public MeleeWeapon(String itemName, String itemDescription, int damage, int ammo) {
-        super(itemName,itemDescription,damage,ammo);
+        super(itemName, itemDescription, damage, ammo);
     }
 
     @Override
@@ -15,4 +15,6 @@ public class MeleeWeapon extends Weapon{
         }
         return true;
     }
+
+
 }
