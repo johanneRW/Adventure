@@ -1,9 +1,8 @@
 package company;
 
 public class Item {
-    //private Formatting formatting = new Formatting();
     private String itemName;
-    public String itemDescription;
+    private String itemDescription;
     private Item combination;
 
     public Item(String itemName, String itemDescription, Item combination) {

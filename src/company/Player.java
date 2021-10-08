@@ -7,6 +7,7 @@ public class Player {
     public ArrayList<Item> inventory;
     private String playerName;
     public Room currentRoom;
+    private int health;
     private Item radio = new Item("radio", "unfortunately it ran out of batteries...Better find some new.", spaceMap.getWorkingRadio());
 
 
@@ -16,6 +17,7 @@ public class Player {
         this.inventory = new ArrayList<>();
         inventory.add(radio);
         this.currentRoom=currentRoom;
+        this.health=health;
     }
 
     public Room getCurrentRoom(){
@@ -24,5 +26,23 @@ public class Player {
     public void setCurrentRoom(Room currentRoom){
         this.currentRoom=currentRoom;
     }
+
+    public void setHealth(int healthPoint){
+        this.health=health+healthPoint;
+    }
+
+    public String getHealth(){
+        return "Your health is "+health+" health-points.";
+    }
+
+    public String loseHealth(int healthPoint){
+        this.health= health-healthPoint;
+        return "You lost "+healthPoint+" points\n"+getHealth();
+    }
+    public String gainingHealth(int healthPoint){
+        this.health=health+healthPoint;
+        return "You added "+healthPoint+" points\n"+getHealth();
+    }
+
 }
 

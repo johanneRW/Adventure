@@ -14,6 +14,7 @@ public class Adventure {
 
 
     public void playGame() {
+        player.setHealth(10);
         player.setCurrentRoom(spaceMap.getStartRoom());
         System.out.println("Welcome to The Rediscovering of Pluto.\n\nIf you want to skip the introduction, type \"skip\" otherwise pres any button followed by enter");
         String reply = getPlayerReply();
@@ -172,14 +173,12 @@ public class Adventure {
         } else return null;
     }
 
-
     public boolean checkIfFinal() {
         if (player.currentRoom.equals(spaceMap.getFinalRoom()) && (findItemInInventory(spaceMap.getFinalItem().getItemName()))) {
             gameRunning = false;
             return true;
         } else return false;
     }
-
 
     public boolean checkIfGameOver() {
         if (player.currentRoom.equals(spaceMap.getGameOverRoom())) {
@@ -199,7 +198,6 @@ public class Adventure {
         } else
             return descriptionRandomizer();
     }
-
 
     public String descriptionRandomizer() {
         Random random = new Random();
@@ -222,7 +220,6 @@ public class Adventure {
         } else return "You are on " + player.currentRoom.getROOM_NAME() + player.currentRoom.getROOM_DESCRIPTION() +
                 getRoomItemDescription();
     }
-
 
     public String getStringsCapitalized(String string) {
         if (string.length() > 0) {

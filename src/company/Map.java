@@ -10,8 +10,8 @@ public class Map {
     private Item secondFinalItem;
     private Item workingRadio;
     private Room gameOverRoom;
-    public Room currentRoom;
-    public Room startRoom;
+    private Room currentRoom;
+    private Room startRoom;
 
     public Map () {
 
