@@ -83,7 +83,7 @@ public class Map {
         //Definer start-, slut- og game over-rum
         this.finalRoom = pluto5;
         this.gameOverRoom = theSun10;
-        this.startRoom=theEarth1;
+        this.startRoom = theEarth1;
 
 //item der kan laves af to andre items
         this.workingRadio = new Item("working radio", "now you have added batteries, you can call back to headquarters.");
@@ -143,6 +143,10 @@ public class Map {
         } else if (randomRoom == 8) {
             uranus9.putItemInRoom(batteries);
         }
+
+Weapon weaponTest=new MeleeWeapon("placeholder", "placeholder", 4, 5);
+
+        Enemy testEnemy = new Enemy("test", 3, weaponTest, mars8);
     }
 
     public Room getGameOverRoom() {

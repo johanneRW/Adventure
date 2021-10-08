@@ -27,14 +27,20 @@ public class Enemy {
     public boolean checkIsDead() {
         if (health < 1) {
             isDead = true;
+            dropItem();
             currentRoom.items.add(weaponName);
         } else {
             isDead = false;
         }
         return isDead;
     }
+    public Room getEnemyCurrentRoom(){
+        return currentRoom;
+    }
 
-
+    public int getHealth(){
+        return health;
+    }
 }
 //TODO:oprette en enemy der har et fast våben
 //TODO: når enemies dør skal våbenet ligges i rummet.

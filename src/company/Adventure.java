@@ -80,7 +80,7 @@ public class Adventure {
             } else if (command.equals("look") || command.equals("l")) {
                 String result = requestLook();
                 System.out.println(result);
-            } else if (command.equals("inventory") || command.equals("i") || command.equals("in")) {
+            } else if (command.equals("inventory") || command.equals("i") || command.equals("in")||command.equals("inv")){
                 System.out.println(getInventoryWhitDescription());
             } else if (command.equals("help") || command.equals("h")) {
                 String question = askPlayer("help");
@@ -109,7 +109,7 @@ public class Adventure {
                     System.out.println("\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");}
                 if(!checkIfFinal()){
                     System.out.println("\n" + getInventory());
-                }
+                }//TODO: tilføj kommandoer: health, eat, equip og attack
             } else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
@@ -389,6 +389,39 @@ public class Adventure {
     }
 
 
+
+
+    /*Attack er endnu mere kompliceret – hvis der ikke angives et navn, angribes den nærmeste fjende i rummet, hvis der ikke er nogle fjender i rummet, angribes den tomme luft. Men for eksempel skydevåben har et begrænset antal skud i sig, og prøver man at angribe med et tømt våben, skal man have at vide at det mislykkes. Hvis man ikke har et våben “equipped” skal man også få at vide at det mislykkes.
+
+    Attack af fjender er endnu, endnu mere kompliceret – så her følger en detaljeret gennemgang af hvad der skal foregå:
+
+    Først angribes fjenden med det våben som spilleren har equippet. Fjenden mister health svarende til den damage våbenet giver
+
+    Derefter angriber fjenden spilleren – det sker med det samme, og spilleren kan ikke nå at flygte ud af rummet, selv ikke hvis der er angrebet med et langdistance våben. Fjenden er også udstyret med et våben, og spilleren mister health svarende til den damage dét våben giver.
+
+    Forudsat at begge parter stadig er i live, er attack-sekvensen sådan set ovre – og spilleren kan vælge at gå ud af rummet eller skifte våben, eller attack’e igen. Fjender angriber ikke uprovokeret (i hvert fald ikke i grundversionen)
+
+    Hvis fjenden mister al sin health, dør vedkommende, og drop’er sit våben (som spilleren efterfølgende kan samle op), og forsvinder selv fra rummet – måske efterlader den et lig i form af et item, som spilleren også kan samle op.
+
+    Dette er den grundlæggende attack-sekvens – I er velkomne til at gøre den mere avanceret :)*/
+
+    public boolean attack(){
+        if (player.currentRoom.equals(spaceMap.enemy.currentRoom){
+            player.hit(player.getCurrentWeapon());
+            enemy.isDead();
+            if(!isDead){
+            enemy.getHealt();}
+
+           else{ player.getHealth();}
+           enemy.hit(enemy.getWeapon());
+           player.isPlayerDead();
+           player.getHealth();
+        }
+    }
+
+public int hit(){
+
+}
 }
 
 
