@@ -16,10 +16,6 @@ public class Item {
         this.itemDescription = itemDescription;
     }
 
-    public Item(String itemName) {
-        this.itemName = itemName;
-    }
-
     public String getItemName() {
         return itemName;
     }
