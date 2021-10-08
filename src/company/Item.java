@@ -1,7 +1,7 @@
 package company;
 
 public class Item {
-    private Formatting formatting = new Formatting();
+    //private Formatting formatting = new Formatting();
     private String itemName;
     public String itemDescription;
     private Item combination;
@@ -22,7 +22,6 @@ public class Item {
     }
 
     public String getItemName() {
-        formatting.getStringsCapitalized(itemName);
         return itemName;
     }
 
@@ -31,8 +30,7 @@ public class Item {
     }
 
     public String getItemNameAndDescription() {
-        String itemNameCapitalized = formatting.getStringsCapitalized(itemName);
-        return "\n" + itemNameCapitalized + ", " + itemDescription;
+        return "\n" + itemName + ", " + itemDescription;
     }
 
     public Item getCombination() {
@@ -40,6 +38,7 @@ public class Item {
     }
 
 }
+
 
 
 

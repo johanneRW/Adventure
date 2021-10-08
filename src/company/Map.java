@@ -3,14 +3,18 @@ package company;
 import java.util.Random;
 
 public class Map {
-    public Room currentRoom;
+
+
     private Room finalRoom;
     private Item finalItem;
     private Item secondFinalItem;
     private Item workingRadio;
     private Room gameOverRoom;
+    public Room currentRoom;
+    public Room startRoom;
 
-    public Map() {
+    public Map () {
+
         //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
 
         //De ønskede rum, beskrivelser og hjælpe-tekst.
@@ -77,9 +81,9 @@ public class Map {
         mars8.createConnectionSouth(saturn2);
 
         //Definer start-, slut- og game over-rum
-        this.currentRoom = theEarth1;
         this.finalRoom = pluto5;
         this.gameOverRoom = theSun10;
+        this.startRoom=theEarth1;
 
 //item der kan laves af to andre items
         this.workingRadio = new Item("working radio", "now you have added batteries, you can call back to headquarters.");
@@ -149,9 +153,9 @@ public class Map {
         return finalRoom;
     }
 
-    public Item getSecondFinalItem() {
+   /* public Item getSecondFinalItem() {
         return secondFinalItem;
-    }
+    }*/
 
     public Item getFinalItem() {
         return finalItem;
@@ -161,5 +165,11 @@ public class Map {
         return workingRadio;
     }
 
+    public Room getStartRoom()
+    {return startRoom;
+    }
 }
+
+
+
 

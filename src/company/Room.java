@@ -3,7 +3,6 @@ package company;
 import java.util.ArrayList;
 
 public class Room {
-    Formatting formatting = new Formatting();
 
     // rummets navn og beskrivelse ændres sig ikke undervejs, derfor er de final.
     private final String ROOM_NAME;
@@ -61,6 +60,20 @@ public class Room {
     }
 
     // Vi laver get-sætninger til at flytte rundt mellem rum, gemme de forbindelser vi har lavet i createDoor...
+
+    public void putItemInRoom(Item item) {
+        Room currentRoom = this;
+        currentRoom.items.add(item);
+    }
+
+    public void upDateRoomCount() {
+        this.roomCount++;
+    }
+
+    public int getRoomCount() {
+        return roomCount;
+    }
+
     public Room getConnectionNorth() {
         return connectionNorth;
     }
@@ -88,44 +101,6 @@ public class Room {
 
     public String getROOM_HELP() {
         return ROOM_HELP;
-    }
-
-    public void putItemInRoom(Item item) {
-        Room currentRoom = this;
-        currentRoom.items.add(item);
-    }
-
-    public void upDateRoomCount() {
-        this.roomCount++;
-    }
-
-    public int getRoomCount() {
-        return roomCount;
-    }
-
-
-    public String getRoomItemDescription() {
-        if (items.size() > 0) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < items.size(); i++) {
-                Item currentItem = items.get(i);
-                stringBuilder.append(formatting.getStringsCapitalized(currentItem.getItemName()) + ", " + currentItem.getItemDescription());
-                stringBuilder.append("\n");
-            }
-            return "\nItems on this planet: \n" + stringBuilder;
-        } else return "\nItems: There doesn't seem to be anything to take on this planet";
-    }
-
-    public String getRoomItemsName() {
-        if (items.size() > 0) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < items.size(); i++) {
-                Item currentItem = items.get(i);
-                stringBuilder.append(currentItem.getItemName());
-                stringBuilder.append(", ");
-            }
-            return "" + stringBuilder;
-        } else return "\nItems: There doesn't seem to be anything to take on this planet";
     }
 
    /* @Override
