@@ -3,6 +3,7 @@ package company;
 public abstract class Weapon extends Item {
     private int damage;
     protected boolean isMeleeWeapon;
+    private int ammoLeft;
 
     public Weapon(String itemName, String itemDescription, int damage) {
         super(itemName, itemDescription);
