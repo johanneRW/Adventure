@@ -14,6 +14,7 @@ public class Adventure {
     private Scanner input = new Scanner(System.in);
 
 
+
     public void playGame() {
         player.setHealth(10);
         player.setCurrentRoom(spaceMap.getStartRoom());
@@ -424,6 +425,8 @@ public class Adventure {
         player.setCurrentWeapon((Weapon) foundItem);
         System.out.println("weapons in hands: " + foundItem);
     }
+//TODO: skal virke med skyde våben.
+    //TODO: skal kunne attacke navngiven fjende, og den tomme luft
 
     public void attack() {
         if (player.getCurrentWeapon() != null) {
@@ -442,7 +445,7 @@ public class Adventure {
 
     public boolean hitEnemy(Weapon weapon, Enemy enemy) {
         int damage = weapon.getDamage();
-        enemy.loseHealth(damage);
+        enemy.changeInHealth(damage);
         //checkIsEnemyDead();
         if (checkIsEnemyDead() == true) {
             System.out.println("you won the battle!");
@@ -503,7 +506,7 @@ public class Adventure {
     }
 
     public String eat(String foodToEat) {
-        Food food = findFood("foodName");
+        Food food = findFood(foodToEat);
 
         if (food == null) {
             return "There is nothing you can eat here.";

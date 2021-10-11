@@ -4,6 +4,7 @@ public abstract class Weapon extends Item {
     private int damage;
     private int ammo;
     protected boolean isMeleeWeapon;
+    private int ammoLeft;
 
     public Weapon(String itemName, String itemDescription, int damage, int ammo) {
         super(itemName, itemDescription);

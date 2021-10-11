@@ -148,8 +148,8 @@ public class Map {
             uranus9.putItemInRoom(batteries);
         }
 
-        Weapon weaponTest = new MeleeWeapon("testvåben", "placeholder", 4, 5);
-        Weapon weaponTest2 = new MeleeWeapon("testvåben2", "placeholder", 7, 5);
+        Weapon weaponTest = new MeleeWeapon("testvåben", "placeholder", -4, 5);
+        Weapon weaponTest2 = new MeleeWeapon("testvåben2", "placeholder", -7, 5);
 
         Enemy testEnemy = new Enemy("test", 10, weaponTest);
         //placer enemy i rum

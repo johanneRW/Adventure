@@ -38,7 +38,7 @@ public class Player {
     }
 
     public String changeInHealth(int healthPoint) {
-        this.health = health - healthPoint;
+        this.health = health + healthPoint;
         String result = null;
         if (healthPoint < 0) {
             result = "You lost " + healthPoint + " points\n" + getHealth();

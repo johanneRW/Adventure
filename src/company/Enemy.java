@@ -31,8 +31,9 @@ public class Enemy {
         return health;
     }
 
-    public int loseHealth(int healthPoint) {
-        this.health = health - healthPoint;
+    public int changeInHealth(int healthPoint) {
+        this.health = health + healthPoint;
+
         return health;
     }
 
@@ -50,11 +51,6 @@ public class Enemy {
 
 
 //TODO:oprette en enemy der har et fast våben
-//TODO: når enemies dør skal våbenet ligges i rummet.
-//TODO: Våbnet skal fungere som et Item. dvs. det skal kunne samles op når enemies er død
-//TODO: attack metoder
-//TODO: hit metoder
-//TODO: enemies skal opdage når den er død.
 //TODO: skal det være bestemte items/våben der skal benyttes på forskellige enemies?
 
 
