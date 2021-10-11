@@ -119,6 +119,10 @@ public class Adventure {
                 String weaponName = getPlayerReply();
                 equipPlayer(weaponName);
                 //TODO: der skal være et output, så spiller ved at det er sket
+            } else if (command.equals("eat")) {
+                System.out.println("What do you want to eat?");
+                String foodToEat = getPlayerReply();
+                System.out.println(eat(foodToEat));
             } else {
                 //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                 System.out.println("I don't know how to \"" + command + "\", try typing something else");
@@ -454,7 +458,7 @@ public class Adventure {
     public void playerTakeHit(Weapon weapon) {
         if (player.currentRoom.getEnemy() != null) {
             int damage = weapon.getDamage();
-            player.loseHealth(damage);
+            player.changeInHealth(damage);
             player.getHealth();
             isPlayerDead();
             System.out.println("enemy hit you, your health is: " + player.getHealth());
@@ -490,19 +494,21 @@ public class Adventure {
         return isDead;
     }
 
-    public void findFood(String foodName){
-        Item foundFood = findItemByName(player.inventory, foodName);
+    public Food findFood(String foodName){
+        Food foundFood = (Food) findItemByName(player.inventory, foodName);
         if (foundFood == null) {
-            foundFood = findItemByName(player.currentRoom.items, foodName);
+            foundFood = (Food) findItemByName(player.currentRoom.items, foodName);
         }
+        return foundFood;
     }
 
-    public int eat() {
-        Item food = findFood(foodName);
-        if (food == null) {
-            System.out.println("There is nothing you can eat here.");
-        } else
+    public String eat(String foodToEat) {
+        Food food = findFood("foodName");
 
+        if (food == null) {
+            return "There is nothing you can eat here.";
+        } else
+            return player.changeInHealth(food.getHealthPoints());
     }
 }
 

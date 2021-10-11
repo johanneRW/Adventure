@@ -102,7 +102,11 @@ public class Map {
         Item nothing = new Item("nothing", "(comes from nothing)");
         Item cat = new Item("cat", "a four-legged creature far away from home.");
         Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System.");
-        Item tea = new Item("tea", "an oddly satisfying warm drink.");
+        Food tea = new Food("tea", "an oddly satisfying warm drink.", 10);
+        Food potato = new Food("rotten potato", "yuk", -3);
+
+        //test items
+        theEarth1.putItemInRoom(potato);
 
         //fordel de forskellige items på rum
         theEarth1.putItemInRoom(water);
