@@ -91,7 +91,7 @@ public class Map {
 //Elementer og deres beskrivelse.
         Item water = new Item("water", "a very important substance.");
         Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire.");
-        Item laserGun = new Item("laser geun", "a friendly entity has offered you this laser gun.");
+        MeleeWeapon laserGun = new MeleeWeapon("laser geun", "a friendly entity has offered you this laser gun.", 7);
         Item molbydenum = new Item("molybdenum", "honestly, at this point we're just making stuff up.");
         Item neptunium = new Item("neptunium", "an element that can be found on Neptune.");
         Item uran = new Item("uran", "an element that can be found on Uranus.");
@@ -102,11 +102,26 @@ public class Map {
         Item nothing = new Item("nothing", "(comes from nothing)");
         Item cat = new Item("cat", "a four-legged creature far away from home.");
         Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System.");
-        Food tea = new Food("tea", "an oddly satisfying warm drink.", 10);
+
         Food potato = new Food("rotten potato", "yuk", -3);
+        Food tea = new Food("tea", "an oddly satisfying warm drink.", 10);
+
+        Foods f1 = Foods.GOOD;
+
+        if(f1 == Foods.BAD) {
+            System.out.println("YUCK! You might lose health if you eat this.");
+        } else if (f1 == Foods.GOOD) {
+            System.out.println("Yummy, this food is good for you!");
+        } else if (f1 == Foods.CANNOTEAT) {
+            System.out.println("You cannot eat that.");
+        }
+
 
         //test items
+
         theEarth1.putItemInRoom(potato);
+
+
 
         //fordel de forskellige items på rum
         theEarth1.putItemInRoom(water);
@@ -148,8 +163,8 @@ public class Map {
             uranus9.putItemInRoom(batteries);
         }
 
-        Weapon weaponTest = new MeleeWeapon("testvåben", "placeholder", 4, 5);
-        Weapon weaponTest2 = new MeleeWeapon("testvåben2", "placeholder", 7, 5);
+        Weapon weaponTest = new MeleeWeapon("testvåben", "placeholder", -4);
+        Weapon weaponTest2 = new ShootingWeapon("testvåben2", "placeholder", -7, 5);
 
         Enemy testEnemy = new Enemy("test", 10, weaponTest);
         //placer enemy i rum

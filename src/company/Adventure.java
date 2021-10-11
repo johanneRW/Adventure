@@ -36,98 +36,108 @@ public class Adventure {
             command = command.toLowerCase();
 
             int firstSpace = command.indexOf(" ");
-            if (firstSpace > 0) {
-                String firstWordOfCommand = command.substring(0, firstSpace);
-                String secondWordOfCommand = command.substring(firstSpace + 1);
-                command = firstWordOfCommand;
-                itemName = secondWordOfCommand;
 
-                if (firstWordOfCommand.equals("go")) {
-                    command = secondWordOfCommand;
+            try {
+                if (firstSpace > 0) {
+                    String firstWordOfCommand = command.substring(0, firstSpace);
+                    String secondWordOfCommand = command.substring(firstSpace + 1);
+                    command = firstWordOfCommand;
+                    itemName = secondWordOfCommand;
+
+                    if (firstWordOfCommand.equals("go")) {
+                        command = secondWordOfCommand;
+                    }
+                }
+                if ((itemName != null) && (command.equals("take") || command.equals("t"))) {
+                    String result = pickUpItem(itemName);
+                    System.out.println(result);
+                } else if ((itemName != null) && (command.equals("drop") || command.equals("d"))) {
+                    String result = dropItem(player.inventory, itemName);
+                    System.out.println(result);
+                    // jeg har ladet vores første udgave af take og drop blive, så man kan samle op og efterlade items på flere måder.
+                } else if ((itemName == null) && (command.equals("take") || command.equals("t"))) {
+                    String question = askPlayer("take");
+                    System.out.println(question);
+                    itemName = getPlayerReply();
+                    String result = pickUpItem(itemName);
+                    System.out.println(result);
+                } else if ((itemName == null) && command.equals("drop") || (command.equals("d"))) {
+                    String question = askPlayer("drop");
+                    System.out.println(question);
+                    itemName = getPlayerReply();
+                    String result = dropItem(player.inventory, itemName);
+                    System.out.println(result);
+                    //har fjernet "go" fra equals, da substring nu sortere ordet fra, og det derfor aldrig vil blive brugt.
+                } else if (command.equals("n") || command.equals("north")) {
+                    String result = requestDirection(player.currentRoom.getConnectionNorth(), "north");
+                    System.out.println(result);
+                } else if (command.equals("w") || command.equals("west")) {
+                    String result = requestDirection(player.currentRoom.getConnectionWest(), "west");
+                    System.out.println(result);
+                } else if (command.equals("e") || command.equals("east")) {
+                    String result = requestDirection(player.currentRoom.getConnectionEast(), "east");
+                    System.out.println(result);
+                } else if (command.equals("s") || command.equals("south")) {
+                    String result = requestDirection(player.currentRoom.getConnectionSouth(), "south");
+                    System.out.println(result);
+                } else if (command.equals("look") || command.equals("l")) {
+                    String result = requestLook();
+                    System.out.println(result);
+                } else if (command.equals("inventory") || command.equals("i") || command.equals("in") || command.equals("inv")) {
+                    System.out.println(getInventoryWhitDescription());
+                } else if (command.equals("help") || command.equals("h")) {
+                    String question = askPlayer("help");
+                    System.out.println(question);
+                    String answer = getPlayerReply();
+                    String help = requestHelp(answer);
+                    System.out.println(help);
+                } else if (command.equals("exit") || command.equals("q")) {
+                    String question = askPlayer("exit");
+                    System.out.println(question);
+                    String answer = getPlayerReply();
+                    String exit = requestExit(answer);
+                    System.out.println(exit);
+                } else if (command.equals("combine")) {
+                    System.out.println(getInventory() +
+                            "\nType in the name of the first item, which you want to combine:");
+                    String itemName1 = getPlayerReply();
+                    Item item1 = findItemByName(player.inventory, itemName1);
+                    System.out.println("Type in the name of the item you want to combine it with?");
+                    String itemName2 = getPlayerReply();
+                    Item item2 = findItemByName(player.inventory, itemName2);
+                    String result = combineItems(item1, item2);
+                    System.out.println(result);
+                    checkIfFinal();
+                    if (checkIfFinal()) {
+                        System.out.println("\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");
+                    }
+                    if (!checkIfFinal()) {
+                        System.out.println("\n" + getInventory());
+                    }
+                } else if (command.equals("attack")) {
+                    attack();
+                } else if (command.equals("equip")) {
+                    System.out.println("which weapon do you want to use?");
+                    String weaponName = getPlayerReply();
+                    equipPlayer(weaponName);
+                } else if (command.equals("eat")) {
+                    System.out.println("What do you want to eat?");
+                    String foodToEat = getPlayerReply();
+                    System.out.println(eat(foodToEat));
+                } else if (command.equals("health")) {
+                    System.out.println("You have " + player.getHealth() + "healthpoints right now.");
+                } else {
+                    //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
+                    System.out.println("I don't know how to \"" + command + "\", try typing something else");
                 }
             }
-            if ((itemName != null) && (command.equals("take") || command.equals("t"))) {
-                String result = pickUpItem(itemName);
-                System.out.println(result);
-            } else if ((itemName != null) && (command.equals("drop") || command.equals("d"))) {
-                String result = dropItem(player.inventory, itemName);
-                System.out.println(result);
-                // jeg har ladet vores første udgave af take og drop blive, så man kan samle op og efterlade items på flere måder.
-            } else if ((itemName == null) && (command.equals("take") || command.equals("t"))) {
-                String question = askPlayer("take");
-                System.out.println(question);
-                itemName = getPlayerReply();
-                String result = pickUpItem(itemName);
-                System.out.println(result);
-            } else if ((itemName == null) && command.equals("drop") || (command.equals("d"))) {
-                String question = askPlayer("drop");
-                System.out.println(question);
-                itemName = getPlayerReply();
-                String result = dropItem(player.inventory, itemName);
-                System.out.println(result);
-                //har fjernet "go" fra equals, da substring nu sortere ordet fra, og det derfor aldrig vil blive brugt.
-            } else if (command.equals("n") || command.equals("north")) {
-                String result = requestDirection(player.currentRoom.getConnectionNorth(), "north");
-                System.out.println(result);
-            } else if (command.equals("w") || command.equals("west")) {
-                String result = requestDirection(player.currentRoom.getConnectionWest(), "west");
-                System.out.println(result);
-            } else if (command.equals("e") || command.equals("east")) {
-                String result = requestDirection(player.currentRoom.getConnectionEast(), "east");
-                System.out.println(result);
-            } else if (command.equals("s") || command.equals("south")) {
-                String result = requestDirection(player.currentRoom.getConnectionSouth(), "south");
-                System.out.println(result);
-            } else if (command.equals("look") || command.equals("l")) {
-                String result = requestLook();
-                System.out.println(result);
-            } else if (command.equals("inventory") || command.equals("i") || command.equals("in") || command.equals("inv")) {
-                System.out.println(getInventoryWhitDescription());
-            } else if (command.equals("help") || command.equals("h")) {
-                String question = askPlayer("help");
-                System.out.println(question);
-                String answer = getPlayerReply();
-                String help = requestHelp(answer);
-                System.out.println(help);
-            } else if (command.equals("exit") || command.equals("q")) {
-                String question = askPlayer("exit");
-                System.out.println(question);
-                String answer = getPlayerReply();
-                String exit = requestExit(answer);
-                System.out.println(exit);
-            } else if (command.equals("combine")) {
-                System.out.println(getInventory() +
-                        "\nType in the name of the first item, which you want to combine:");
-                String itemName1 = getPlayerReply();
-                Item item1 = findItemByName(player.inventory, itemName1);
-                System.out.println("Type in the name of the item you want to combine it with?");
-                String itemName2 = getPlayerReply();
-                Item item2 = findItemByName(player.inventory, itemName2);
-                String result = combineItems(item1, item2);
-                System.out.println(result);
-                checkIfFinal();
-                if (checkIfFinal()) {
-                    System.out.println("\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.");
-                }
-                if (!checkIfFinal()) {
-                    System.out.println("\n" + getInventory());
-                }//TODO: tilføj kommandoer: health, eat, equip og attack
-            } else if (command.equals("attack")) {
-                attack();
-            } else if (command.equals("equip")) {
-                System.out.println("which weapon do you want to use?");
-                String weaponName = getPlayerReply();
-                equipPlayer(weaponName);
-                //TODO: der skal være et output, så spiller ved at det er sket
-            } else if (command.equals("eat")) {
-                System.out.println("What do you want to eat?");
-                String foodToEat = getPlayerReply();
-                System.out.println(eat(foodToEat));
-            } else {
-                //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
-                System.out.println("I don't know how to \"" + command + "\", try typing something else");
+
+
+            catch(java.lang.ClassCastException e) {
+                System.out.println("You can't do that, try again with something else.");
             }
         }
+
     }
 
     public String requestDirection(Room requestedRoom, String directionName) {
@@ -401,21 +411,6 @@ public class Adventure {
         return result;
     }
 
-
-
-
-    /*Attack er endnu mere kompliceret – hvis der ikke angives et navn, angribes den nærmeste fjende i rummet, hvis der ikke er nogle fjender i rummet, angribes den tomme luft.
-    Men for eksempel skydevåben har et begrænset antal skud i sig, og prøver man at angribe med et tømt våben, skal man have at vide at det mislykkes.
-    Hvis man ikke har et våben “equipped” skal man også få at vide at det mislykkes.
-    Attack af fjender er endnu, endnu mere kompliceret – så her følger en detaljeret gennemgang af hvad der skal foregå:
-    Først angribes fjenden med det våben som spilleren har equippet. Fjenden mister health svarende til den damage våbenet giver
-    Derefter angriber fjenden spilleren – det sker med det samme, og spilleren kan ikke nå at flygte ud af rummet, selv ikke hvis der er angrebet med et langdistance våben.
-    Fjenden er også udstyret med et våben, og spilleren mister health svarende til den damage dét våben giver.
-    Forudsat at begge parter stadig er i live, er attack-sekvensen sådan set ovre – og spilleren kan vælge at gå ud af rummet eller skifte våben, eller attack’e igen.
-    Fjender angriber ikke uprovokeret (i hvert fald ikke i grundversionen)
-    Hvis fjenden mister al sin health, dør vedkommende, og drop’er sit våben (som spilleren efterfølgende kan samle op), og forsvinder selv fra rummet – måske efterlader den et lig i form af et item, som spilleren også kan samle op.
-    Dette er den grundlæggende attack-sekvens – I er velkomne til at gøre den mere avanceret :)*/
-
     public void equipPlayer(String weaponName) {
         Item foundItem = findItemByName(player.inventory, weaponName);
         if (foundItem == null) {
@@ -423,6 +418,12 @@ public class Adventure {
         }
         player.setCurrentWeapon((Weapon) foundItem);
         System.out.println("weapons in hands: " + foundItem);
+    }
+
+    public void unequipPlayer(String weaponName) {
+        Weapon currentweapon = null;
+        player.setCurrentWeapon(null);
+
     }
 
     public void attack() {
@@ -503,11 +504,12 @@ public class Adventure {
     }
 
     public String eat(String foodToEat) {
-        Food food = findFood("foodName");
+        Food food = findFood(foodToEat);
 
         if (food == null) {
             return "There is nothing you can eat here.";
         } else
+            removeItem(player.currentRoom.items, foodToEat);
             return player.changeInHealth(food.getHealthPoints());
     }
 }

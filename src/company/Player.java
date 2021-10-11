@@ -38,12 +38,12 @@ public class Player {
     }
 
     public String changeInHealth(int healthPoint) {
-        this.health = health - healthPoint;
+        this.health = health + healthPoint;
         String result = null;
         if (healthPoint < 0) {
-            result = "You lost " + healthPoint + " points\n" + getHealth();
+            result = "You lost " + healthPoint + " points\n" + "Now you have " + getHealth() + " health points";
         } else if (healthPoint > 0) {
-            result = "You added " + healthPoint + " points\n" + getHealth();
+            result = "You added " + healthPoint + " points\n" + "Now you have " + getHealth() + " health points";
         }
         return result;
     }
@@ -60,13 +60,6 @@ public class Player {
     }
 
     //TODO: equip og unequip metoder
-    public Item equipWeapon(Weapon weapon) {
-        return weapon;
-    }
-
-    public Item unequipWeapon(Weapon currentWeapon) {
-        return currentWeapon;
-    }
 
 
 //TODO: tilføj attack
