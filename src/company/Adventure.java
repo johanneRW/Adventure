@@ -489,6 +489,21 @@ public class Adventure {
         }
         return isDead;
     }
+
+    public void findFood(String foodName){
+        Item foundFood = findItemByName(player.inventory, foodName);
+        if (foundFood == null) {
+            foundFood = findItemByName(player.currentRoom.items, foodName);
+        }
+    }
+
+    public int eat() {
+        Item food = findFood(foodName);
+        if (food == null) {
+            System.out.println("There is nothing you can eat here.");
+        } else
+
+    }
 }
 
 
