@@ -14,7 +14,6 @@ public class Adventure {
     private Scanner input = new Scanner(System.in);
 
 
-
     public void playGame() {
         player.setHealth(10);
         player.setCurrentRoom(spaceMap.getStartRoom());
@@ -116,7 +115,8 @@ public class Adventure {
                         System.out.println("\n" + getInventory());
                     }
                 } else if (command.equals("attack")) {
-                    attack();
+                    String enemyName=getPlayerReply();
+                    attack(enemyName);
                 } else if (command.equals("equip")) {
                     System.out.println("which weapon do you want to use?");
                     String weaponName = getPlayerReply();
@@ -131,10 +131,7 @@ public class Adventure {
                     //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                     System.out.println("I don't know how to \"" + command + "\", try typing something else");
                 }
-            }
-
-
-            catch(java.lang.ClassCastException e) {
+            } catch (java.lang.ClassCastException e) {
                 System.out.println("You can't do that, try again with something else.");
             }
         }
@@ -417,43 +414,87 @@ public class Adventure {
         if (foundItem == null) {
             foundItem = findItemByName(player.currentRoom.items, weaponName);
         }
-        player.setCurrentWeapon((Weapon) foundItem);
-        System.out.println("weapons in hands: " + foundItem);
+
+        if ((foundItem != null) && foundItem instanceof ShootingWeapon) {
+            ShootingWeapon foundShootingWeapon = (ShootingWeapon) foundItem;
+            if (foundShootingWeapon.getAmmo() <= 0) {
+                System.out.println("There isn't any ammo left - you can't equip with this");
+                return;
+            }
+        }
+
+        if (player.getCurrentWeapon() == null) {
+            player.setCurrentWeapon((Weapon) foundItem);
+        } else {
+            if (findItemByName(player.inventory, player.getCurrentWeapon().getItemName()) == null) {
+                player.currentRoom.putItemInRoom(player.getCurrentWeapon());
+            }
+            player.setCurrentWeapon((Weapon) foundItem);
+        }
+        if (player.getCurrentWeapon() == null ) {
+            System.out.println("Can't equip whit " + weaponName +" it is out of ammo.");
+        } else System.out.println("Weapons in hand: " + foundItem);
+
     }
-//TODO: skal virke med skyde våben.
-    //TODO: skal kunne attacke navngiven fjende, og den tomme luft
-
-    public void unequipPlayer(String weaponName) {
-        Weapon currentweapon = null;
-        player.setCurrentWeapon(null);
-
+    public void attack(String enemyName) {
+        if (player.currentRoom.getEnemy() != null) {
+            if (player.currentRoom.getEnemy().getEnemyName() == enemyName) {
+                playerAttacks(player.currentRoom.getEnemy());
+            } else {
+                System.out.println("I don't know that name");
+            }
+        } else {
+            playerAttacks(null);
+        }
     }
 
-    public void attack() {
+    public void playerAttacks(Enemy enemy) {
         if (player.getCurrentWeapon() != null) {
-            if (player.currentRoom.getEnemy() != null) {
-                Enemy enemy = player.currentRoom.getEnemy();
-
-                System.out.println("hitting enemy");
-                boolean enemyDead = hitEnemy(player.getCurrentWeapon(), enemy);
-                if (!enemyDead) {
-                    Weapon weaponName = enemy.getWeaponName();
-                    playerTakeHit(weaponName);
+            if (player.getCurrentWeapon() instanceof MeleeWeapon) {
+                System.out.println("Hitting enemy...");
+                doAttack(enemy);
+            } else if (player.getCurrentWeapon() instanceof ShootingWeapon) {
+                ShootingWeapon shootingWeapon = ((ShootingWeapon) player.getCurrentWeapon());
+                if (shootingWeapon.getAmmo() > 0) {
+                    System.out.println("Shooting at enemy...");
+                    doAttack(enemy);
+                    shootingWeapon.useAmmo();
+                } else {
+                    System.out.println("You're out of ammo.");
+                    enemyAttack(enemy);
                 }
-            } else System.out.println("ther doesn't seems to be anyone to attack");
+            }
         } else System.out.println("you haven't got any weapons");
+    }
+
+    public void doAttack(Enemy enemy) {
+        if (enemy != null) {
+            boolean enemyDead = hitEnemy(player.getCurrentWeapon(), enemy);
+            if (!enemyDead) {
+                enemyAttack(enemy);
+            }
+        } else {
+            System.out.println("You attacked the empty air...What a hero!");
+        }
+    }
+
+    public void enemyAttack(Enemy enemy) {
+        if (enemy != null) {
+            Weapon weaponName = enemy.getWeaponName();
+            playerTakeHit(weaponName);
+        }else{
+            System.out.println("You're attacking the empty void, whit an empty weapon...Stupid");}
     }
 
     public boolean hitEnemy(Weapon weapon, Enemy enemy) {
         int damage = weapon.getDamage();
         enemy.changeInHealth(damage);
-        //checkIsEnemyDead();
         if (checkIsEnemyDead() == true) {
-            System.out.println("you won the battle!");
+            System.out.println("Your enemy is dead.\nYou won the battle!");
             return true;
         } else {
             enemy.getEnemyHealth();
-            System.out.println("enemys health: " + enemy.getEnemyHealth());
+            System.out.println("Enemys health: " + enemy.getEnemyHealth());
             return false;
         }
     }
@@ -465,8 +506,8 @@ public class Adventure {
             player.changeInHealth(damage);
             player.getHealth();
             isPlayerDead();
-            System.out.println("enemy hit you, your health is: " + player.getHealth());
-        } else System.out.println("you have won");
+            System.out.println("Enemy hit you!\n Your health is: " + player.getHealth());
+        } else System.out.println("You have won");
 
 
     }
@@ -498,24 +539,53 @@ public class Adventure {
         return isDead;
     }
 
-    public Food findFood(String foodName){
-        Food foundFood = (Food) findItemByName(player.inventory, foodName);
+    //TODO:spil skal slutte hvis spiller dør af at spise det forkerte
+
+    public Item findFoodItem(String itemName) {
+        Item foundFood = findItemByName(player.inventory, itemName);
         if (foundFood == null) {
-            foundFood = (Food) findItemByName(player.currentRoom.items, foodName);
+            foundFood = findItemByName(player.currentRoom.items, itemName);
         }
         return foundFood;
     }
 
     public String eat(String foodToEat) {
-        Food food = findFood(foodToEat);
+        Item item = findFoodItem(foodToEat);
 
-        if (food == null) {
+        if (item == null) {
             return "There is nothing you can eat here.";
-        } else
-            removeItem(player.currentRoom.items, foodToEat);
-            return player.changeInHealth(food.getHealthPoints());
+        } else {
+            doEat(item);
+            //TODO: flyt sout op hertil så doEat kun retunere status på enum
+        }return " test";
     }
-}
+
+    public EatEnum doEat(Item item) {
+        if (item instanceof Food) {
+            removeItem(player.currentRoom.items, item.getItemName());
+            removeItem(player.inventory, item.getItemName());
+            Food food = (Food) item;
+            player.changeInHealth(food.getHealthPoints());
+
+
+            int healthPoint = food.getHealthPoints();
+            if (food.getHealthPoints() < 0) {
+                System.out.println("You lost " + healthPoint + " points\n" + "Now you have "
+                        + player.getHealth() + " health points");
+                return EatEnum.BAD;
+            } else if (healthPoint > 0) {
+                System.out.println("You added " + healthPoint + " points\n" + "Now you have "
+                        + player.getHealth() + " health points");
+                return EatEnum.GOOD;
+            }
+        }
+        System.out.println("You cant eat this");
+       return EatEnum.INEDIBLE;
+
+
+    }}
+
+
 
 
 

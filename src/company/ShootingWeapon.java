@@ -12,6 +12,11 @@ public class ShootingWeapon extends Weapon{
         return ammo;
     }
 
+
+public void useAmmo(){
+        ammo--;
+    }
+
     public void setAmmo(int ammo) {
         this.ammo = ammo;
     }

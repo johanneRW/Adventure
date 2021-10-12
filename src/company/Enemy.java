@@ -23,6 +23,10 @@ public class Enemy {
 
     }
 
+    public String getEnemyName() {
+        return enemyName;
+    }
+
     public Weapon getWeaponName() {
         return weaponName;
     }
@@ -45,7 +49,7 @@ public class Enemy {
 
     @Override
     public String toString() {
-        return "\nOther lifeforms on this planet: " + enemyName;
+        return "\nOther lifeforms on this planet:\n " + enemyName;
     }
 }
 

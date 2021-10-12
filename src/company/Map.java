@@ -162,12 +162,16 @@ public class Map {
         }
 
         Weapon weaponTest = new MeleeWeapon("testvåben", "placeholder", -4);
-        Weapon weaponTest2 = new ShootingWeapon("testvåben2", "placeholder", -7, 5);
+        MeleeWeapon weaponTest2 = new MeleeWeapon("testvåben2", "placeholder", -7);
+        ShootingWeapon testSkyd = new ShootingWeapon("skyder","placeholder",-4,2);
 
-        Enemy testEnemy = new Enemy("test", 10, weaponTest);
+
+        Enemy enemy1 = new Enemy("enemy1", 10, weaponTest);
+        Enemy enemy2 = new Enemy("enemy2",15,weaponTest);
         //placer enemy i rum
-        mars8.putEnemyInRoom(testEnemy);
+        mars8.putEnemyInRoom(enemy1);
         theEarth1.putItemInRoom(weaponTest2);
+        theEarth1.putItemInRoom(testSkyd);
     }
 
     public Room getGameOverRoom() {
