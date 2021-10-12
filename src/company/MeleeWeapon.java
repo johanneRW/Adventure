@@ -6,7 +6,8 @@ public class MeleeWeapon extends Weapon {
         super(itemName, itemDescription, damage);
     }
 
-
-
-
+    @Override
+    public String getItemDescription() {
+        return super.getItemDescription();
+    }
 }
