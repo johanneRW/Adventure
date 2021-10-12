@@ -106,7 +106,7 @@ public class Map {
         Food potato = new Food("rotten potato", "yuk", -3);
         Food tea = new Food("tea", "an oddly satisfying warm drink.", 10);
 
-        Foods f1 = Foods.GOOD;
+      /*  Foods f1 = Foods.GOOD;
 
         if(f1 == Foods.BAD) {
             System.out.println("YUCK! You might lose health if you eat this.");
@@ -114,7 +114,7 @@ public class Map {
             System.out.println("Yummy, this food is good for you!");
         } else if (f1 == Foods.CANNOTEAT) {
             System.out.println("You cannot eat that.");
-        }
+        }*/
 
 
         //test items

@@ -2,6 +2,7 @@ package company;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -114,19 +115,28 @@ public class Adventure {
                     if (!checkIfFinal()) {
                         System.out.println("\n" + getInventory());
                     }
-                } else if (command.equals("attack")) {
-                    String enemyName=getPlayerReply();
+
+                } else if ((itemName != null) && (command.equals("attack"))) {
+                    attack(itemName);
+
+            } else if (command.equals("attack")) {
+                    String enemyName = getPlayerReply();
+                    System.out.println("Who do you want to attack?");
                     attack(enemyName);
+                }else if ((itemName != null) && (command.equals("equip"))){
+                    equipPlayer(itemName);
                 } else if (command.equals("equip")) {
                     System.out.println("which weapon do you want to use?");
                     String weaponName = getPlayerReply();
                     equipPlayer(weaponName);
+                }else if ((itemName != null) && (command.equals("eat"))){
+                    System.out.println(eat(itemName));
                 } else if (command.equals("eat")) {
                     System.out.println("What do you want to eat?");
                     String foodToEat = getPlayerReply();
                     System.out.println(eat(foodToEat));
                 } else if (command.equals("health")) {
-                    System.out.println("You have " + player.getHealth() + "healthpoints right now.");
+                    System.out.println("You have " + player.getHealth() + "health points right now.");
                 } else {
                     //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                     System.out.println("I don't know how to \"" + command + "\", try typing something else");
@@ -431,14 +441,15 @@ public class Adventure {
             }
             player.setCurrentWeapon((Weapon) foundItem);
         }
-        if (player.getCurrentWeapon() == null ) {
-            System.out.println("Can't equip whit " + weaponName +" it is out of ammo.");
+        if (player.getCurrentWeapon() == null) {
+            System.out.println("Can't equip whit " + weaponName + " it is out of ammo.");
         } else System.out.println("Weapons in hand: " + foundItem);
 
     }
+
     public void attack(String enemyName) {
         if (player.currentRoom.getEnemy() != null) {
-            if (player.currentRoom.getEnemy().getEnemyName() == enemyName) {
+            if (Objects.equals(player.currentRoom.getEnemy().getEnemyName(), enemyName)) {
                 playerAttacks(player.currentRoom.getEnemy());
             } else {
                 System.out.println("I don't know that name");
@@ -482,8 +493,9 @@ public class Adventure {
         if (enemy != null) {
             Weapon weaponName = enemy.getWeaponName();
             playerTakeHit(weaponName);
-        }else{
-            System.out.println("You're attacking the empty void, whit an empty weapon...Stupid");}
+        } else {
+            System.out.println("You're attacking the empty void, whit an empty weapon...Stupid");
+        }
     }
 
     public boolean hitEnemy(Weapon weapon, Enemy enemy) {
@@ -530,16 +542,16 @@ public class Adventure {
 
     public boolean isPlayerDead() {
         boolean isDead;
-        if (player.getHealth() < 0) {
+        if (player.getHealth() < 1) {
             gameRunning = false;
             isDead = true;
+            System.out.println("You have lost all of your health points. \n The GAME is OVER.");
         } else {
             isDead = false;
         }
         return isDead;
     }
 
-    //TODO:spil skal slutte hvis spiller dør af at spise det forkerte
 
     public Item findFoodItem(String itemName) {
         Item foundFood = findItemByName(player.inventory, itemName);
@@ -551,39 +563,44 @@ public class Adventure {
 
     public String eat(String foodToEat) {
         Item item = findFoodItem(foodToEat);
+        Food food = (Food) item;
+        String result = null;
 
         if (item == null) {
             return "There is nothing you can eat here.";
         } else {
             doEat(item);
-            //TODO: flyt sout op hertil så doEat kun retunere status på enum
-        }return " test";
+            if (doEat(item) == EatEnum.BAD) {
+                result = "You lost " + food.getHealthPoints() + " points\n" + "Now you have "
+                        + player.getHealth() + " health points";
+                isPlayerDead();
+            } else if (doEat(item) == EatEnum.GOOD) {
+                result = "You added " + food.getHealthPoints() + " points\n" + "Now you have "
+                        + player.getHealth() + " health points";
+            } else if ((doEat(item)) == EatEnum.INEDIBLE) {
+                result = "You can't eat this";
+            }
+        }
+        return result;
     }
 
+    //Virker som om at den ikke når ind på inedible, besked: You can't do that, try again with something else.
     public EatEnum doEat(Item item) {
         if (item instanceof Food) {
             removeItem(player.currentRoom.items, item.getItemName());
             removeItem(player.inventory, item.getItemName());
             Food food = (Food) item;
             player.changeInHealth(food.getHealthPoints());
-
-
             int healthPoint = food.getHealthPoints();
             if (food.getHealthPoints() < 0) {
-                System.out.println("You lost " + healthPoint + " points\n" + "Now you have "
-                        + player.getHealth() + " health points");
                 return EatEnum.BAD;
             } else if (healthPoint > 0) {
-                System.out.println("You added " + healthPoint + " points\n" + "Now you have "
-                        + player.getHealth() + " health points");
                 return EatEnum.GOOD;
             }
         }
-        System.out.println("You cant eat this");
-       return EatEnum.INEDIBLE;
-
-
-    }}
+        return EatEnum.INEDIBLE;
+    }
+}
 
 
 
