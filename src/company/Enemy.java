@@ -6,18 +6,17 @@ public class Enemy {
 
     public ArrayList<Item> enemyInventory;
     private String enemyName;
-    public Room currentRoom;
+    private String description;
     private int health;
     private Weapon weaponName;
     private boolean isDead;
 
-    public Enemy(String enemyName, int health, Weapon weaponName) {
-        this.isDead = isDead;
+    public Enemy(String enemyName, String description, int health, Weapon weaponName) {
         isDead = false;
+        this.description=description;
         this.enemyInventory = new ArrayList<>();
         enemyInventory.add(weaponName);
         this.enemyName = enemyName;
-        this.currentRoom = currentRoom;
         this.health = health;
         this.weaponName = weaponName;
 
@@ -42,20 +41,12 @@ public class Enemy {
     }
 
 
-    public Enemy getEnemyCurrentRoom() {
-        Enemy enemy = currentRoom.getEnemy();
-        return enemy;
-    }
-
     @Override
     public String toString() {
-        return "\nOther lifeforms on this planet:\n " + enemyName;
+        return "\nOther lifeforms on this planet:\n" + enemyName +", "+ description+
+                " Armed whit "+weaponName+", "+ weaponName.getItemDescription();
     }
 }
-
-
-//TODO:oprette en enemy der har et fast våben
-//TODO: skal det være bestemte items/våben der skal benyttes på forskellige enemies?
 
 
 

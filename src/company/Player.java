@@ -5,20 +5,16 @@ import java.util.ArrayList;
 public class Player {
     private Map spaceMap = new Map();
     public ArrayList<Item> inventory;
-    private String playerName;
-    public Room currentRoom;
+    private Room currentRoom;
     private int health;
     private Weapon currentWeapon;
     private Item radio = new Item("radio", "unfortunately it ran out of batteries...Better find some new.", spaceMap.getWorkingRadio());
 
 
-    //TODO: skal spilleren starte med et våben?
     //Spiller starter altid med en radio med når han/hun starter;
     public Player() {
         this.inventory = new ArrayList<>();
         inventory.add(radio);
-        this.currentRoom = currentRoom;
-        this.currentWeapon = currentWeapon;
     }
 
     public Room getCurrentRoom() {
@@ -42,7 +38,6 @@ public class Player {
     }
 
 
-
     public Weapon getCurrentWeapon() {
         return currentWeapon;
     }
@@ -52,5 +47,14 @@ public class Player {
 
     }
 
+    public boolean takeHit(Weapon weapon) {
+        if (currentRoom.getEnemy() != null) {
+            int damage = weapon.getDamage();
+            changeInHealth(damage);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 

@@ -95,7 +95,7 @@ public class Room {
     public String getROOM_DESCRIPTION() {
         if(enemy==null) {
         return ROOM_DESCRIPTION; }
-        else return ROOM_DESCRIPTION +enemy;
+        else return ROOM_DESCRIPTION+"\n" + enemy;
     }
 
     public String getROOM_NAME() {
@@ -118,11 +118,7 @@ public class Room {
     public Enemy getEnemy(){
         return enemy;
 }
-   /* @Override
-    public String toString() {
-        return ROOM_NAME;
-    }
-*/
+
 
 
     // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.

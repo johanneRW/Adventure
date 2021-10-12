@@ -10,10 +10,11 @@ public class ShootingWeapon extends Weapon{
 
     public int getAmmo() {
         return ammo;
+
     }
 
 
-public void useAmmo(){
+    public void useAmmo(){
         ammo--;
     }
 

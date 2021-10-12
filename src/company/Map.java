@@ -7,10 +7,8 @@ public class Map {
 
     private Room finalRoom;
     private Item finalItem;
-    private Item secondFinalItem;
     private Item workingRadio;
     private Room gameOverRoom;
-    private Room currentRoom;
     private Room startRoom;
 
     public Map() {
@@ -85,48 +83,39 @@ public class Map {
         this.gameOverRoom = theSun10;
         this.startRoom = theEarth1;
 
-//item der kan laves af to andre items
+        //item der kan laves af to andre items
         this.workingRadio = new Item("working radio", "now you have added batteries, you can call back to headquarters.");
-//TODO: nogle af vores items skal laves om til food og våben.
-//Elementer og deres beskrivelse.
-        Item water = new Item("water", "a very important substance.");
+
+        //Items og deres beskrivelse.
         Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire.");
-        Item laserGun = new Item("laser geun", "a friendly entity has offered you this laser gun.");
         Item molbydenum = new Item("molybdenum", "honestly, at this point we're just making stuff up.");
         Item neptunium = new Item("neptunium", "an element that can be found on Neptune.");
         Item uran = new Item("uran", "an element that can be found on Uranus.");
-        Item boron = new Item("boron", "an element that has been studied and experimented with, as a potential ingredient in organic medicine\n" +
-                "-Sounds like something worth having in your inventory.");
         Item plutonium = new Item("plutonium", "found on Pluto. Plutonium is the element with the highest atomic number to occur in nature.");
         Item batteries = new Item("batteries", "just some batteries, I wonder how they got on this planet.", workingRadio);
         Item nothing = new Item("nothing", "(comes from nothing)");
         Item cat = new Item("cat", "a four-legged creature far away from home.");
         Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System.");
-
+        //Food
         Food potato = new Food("rotten potato", "yuk", -3);
-        Food tea = new Food("tea", "an oddly satisfying warm drink.", 10);
+        Food tea = new Food("tea", "an oddly satisfying warm drink.", 5);
+        Food boron = new Food("boron", "an element that has been studied and experimented with, as a potential ingredient in organic medicine\n" +
+                "-Sounds like something worth having in your inventory.", 15);
+        Food water = new Food("water", "a very important substance.", 1);
+        Food catfood = new Food("cat food", "a small can of random fish bits. Quite smelly if I may say so.", -5);
+        Food chocolate = new Food("chocolate bar", "yummy snack.", 7);
 
-      /*  Foods f1 = Foods.GOOD;
+        //Weapon
+        MeleeWeapon axe = new MeleeWeapon("axe", "a bit odd, as it's not one of the most common things found in space.", -4);
+        MeleeWeapon knife = new MeleeWeapon("knife", "a sharp thing, often whit a handle.", -7);
+        MeleeWeapon bat = new MeleeWeapon("baseball bat", "wherever you are, there is always a sports-fanatic nearby.", -5);
+        MeleeWeapon lightSaber = new MeleeWeapon("light saber", "what else would it be?", -12);
+        ShootingWeapon pistol = new ShootingWeapon("pistol", "maybe a space-cowboy flew by and dropped it?", -4, 2);
+        ShootingWeapon laserGun = new ShootingWeapon("laser gun", "a friendly entity has offered you this laser gun.", -10, 100);
+        ShootingWeapon slingshot = new ShootingWeapon("slingshot", "sometimes useful. But maybe only to someone called David, and are fighting a giant?", -1, 20);
 
-        if(f1 == Foods.BAD) {
-            System.out.println("YUCK! You might lose health if you eat this.");
-        } else if (f1 == Foods.GOOD) {
-            System.out.println("Yummy, this food is good for you!");
-        } else if (f1 == Foods.CANNOTEAT) {
-            System.out.println("You cannot eat that.");
-        }*/
-
-
-        //test items
-
-        theEarth1.putItemInRoom(potato);
-
-        //fordel de forskellige items på rum
-        theEarth1.putItemInRoom(water);
-        theEarth1.putItemInRoom(tea);
+        //items fordelt i rum
         mercury6.putItemInRoom(lithium);
-        mars8.putItemInRoom(boron);
-        jupiter4.putItemInRoom(laserGun);
         neptune3.putItemInRoom(neptunium);
         uranus9.putItemInRoom(uran);
         neptune3.putItemInRoom(molbydenum);
@@ -134,13 +123,33 @@ public class Map {
         pluto5.putItemInRoom(plutonium);
         saturn2.putItemInRoom(nothing);
         jupiter4.putItemInRoom(book);
+        //Food
+        theEarth1.putItemInRoom(potato);
+        theEarth1.putItemInRoom(water);
+        theEarth1.putItemInRoom(tea);
+        mars8.putItemInRoom(boron);
+        uranus9.putItemInRoom(catfood);
+        neptune3.putItemInRoom(chocolate);
+        //Weapon
+        theEarth1.putItemInRoom(knife);
+        mars8.putItemInRoom(pistol);
+        jupiter4.putItemInRoom(laserGun);
+        venus7.putItemInRoom(slingshot);
 
-        //Items der skal være i spillerens inventory før spillet kan slutte.
+        Enemy enemy1 = new Enemy("zork","the really ugly one.", 10, axe);
+        Enemy enemy2 = new Enemy("grabba","the slightly overweight one.",15, bat);
+        Enemy enemy3 = new Enemy("dippo","a shadowy figure", 50, lightSaber);
+        //placer enemy i rum
+        mars8.putEnemyInRoom(enemy1);
+        venus7.putEnemyInRoom(enemy2);
+        pluto5.putEnemyInRoom(enemy3);
+
+        //Items der skal være i spillerens inventory før spillet kan slutte, denne skal spilleren selv kombinere sig frem til,
+        // derfor ligges den ikke i noget rum
         this.finalItem = workingRadio;
-        //this.secondFinalItem = boron;
 
         //put batteries in random room
-        //batterierne skal aldring ligge på solen ellers saturn, derfor er de ikke med i denne ligning
+        //batterierne skal aldring ligge på solen ellers saturn, derfor er de ikke med på listen
         Random random = new Random();
         int randomRoom = random.nextInt(8) + 1;
         if (randomRoom == 1) {
@@ -161,17 +170,6 @@ public class Map {
             uranus9.putItemInRoom(batteries);
         }
 
-        Weapon weaponTest = new MeleeWeapon("testvåben", "placeholder", -4);
-        MeleeWeapon weaponTest2 = new MeleeWeapon("testvåben2", "placeholder", -7);
-        ShootingWeapon testSkyd = new ShootingWeapon("skyder","placeholder",-4,2);
-
-
-        Enemy enemy1 = new Enemy("enemy1", 10, weaponTest);
-        Enemy enemy2 = new Enemy("enemy2",15,weaponTest);
-        //placer enemy i rum
-        mars8.putEnemyInRoom(enemy1);
-        theEarth1.putItemInRoom(weaponTest2);
-        theEarth1.putItemInRoom(testSkyd);
     }
 
     public Room getGameOverRoom() {
@@ -181,10 +179,6 @@ public class Map {
     public Room getFinalRoom() {
         return finalRoom;
     }
-
-   /* public Item getSecondFinalItem() {
-        return secondFinalItem;
-    }*/
 
     public Item getFinalItem() {
         return finalItem;
@@ -198,7 +192,3 @@ public class Map {
         return startRoom;
     }
 }
-
-
-
-
