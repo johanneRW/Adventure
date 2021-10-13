@@ -1,6 +1,7 @@
 package company;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Player {
     private Map spaceMap = new Map();

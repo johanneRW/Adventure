@@ -8,6 +8,7 @@ public class ShootingWeapon extends Weapon{
         this.ammo = ammo;
     }
 
+
     public int getAmmo() {
         return ammo;
 

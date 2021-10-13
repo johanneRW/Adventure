@@ -344,9 +344,11 @@ public class Adventure {
     }
 
     private void requestAttack(String enemyName) {
-        if (player.getCurrentRoom().getEnemy() != null) {
-            if (Objects.equals(player.getCurrentRoom().getEnemy().getEnemyName(), enemyName)) {
-                beginFight(player.getCurrentRoom().getEnemy());
+        Enemy enemyFound = null;
+        enemyFound = player.getCurrentRoom().getEnemy();
+        if (enemyFound != null) {
+            if (enemyFound.getEnemyName().equals(enemyName)) {
+                beginFight(enemyFound);
             } else {
                 System.out.println("I don't know that name");
             }
