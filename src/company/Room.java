@@ -16,7 +16,8 @@ public class Room {
     private int roomCount;
     private Enemy enemy;
 
-    //Vi opretter et rum der har mulighed for fire forbindelser, uden at lave forbindelserne endnu, derfor er de sat til null
+    // Vi opretter et rum der har mulighed for fire forbindelser, uden at lave forbindelserne endnu,
+    // derfor er de sat til null
     public Room(String roomName, String roomDescription, String roomHelp) {
         this.ROOM_DESCRIPTION = roomDescription;
         this.ROOM_NAME = roomName;
@@ -32,7 +33,7 @@ public class Room {
 
     // Opret en forbindelse til et andet rum, når der bliver oprettet en forbindelse i en retning,
     // Bliver der automatisk oprettet en forbindelse i modsat retning tilbage til rummet, så man ikke glemmer en forbindelse
-    //Der oprettes en for hver kompasretning.
+    // Der oprettes en for hver kompasretning.
     public void createConnectionNorth(Room anotherRoom) {
         if (connectionNorth == null) {
             connectionNorth = anotherRoom;
@@ -61,14 +62,11 @@ public class Room {
         }
     }
 
-    // Vi laver get-sætninger til at flytte rundt mellem rum, gemme de forbindelser vi har lavet i createDoor...
-
     public void putItemInRoom(Item item) {
-        Room currentRoom = this;
-        currentRoom.items.add(item);
+        this.items.add(item);
     }
 
-    public void upDateRoomCount() {
+    public void increaseRoomCount() {
         this.roomCount++;
     }
 
@@ -93,9 +91,7 @@ public class Room {
     }
 
     public String getROOM_DESCRIPTION() {
-        if(enemy==null) {
-        return ROOM_DESCRIPTION; }
-        else return ROOM_DESCRIPTION;
+        return ROOM_DESCRIPTION;
     }
 
     public String getROOM_NAME() {
@@ -107,51 +103,13 @@ public class Room {
     }
 
     public void putEnemyInRoom(Enemy enemy) {
-        Room currentRoom = this;
         this.enemy = enemy ;
     }
     public void removeEnemyFromRoom() {
-        Room currentRoom = this;
         this.enemy = null;
     }
 
     public Enemy getEnemyInRoom(){
         return enemy;
+    }
 }
-
-
-
-    // Har lavet en toString for at kunne dobbelt tjekke at dørene er oprettet korrekt.Den er ikke nødvendig når kortet er oprettet.
-    //denne override er kommenteret ud, i stedet for at være slettet, da det kan være der bliver brug for den under opbygning af nyt kort;
-   /* @Override
-    public String toString() {
-        String north, south, east, west;
-        if (connectionNorth == null) {
-            north = "none";
-        } else {
-            north = connectionNorth.ROOM_NAME;
-        }
-        if (connectionEast == null) {
-            east = "none";
-        } else {
-            east = connectionEast.ROOM_NAME;
-        }
-        if (connectionWest == null) {
-            west = "none";
-        } else {
-            west = connectionWest.ROOM_NAME;
-        }
-        if (connectionSouth == null) {
-            south = "none";
-        } else {
-            south = connectionSouth.ROOM_NAME;
-        }
-        return "RoomName=" + ROOM_NAME +
-                ", doorNorth=" + north +
-                ", doorEast=" + east +
-                ", doorWest=" + west +
-                ", doorSouth=" + south;
-    }*/
-}
-
-

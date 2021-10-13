@@ -24,10 +24,6 @@ public class Item {
         return itemDescription;
     }
 
-   /* public String getItemNameAndDescription() {
-        return "\n" + itemName + ", " + itemDescription;
-    }*/
-
     public Item getCombination() {
         return combination;
     }

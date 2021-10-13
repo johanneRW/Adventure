@@ -3,15 +3,14 @@ package company;
 import java.util.ArrayList;
 
 public class Player {
-    private Map spaceMap = new Map();
     public ArrayList<Item> inventory;
+    private Map spaceMap = new Map();
     private Room currentRoom;
     private int health;
     private Weapon currentWeapon;
+    // Spiller starter altid med en radio med når han/hun starter;
     private Item radio = new Item("radio", "unfortunately it ran out of batteries...Better find some new.", spaceMap.getWorkingRadio());
 
-
-    //Spiller starter altid med en radio med når han/hun starter;
     public Player() {
         this.inventory = new ArrayList<>();
         inventory.add(radio);
@@ -37,18 +36,18 @@ public class Player {
         this.health = health + healthPoint;
     }
 
-
     public Weapon getCurrentWeapon() {
         return currentWeapon;
     }
 
     public void setCurrentWeapon(Weapon currentWeapon) {
         this.currentWeapon = currentWeapon;
-
     }
 
-    public boolean takeHit(Weapon weapon) {
-        if (currentRoom.getEnemyInRoom() != null) {
+    public boolean takeHit() {
+        Enemy enemy = getEnemy();
+        if (enemy != null) {
+            Weapon weapon = enemy.getWeapon();
             int damage = weapon.getDamage();
             changeInHealth(damage);
             return true;
@@ -57,9 +56,8 @@ public class Player {
         }
     }
 
-    public Enemy getEnemy(){
-        this.currentRoom=currentRoom;
-       Enemy enemy= currentRoom.getEnemyInRoom();
+    public Enemy getEnemy() {
+        Enemy enemy = this.currentRoom.getEnemyInRoom();
         return enemy;
     }
 }

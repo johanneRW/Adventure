@@ -1,4 +1,3 @@
 package company;
 
-public enum EatEnum {GOOD,BAD,INEDIBLE
-}
+public enum EatEnum { GOOD, BAD, INEDIBLE }

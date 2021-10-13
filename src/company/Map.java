@@ -3,8 +3,6 @@ package company;
 import java.util.Random;
 
 public class Map {
-
-
     private Room finalRoom;
     private Item finalItem;
     private Item workingRadio;
@@ -12,10 +10,8 @@ public class Map {
     private Room startRoom;
 
     public Map() {
-
-        //Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
-
-        //De ønskede rum, beskrivelser og hjælpe-tekst.
+        // Planeternes beskrivelser er hentet på https://solarsystem.nasa.gov/planets/overview/
+        // De ønskede rum, beskrivelser og hjælpe-tekst.
         Room theEarth1 = new Room("the Earth", """
                 Earth — our home planet — is the only place we know of so far that’s inhabited by living things.
                 It's also the only planet in our solar system with liquid water on the surface.""",
@@ -39,7 +35,7 @@ public class Map {
                 Pluto is a complex world of ice mountains and frozen plains.
                 Still considered the ninth planet by some, Pluto is the largest member of the Kuiper Belt.
                 It is the best known of a new class of worlds called dwarf planets.
-                But now Pluto can be returned to its rightful place among the other planets, you just need to report back to headquarter.""",
+                But now Pluto can be returned to its rightful place among the other planets, you just need to report back to headquarters.""",
                 "We are finally here! Oh, it's so peaceful here. So quiet, let's stay here forever. Maybe just call home first?");
         Room mercury6 = new Room("Mercury", """
                 Mercury — the smallest planet in our solar system and closest to the Sun —
@@ -63,7 +59,7 @@ public class Map {
                 Its gravity holds everything from the biggest planets to tiny debris in its orbit.""",
                 "You're burning up, I can't help you");
 
-        //lav forbindelse mellem rummene
+        // lav forbindelser mellem rummene
         theEarth1.createConnectionEast(mercury6);
         theEarth1.createConnectionWest(venus7);
         mercury6.createConnectionEast(theSun10);
@@ -78,15 +74,15 @@ public class Map {
         neptune3.createConnectionWest(pluto5);
         mars8.createConnectionSouth(saturn2);
 
-        //Definer start-, slut- og game over-rum
+        // Definer start-, slut- og game over-rum
         this.finalRoom = pluto5;
         this.gameOverRoom = theSun10;
         this.startRoom = theEarth1;
 
-        //item der kan laves af to andre items
+        // definer item, der kan laves af to andre items
         this.workingRadio = new Item("working radio", "now you have added batteries, you can call back to headquarters.");
 
-        //Items og deres beskrivelse.
+        // Items og deres beskrivelse.
         Item lithium = new Item("lithium", "a highly flammable element, which can be used to start a fire.");
         Item molbydenum = new Item("molybdenum", "honestly, at this point we're just making stuff up.");
         Item neptunium = new Item("neptunium", "an element that can be found on Neptune.");
@@ -100,11 +96,11 @@ public class Map {
         //good food
         Food tea = new Food("tea", "an oddly satisfying warm drink.", 5);
         Food boron = new Food("boron", "an element that has been studied and experimented with, as a potential ingredient in organic medicine\n" +
-                "-Sounds like something worth having in your inventory.", 15);
+                "- Sounds like something worth having in your inventory.", 15);
         Food water = new Food("water", "a very important substance.", 1);
-        Food chocolate = new Food("chocolate bar", "a yummy snack, everything is better whit chocolate.", 7);
+        Food chocolate = new Food("chocolate bar", "a yummy snack, everything is better with chocolate.", 7);
         //bad food
-        Food lunchPack = new Food("lunch pack","smells like it have been here for a while...",-7);
+        Food lunchPack = new Food("lunch pack","smells like it has been here for a while...",-7);
         Food potato = new Food("rotten potato", "yuk!", -3);
         Food catFood = new Food("cat food", "a small can of random fish bits. Quite smelly if I may say so.", -5);
         Food burnedToast = new Food("burned toast", "maybe it got burned on its way through the atmosphere?",-3);
@@ -112,15 +108,15 @@ public class Map {
         //Weapon
         //MeleeWeapon
         MeleeWeapon axe = new MeleeWeapon("axe", "a bit odd, as it's not one of the most common things found in space.", -4);
-        MeleeWeapon knife = new MeleeWeapon("knife", "a sharp thing, often comes whit a handle.", -7);
+        MeleeWeapon knife = new MeleeWeapon("knife", "a sharp thing, often comes with a handle.", -7);
         MeleeWeapon bat = new MeleeWeapon("baseball bat", "wherever you are, there is always a sports-fanatic nearby.", -5);
         MeleeWeapon lightSaber = new MeleeWeapon("light saber", "what else would it be?", -12);
-        MeleeWeapon spoon = new MeleeWeapon("spoon","doesn't seem to bee much of a weapon.",-1);
-        MeleeWeapon plantShovel= new MeleeWeapon("plant shovel","primarily used for peaceful purposes, like plantning potatoes.",-3);
+        MeleeWeapon spoon = new MeleeWeapon("spoon", "doesn't seem to bee much of a weapon.",-1);
+        MeleeWeapon trowel = new MeleeWeapon("trowel", "primarily used for peaceful purposes, like planting potatoes.",-3);
         //ShootingWeapon
         ShootingWeapon pistol = new ShootingWeapon("pistol", "maybe a space-cowboy flew by and dropped it?", -4, 2);
         ShootingWeapon laserGun = new ShootingWeapon("laser gun", "a friendly entity has offered you this laser gun.", -10, 100);
-        ShootingWeapon slingshot = new ShootingWeapon("slingshot", "sometimes useful. But maybe only to someone called David, and are fighting a giant?", -1, 20);
+        ShootingWeapon slingshot = new ShootingWeapon("slingshot", "sometimes useful. But maybe only to someone called David, fighting a giant?", -1, 20);
 
         //items fordelt i rum
         mercury6.putItemInRoom(lithium);
@@ -146,25 +142,26 @@ public class Map {
         jupiter4.putItemInRoom(laserGun);
         venus7.putItemInRoom(slingshot);
 
-        Enemy zork = new Enemy("zork","the really really ugly one.", 10, axe);
-        Enemy gabba = new Enemy("gabba","the now slightly overweight one.",15, bat);
-        Enemy dippo = new Enemy("dippo","a shadowy figure", 50, lightSaber);
-        Enemy theAllMighty = new Enemy("the all mighty","a small creature, whit inferiority problems",2,spoon);
-        Enemy qazaza=new Enemy("qazaza", "a magnificent creature in favor of peace and horticulture", 5, plantShovel);
+        // definer fjender
+        Enemy zork = new Enemy("zork", "the really really ugly one.", 10, axe);
+        Enemy gabba = new Enemy("gabba", "the now slightly overweight one.",15, bat);
+        Enemy dippo = new Enemy("dippo", "a shadowy figure", 20, lightSaber);
+        Enemy theAlmighty = new Enemy("the almighty", "a small creature with inferiority issues", 2, spoon);
+        Enemy qazaza = new Enemy("qazaza", "a magnificent creature in favor of peace and horticulture", 5, trowel);
 
-        //placer enemy i rum
+        //placer fjender i rummene
         mars8.putEnemyInRoom(zork);
         venus7.putEnemyInRoom(qazaza);
         pluto5.putEnemyInRoom(dippo);
         jupiter4.putEnemyInRoom(gabba);
-        neptune3.putEnemyInRoom(theAllMighty);
+        neptune3.putEnemyInRoom(theAlmighty);
 
-        //Items der skal være i spillerens inventory før spillet kan slutte, denne skal spilleren selv kombinere sig frem til,
+        // Item der skal være i spillerens inventory før spillet kan slutte, denne skal spilleren selv kombinere sig frem til,
         // derfor ligges den ikke i noget rum
         this.finalItem = workingRadio;
 
-        //put batteries in random room
-        //batterierne skal aldring ligge på solen ellers saturn, derfor er de ikke med på listen
+        // put batteries in random room
+        // batterierne skal aldrig ligge på solen eller saturn, derfor er de ikke med på listen
         Random random = new Random();
         int randomRoom = random.nextInt(8) + 1;
         if (randomRoom == 1) {
