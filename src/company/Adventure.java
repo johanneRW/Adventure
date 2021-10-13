@@ -1,7 +1,6 @@
 package company;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -20,13 +19,12 @@ public class Adventure {
         System.out.println("Welcome to The Rediscovering of Pluto.\n\nIf you want to skip the introduction, type \"skip\" otherwise pres any button followed by enter");
         String reply = getPlayerReply();
         if (reply.equals("skip")) {
-            System.out.println(getBeginningTekst());
+            System.out.println(startTekst());
         } else {
-            System.out.println(getIntroTekst());
-            System.out.println(getCommandOptions());
-            System.out.println(getBeginningTekst());
+            System.out.println(introTekst());
+            System.out.println(commandOptions());
+            System.out.println(startTekst());
         }
-
 
         while (gameRunning) {
             String command;
@@ -47,25 +45,14 @@ public class Adventure {
                     if (firstWordOfCommand.equals("go")) {
                         command = secondWordOfCommand;
                     }
-                } // jeg har ladet vores første udgave af take og drop blive, så man kan samle op og efterlade items på flere måder
+                }
                 if ((itemName != null) && (command.equals("take") || command.equals("t"))) {
-                    String result = pickUpItem(itemName);
-                    System.out.println(result);
-                } else if ((itemName == null) && (command.equals("take") || command.equals("t"))) {
-                    String question = askPlayer("take");
-                    System.out.println(question);
-                    itemName = getPlayerReply();
                     String result = pickUpItem(itemName);
                     System.out.println(result);
                 } else if ((itemName != null) && (command.equals("drop") || command.equals("d"))) {
                     String result = dropItem(player.inventory, itemName);
                     System.out.println(result);
-                } else if ((itemName == null) && command.equals("drop") || (command.equals("d"))) {
-                    String question = askPlayer("drop");
-                    System.out.println(question);
-                    itemName = getPlayerReply();
-                    String result = dropItem(player.inventory, itemName);
-                    System.out.println(result);
+
                     //har fjernet "go" fra equals, da substring nu sortere ordet fra, og det derfor aldrig vil blive brugt.
                 } else if (command.equals("n") || command.equals("north")) {
                     String result = requestDirection(player.getCurrentRoom().getConnectionNorth(), "north");
@@ -79,23 +66,42 @@ public class Adventure {
                 } else if (command.equals("s") || command.equals("south")) {
                     String result = requestDirection(player.getCurrentRoom().getConnectionSouth(), "south");
                     System.out.println(result);
+
                 } else if (command.equals("look") || command.equals("l")) {
                     String result = requestLook();
                     System.out.println(result);
+
                 } else if (command.equals("inventory") || command.equals("i") || command.equals("in") || command.equals("inv")) {
                     System.out.println(getInventoryWhitDescription());
+
+                } else if ((itemName != null) && (command.equals("attack"))) {
+                    requestAttack(itemName);
+
+                } else if ((itemName != null) && (command.equals("equip"))) {
+                    String result = equipPlayer(itemName);
+                    System.out.println(result);
+
+                } else if ((itemName != null) && (command.equals("eat"))||(command.equals("drink"))) {
+                   String result=requestEat(itemName);
+                    System.out.println(result);
+
+                } else if (command.equals("health")) {
+                    System.out.println("You have " + player.getHealth() + "health points right now.");
+
                 } else if (command.equals("help") || command.equals("h")) {
                     String question = askPlayer("help");
                     System.out.println(question);
                     String answer = getPlayerReply();
                     String help = requestHelp(answer);
                     System.out.println(help);
+
                 } else if (command.equals("exit") || command.equals("q")) {
                     String question = askPlayer("exit");
                     System.out.println(question);
                     String answer = getPlayerReply();
                     String exit = requestExit(answer);
                     System.out.println(exit);
+
                 } else if (command.equals("combine")) {
                     System.out.println(getInventory() +
                             "\nType in the name of the first item, which you want to combine:");
@@ -113,29 +119,11 @@ public class Adventure {
                     if (!checkIfFinal()) {
                         System.out.println("\n" + getInventory());
                     }
+                    //metode til at fange kommandoer der er skrevet med et ord ved en fejl.
+                }else if ((itemName != null)&& command.equals("call")&&(itemName.equals("cat"))) {
+                    System.out.println("MANDU!!!");}
 
-                } else if ((itemName != null) && (command.equals("attack"))) {
-                    requestAttack(itemName);
-                } else if (command.equals("attack")) {
-                    String enemyName = getPlayerReply();
-                    System.out.println("Who do you want to attack?");
-                    requestAttack(enemyName);
-                } else if ((itemName != null) && (command.equals("equip"))) {
-                    String result= equipPlayer(itemName);
-                    System.out.println(result);
-                } else if (command.equals("equip")) {
-                    System.out.println("which weapon do you want to use?");
-                    String weaponName = getPlayerReply();
-                    String result =equipPlayer(weaponName);
-                    System.out.println(result);
-                } else if ((itemName != null) && (command.equals("eat"))) {
-                    System.out.println(requestEat(itemName));
-                } else if (command.equals("eat")) {
-                    askPlayer("eat");
-                    String foodToEat = getPlayerReply();
-                    System.out.println(requestEat(foodToEat));
-                } else if (command.equals("health")) {
-                    System.out.println("You have " + player.getHealth() + "health points right now.");
+                else if (itemName==null){oneWordCommandInstedOfTo(command);
                 } else {
                     //hvis spilleren taster en ugyldig kommando, beder spillet om en ny, dette er for at Adventure ikke crasher ved ugyldigt indput.
                     System.out.println("I don't know how to \"" + command + "\", try typing something else");
@@ -147,6 +135,42 @@ public class Adventure {
 
     }
 
+    private void oneWordCommandInstedOfTo(String command) {
+        if (command.equals("eat")||command.equals("drink")){
+            askPlayer("eat");
+            String foodToEat = getPlayerReply();
+            System.out.println(requestEat(foodToEat));
+        } else if (command.equals("equip")) {
+            System.out.println("which weapon do you want to use?");
+            String weaponName = getPlayerReply();
+            String result = equipPlayer(weaponName);
+            System.out.println(result);
+        } else if (command.equals("take") || command.equals("t")) {
+            String question = askPlayer("take");
+            System.out.println(question);
+            String itemName = getPlayerReply();
+            String result = pickUpItem(itemName);
+            System.out.println(result);
+        } else if (command.equals("drop") || (command.equals("d"))) {
+            String question = askPlayer("drop");
+            System.out.println(question);
+            String itemName = getPlayerReply();
+            String result = dropItem(player.inventory, itemName);
+            System.out.println(result);
+        } else if (command.equals("attack")) {
+            String enemyName = getPlayerReply();
+            System.out.println("Who do you want to attack?");
+            requestAttack(enemyName);
+        } else if (command.equals("equip")) {
+            System.out.println("which weapon do you want to use?");
+            String weaponName = getPlayerReply();
+            String result = equipPlayer(weaponName);
+            System.out.println(result);
+
+        }else System.out.println("I don't know how to do that, try something else");
+    }
+
+
     private String requestDirection(Room requestedRoom, String directionName) {
         if (requestedRoom != null) {
             player.setCurrentRoom(requestedRoom);
@@ -157,7 +181,7 @@ public class Adventure {
     }
 
     private String askPlayer(String command) {
-        if (command.equals("drop") || command.equals("take")|| command.equals("eat")){
+        if (command.equals("drop") || command.equals("take") || command.equals("eat")||command.equals("drink")){
             return "Ok, " + command + " what?";
         }
         if (command.equals("exit")) {
@@ -188,7 +212,7 @@ public class Adventure {
             return "Okay, suit yourself! :)";
         }
         if (answer.equals("commands") || (answer.equals("c"))) {
-            return getCommandOptions();
+            return commandOptions();
         } else return null;
     }
 
@@ -224,8 +248,10 @@ public class Adventure {
     }
 
     private String getRoomItemsName() {
-        if (player.getCurrentRoom().items.size() > 0) {
-            String items = getItemListAsString(player.getCurrentRoom().items);
+        ArrayList<Item> itemList = player.getCurrentRoom().items;
+
+        if (itemList.size() > 0) {
+            String items = getItemListAsString(itemList);
             return items;
         } else return "\nItems: There doesn't seem to be anything to take on this planet";
     }
@@ -244,6 +270,7 @@ public class Adventure {
         } else return "Your inventory seems to be empty";
 
     }
+
     private String ItemNameAndDescription(ArrayList<Item> list) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
@@ -255,10 +282,14 @@ public class Adventure {
     }
 
     private String getRoomItemDescription() {
-        if (player.getCurrentRoom().items.size() > 0) {
-            String inventory = ItemNameAndDescription(player.getCurrentRoom().items);
-            return "\nItems on this planet: \n" + inventory;
-        } else return "\nItems: There doesn't seem to be anything to take on this planet";
+        ArrayList<Item> itemList = player.getCurrentRoom().items;
+        if (itemList.size() > 0) {
+            String inventory = ItemNameAndDescription(itemList);
+            if(player.getEnemy()!=null){
+               String enemy= player.getEnemy().toString();
+               return  "\n\nOther lifeforms on this planet:\n"+getStringsCapitalized(enemy)+ "\n\nItems on this planet: \n" + inventory;
+            }else return "\n\nItems on this planet: \n" + inventory;
+        } else return "\n\nItems: There doesn't seem to be anything to take on this planet";
     }
 
     private void removeItem(ArrayList<Item> list, String itemName) {
@@ -272,23 +303,27 @@ public class Adventure {
 
     private String dropItem(ArrayList<Item> list, String itemName) {
         Item foundItem = findItemByName(list, itemName);
+        Room room = player.getCurrentRoom();
+
         if (foundItem == null) {
             return "Can't find a \"" + itemName + "\" in your inventory";
         } else {
             removeItem(list, itemName);
-            player.getCurrentRoom().items.add(foundItem);
-            return getStringsCapitalized(itemName) + " is placed carefully on " + player.getCurrentRoom().getROOM_NAME() + "\n" + getInventory();
+            room.items.add(foundItem);
+            return getStringsCapitalized(itemName) + " is placed carefully on " + room.getROOM_NAME() + "\n" + getInventory();
         }
     }
 
     private String pickUpItem(String itemName) {
         //der må max være 5 Items i en spillers inventory ad gangen.
+        ArrayList<Item> itemList = player.getCurrentRoom().items;
+
         if (player.inventory.size() <= 4) {
-            Item foundItem = findItemByName(player.getCurrentRoom().items, itemName);
+            Item foundItem = findItemByName(itemList, itemName);
             if (foundItem == null) {
                 return "Can't find a \"" + itemName + "\" on this planet";
             } else {
-                removeItem(player.getCurrentRoom().items, itemName);
+                removeItem(itemList, itemName);
                 player.inventory.add(foundItem);
                 return getStringsCapitalized(itemName) + " is added to your inventory.\n" + getStringsCapitalized(getInventory());
             }
@@ -310,17 +345,25 @@ public class Adventure {
             player.inventory.add(item1.getCombination());
             String newItemName = item1.getCombination().getItemName();
             result = "You have combined " + itemName1 + " and " + itemName2 + " to \"" + newItemName + "\"-"
-                    + getStringsCapitalized(item1.getCombination().getItemDescription());
+                    + getStringsCapitalized(newItemName);
         }
 
         return result;
     }
 
-    private String equipPlayer(String weaponName) {
-        Item foundItem = findItemByName(player.inventory, weaponName);
+    private Item searchInRoomAndPlayerInventory(String itemName) {
+        Item foundItem = findItemByName(player.inventory, itemName);
         if (foundItem == null) {
-            foundItem = findItemByName(player.getCurrentRoom().items, weaponName);
+            ArrayList<Item> itemList = player.getCurrentRoom().items;
+            foundItem = findItemByName(itemList, itemName);
+            if (foundItem != null) ;
+            itemList.remove(foundItem);
         }
+        return foundItem;
+    }
+
+    private String equipPlayer(String weaponName) {
+        Item foundItem = searchInRoomAndPlayerInventory(weaponName);
 
         if ((foundItem != null) && foundItem instanceof ShootingWeapon) {
             ShootingWeapon foundShootingWeapon = (ShootingWeapon) foundItem;
@@ -344,11 +387,11 @@ public class Adventure {
     }
 
     private void requestAttack(String enemyName) {
-        Enemy enemyFound = null;
-        enemyFound = player.getCurrentRoom().getEnemy();
-        if (enemyFound != null) {
-            if (enemyFound.getEnemyName().equals(enemyName)) {
-                beginFight(enemyFound);
+        Enemy enemy = null;
+        enemy = player.getEnemy();
+        if (enemy != null) {
+            if (enemy.getEnemyName().equals(enemyName)) {
+                beginFight(enemy);
             } else {
                 System.out.println("I don't know that name");
             }
@@ -370,13 +413,15 @@ public class Adventure {
 
     private void beginFight(Enemy enemy) {
         if (player.getCurrentWeapon() != null) {
-            if (player.getCurrentWeapon() instanceof MeleeWeapon) {
-                System.out.println("Hitting"+enemy+"...");
+            Weapon playerWeapon = player.getCurrentWeapon();
+            String enemyName = getStringsCapitalized(enemy.getEnemyName());
+            if (playerWeapon instanceof MeleeWeapon) {
+                System.out.println("Hitting " + enemyName + "...");
                 playerAttack(enemy);
-            } else if (player.getCurrentWeapon() instanceof ShootingWeapon) {
-                ShootingWeapon shootingWeapon = ((ShootingWeapon) player.getCurrentWeapon());
+            } else if (playerWeapon instanceof ShootingWeapon) {
+                ShootingWeapon shootingWeapon = ((ShootingWeapon) playerWeapon);
                 if (shootingWeapon.getAmmo() > 0) {
-                    System.out.println("Shooting at" +enemy+"....");
+                    System.out.println("Shooting at " + enemyName + "....");
                     playerAttack(enemy);
                     shootingWeapon.useAmmo();
                 } else {
@@ -408,17 +453,19 @@ public class Adventure {
             return false;
         }
     }
+
     private void playerTakeHit(Weapon weapon) {
         boolean playerTakesHit = player.takeHit(weapon);
         if (playerTakesHit) {
             isPlayerDead();
-            System.out.println("Enemy hit you!\nYour health is: " + player.getHealth());
-        } else System.out.println("You have won");
+            System.out.println("Enemy hit you back!\nYour health is: " + player.getHealth());
+        } else System.out.println("You have won the battle!");
     }
 
+    //player skal finde enemy.
     private boolean isEnemyDead() {
         boolean isDead;
-        Enemy enemy = player.getCurrentRoom().getEnemy();
+        Enemy enemy = player.getEnemy();
         if (enemy.getEnemyHealth() < 1) {
             Weapon weapon = enemy.getWeaponName();
             dropItem(enemy.enemyInventory, weapon.getItemName());
@@ -444,20 +491,20 @@ public class Adventure {
     }
 
 
-    private Item findFoodItem(String itemName) {
+ /*   private Item findFoodItem(String itemName) {
         Item foundFood = findItemByName(player.inventory, itemName);
         if (foundFood == null) {
             foundFood = findItemByName(player.getCurrentRoom().items, itemName);
         }
         return foundFood;
-    }
+    }*/
 
     private String requestEat(String foodToEat) {
-        Item item = findFoodItem(foodToEat);
+        Item item = searchInRoomAndPlayerInventory(foodToEat);
         String result = null;
 
         if (item == null) {
-            return "There is nothing you can eat here.";
+            return "There is nothing you can consume here.";
         } else {
             EatEnum eatResult = tryToEat(item);
             if (eatResult == EatEnum.BAD) {
@@ -470,7 +517,7 @@ public class Adventure {
                 result = "You added " + food.getHealthPoints() + " points\n" + "Now you have "
                         + player.getHealth() + " health points";
             } else if (eatResult == EatEnum.INEDIBLE) {
-                result = "You can't eat this";
+                result = "You can't consume this";
             }
         }
         return result;
@@ -494,12 +541,13 @@ public class Adventure {
 
 
     private String enteringRoom() {
-        String roomIntroduction = "You are on " + player.getCurrentRoom().getROOM_NAME() + player.getCurrentRoom().getROOM_DESCRIPTION();
+        Room room = player.getCurrentRoom();
+        String roomIntroduction = "You are on " + room.getROOM_NAME() + room.getROOM_DESCRIPTION();
         if (checkIfGameOver()) {
             return roomIntroduction + "\nUnfortunately you burned up and therefore the GAME is OVER.";
         } else if (checkIfFinal()) {
             return roomIntroduction + "\n\nYou have reached the end of the game. CONGRATULATIONS!!!\nThe End\nNow, go out and look at the sky.";
-        } else if ((player.getCurrentRoom().getRoomCount() == 0) || (player.getCurrentRoom().getRoomCount() == 1) || (player.getCurrentRoom().getRoomCount() == 4)) {
+        } else if ((room.getRoomCount() == 0) || (room.getRoomCount() == 1) || (room.getRoomCount() == 4)) {
             return roomIntroduction + getRoomItemDescription();
         } else
             return descriptionRandomizer();
@@ -507,29 +555,33 @@ public class Adventure {
 
     private String descriptionRandomizer() {
         Random random = new Random();
+        Room room = player.getCurrentRoom();
         int answerRandomizer = random.nextInt(7) + 1;
+
         if (answerRandomizer == 1) {
-            return "Back on " + player.getCurrentRoom().getROOM_NAME();
+            return "Back on " + room.getROOM_NAME();
         }
         if (answerRandomizer == 2) {
-            return "... And we're back on " + player.getCurrentRoom().getROOM_NAME() + getRoomItemDescription();
+            return "... And we're back on " + room.getROOM_NAME()+ getRoomItemDescription();
         }
         if (answerRandomizer == 3) {
-            return "Once again we are back on " + player.getCurrentRoom().getROOM_NAME();
+            return "Once again we are back on " + room.getROOM_NAME();
         }
         if (answerRandomizer == 4) {
-            return "Blah. blah. blah. " + player.getCurrentRoom().getROOM_NAME() + getStringsCapitalized(getRoomItemsName()) + " blah. blah.";
+            return "Blah. blah. blah. " + room.getROOM_NAME() +getStringsCapitalized(getRoomItemsName()) + " blah. blah.";
         }
         if (answerRandomizer == 5) {
-            return "Keep getting back to " + player.getCurrentRoom().getROOM_NAME() + "Maybe we should just stay here?";
+            return "Keep getting back to " + room.getROOM_NAME() + "Maybe we should just stay here?";
 
-        } else return "You are on " + player.getCurrentRoom().getROOM_NAME() + player.getCurrentRoom().getROOM_DESCRIPTION() +
+        } else return "You are on " + room.getROOM_NAME() + room.getROOM_DESCRIPTION() +
                 getRoomItemDescription();
     }
 
     private boolean checkIfFinal() {
-        Item finalItem = findItemByName(player.inventory,spaceMap.getFinalItem().getItemName());
-        if (player.getCurrentRoom().equals(spaceMap.getFinalRoom()) && (finalItem != null)) {
+        Room room = player.getCurrentRoom();
+        Item finalItem = findItemByName(player.inventory, spaceMap.getFinalItem().getItemName());
+//man skal være i pluto, med working radio i sit inventory, og fjenden på pluto skal være besejret.
+        if (room.equals(spaceMap.getFinalRoom()) && (finalItem != null)&& (player.getEnemy()==null)){
             gameRunning = false;
             return true;
         } else return false;
@@ -553,7 +605,7 @@ public class Adventure {
         } else return string;
     }
 
-    private String getIntroTekst() {
+    private String introTekst() {
         return """
                                  
                 In the year 2006 we lost our smallest planet. It was demoted, and categorised as a dwarf planet.
@@ -564,7 +616,7 @@ public class Adventure {
                 """;
     }
 
-    private String getCommandOptions() {
+    private String commandOptions() {
         return """
                 How to play:
                 You can move around in the game by typing "go" followed by "north", "south", "east", "west".
@@ -574,9 +626,9 @@ public class Adventure {
                 If you want to se your inventory - type "inventory or i.
                 If you want to look around, just type "look" or 'l'. Type "help" or 'h' for help.
                 If you want to quit the game, type "exit" or 'q'.
-                
+                                
                 If you want to equip your self whit a weapon type "equip" and the name of the weapon. Noteis that you can only equip your self whit a weapon in the room or in your inventory.
-                If you want to eat a food item you can wright "eat" and the name of teh item.
+                If you want to eat or drink a item you can wright "eat" or "drink" and the name of teh item.
                                                 
                 Type "attack" and the name of the enemy you want to attack.
                 For update on your health score type "health"
@@ -584,7 +636,7 @@ public class Adventure {
                 If you want to combine two items, type "combine".""";
     }
 
-    private String getBeginningTekst() {
+    private String startTekst() {
         return "\nAt this moment you are on Earth. Take a look around.\n" +
                 player.getCurrentRoom().getROOM_DESCRIPTION() + "\n\n" + getInventoryWhitDescription() + "\nWhat do you want to do first?";
     }

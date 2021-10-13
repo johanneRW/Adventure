@@ -40,11 +40,10 @@ public class Enemy {
         return health;
     }
 
-
     @Override
     public String toString() {
-        return "\nOther lifeforms on this planet:\n" + enemyName +", "+ description+
-                " Armed whit "+weaponName+", "+ weaponName.getItemDescription();
+        return enemyName +", "+ description+
+                ". Armed with: "+weaponName+", "+ weaponName.getItemDescription();
     }
 }
 

@@ -97,19 +97,27 @@ public class Map {
         Item cat = new Item("cat", "a four-legged creature far away from home.");
         Item book = new Item("book", "richly illustrated, this volume contains information on all the planets in the Solar System.");
         //Food
-        Food potato = new Food("rotten potato", "yuk", -3);
+        //good food
         Food tea = new Food("tea", "an oddly satisfying warm drink.", 5);
         Food boron = new Food("boron", "an element that has been studied and experimented with, as a potential ingredient in organic medicine\n" +
                 "-Sounds like something worth having in your inventory.", 15);
         Food water = new Food("water", "a very important substance.", 1);
-        Food catfood = new Food("cat food", "a small can of random fish bits. Quite smelly if I may say so.", -5);
-        Food chocolate = new Food("chocolate bar", "yummy snack.", 7);
+        Food chocolate = new Food("chocolate bar", "a yummy snack, everything is better whit chocolate.", 7);
+        //bad food
+        Food lunchPack = new Food("lunch pack","smells like it have been here for a while...",-7);
+        Food potato = new Food("rotten potato", "yuk!", -3);
+        Food catFood = new Food("cat food", "a small can of random fish bits. Quite smelly if I may say so.", -5);
+        Food burnedToast = new Food("burned toast", "maybe it got burned on its way through the atmosphere?",-3);
 
         //Weapon
+        //MeleeWeapon
         MeleeWeapon axe = new MeleeWeapon("axe", "a bit odd, as it's not one of the most common things found in space.", -4);
-        MeleeWeapon knife = new MeleeWeapon("knife", "a sharp thing, often whit a handle.", -7);
+        MeleeWeapon knife = new MeleeWeapon("knife", "a sharp thing, often comes whit a handle.", -7);
         MeleeWeapon bat = new MeleeWeapon("baseball bat", "wherever you are, there is always a sports-fanatic nearby.", -5);
         MeleeWeapon lightSaber = new MeleeWeapon("light saber", "what else would it be?", -12);
+        MeleeWeapon spoon = new MeleeWeapon("spoon","doesn't seem to bee much of a weapon.",-1);
+        MeleeWeapon plantShovel= new MeleeWeapon("plant shovel","primarily used for peaceful purposes, like plantning potatoes.",-3);
+        //ShootingWeapon
         ShootingWeapon pistol = new ShootingWeapon("pistol", "maybe a space-cowboy flew by and dropped it?", -4, 2);
         ShootingWeapon laserGun = new ShootingWeapon("laser gun", "a friendly entity has offered you this laser gun.", -10, 100);
         ShootingWeapon slingshot = new ShootingWeapon("slingshot", "sometimes useful. But maybe only to someone called David, and are fighting a giant?", -1, 20);
@@ -128,21 +136,28 @@ public class Map {
         theEarth1.putItemInRoom(water);
         theEarth1.putItemInRoom(tea);
         mars8.putItemInRoom(boron);
-        uranus9.putItemInRoom(catfood);
+        uranus9.putItemInRoom(catFood);
         neptune3.putItemInRoom(chocolate);
+        jupiter4.putItemInRoom(lunchPack);
+        mercury6.putItemInRoom(burnedToast);
         //Weapon
         theEarth1.putItemInRoom(knife);
         mars8.putItemInRoom(pistol);
         jupiter4.putItemInRoom(laserGun);
         venus7.putItemInRoom(slingshot);
 
-        Enemy enemy1 = new Enemy("zork","the really ugly one.", 10, axe);
-        Enemy enemy2 = new Enemy("grabba","the slightly overweight one.",15, bat);
-        Enemy enemy3 = new Enemy("dippo","a shadowy figure", 50, lightSaber);
+        Enemy zork = new Enemy("zork","the really really ugly one.", 10, axe);
+        Enemy gabba = new Enemy("gabba","the now slightly overweight one.",15, bat);
+        Enemy dippo = new Enemy("dippo","a shadowy figure", 50, lightSaber);
+        Enemy theAllMighty = new Enemy("the all mighty","a small creature, whit inferiority problems",2,spoon);
+        Enemy qazaza=new Enemy("qazaza", "a magnificent creature in favor of peace and horticulture", 5, plantShovel);
+
         //placer enemy i rum
-        mars8.putEnemyInRoom(enemy1);
-        venus7.putEnemyInRoom(enemy2);
-        pluto5.putEnemyInRoom(enemy3);
+        mars8.putEnemyInRoom(zork);
+        venus7.putEnemyInRoom(qazaza);
+        pluto5.putEnemyInRoom(dippo);
+        jupiter4.putEnemyInRoom(gabba);
+        neptune3.putEnemyInRoom(theAllMighty);
 
         //Items der skal være i spillerens inventory før spillet kan slutte, denne skal spilleren selv kombinere sig frem til,
         // derfor ligges den ikke i noget rum

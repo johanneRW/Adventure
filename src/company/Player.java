@@ -1,7 +1,6 @@
 package company;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Player {
     private Map spaceMap = new Map();
@@ -49,13 +48,19 @@ public class Player {
     }
 
     public boolean takeHit(Weapon weapon) {
-        if (currentRoom.getEnemy() != null) {
+        if (currentRoom.getEnemyInRoom() != null) {
             int damage = weapon.getDamage();
             changeInHealth(damage);
             return true;
         } else {
             return false;
         }
+    }
+
+    public Enemy getEnemy(){
+        this.currentRoom=currentRoom;
+       Enemy enemy= currentRoom.getEnemyInRoom();
+        return enemy;
     }
 }
 

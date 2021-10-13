@@ -95,7 +95,7 @@ public class Room {
     public String getROOM_DESCRIPTION() {
         if(enemy==null) {
         return ROOM_DESCRIPTION; }
-        else return ROOM_DESCRIPTION+"\n" + enemy;
+        else return ROOM_DESCRIPTION;
     }
 
     public String getROOM_NAME() {
@@ -115,7 +115,7 @@ public class Room {
         this.enemy = null;
     }
 
-    public Enemy getEnemy(){
+    public Enemy getEnemyInRoom(){
         return enemy;
 }
 
