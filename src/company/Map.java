@@ -145,9 +145,9 @@ public class Map {
         // definer fjender
         Enemy zork = new Enemy("zork", "the really really ugly one.", 10, axe);
         Enemy gabba = new Enemy("gabba", "the now slightly overweight one.",15, bat);
-        Enemy dippo = new Enemy("dippo", "a shadowy figure", 20, lightSaber);
-        Enemy theAlmighty = new Enemy("the almighty", "a small creature with inferiority issues", 2, spoon);
-        Enemy qazaza = new Enemy("qazaza", "a magnificent creature in favor of peace and horticulture", 5, trowel);
+        Enemy dippo = new Enemy("dippo", "a shadowy figure.", 20, lightSaber);
+        Enemy theAlmighty = new Enemy("the almighty", "a small creature with inferiority issues.", 2, spoon);
+        Enemy qazaza = new Enemy("qazaza", "a magnificent creature in favor of peace and horticulture.", 5, trowel);
 
         //placer fjender i rummene
         mars8.putEnemyInRoom(zork);

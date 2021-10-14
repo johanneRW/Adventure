@@ -42,7 +42,7 @@ public class Enemy {
     @Override
     public String toString() {
         return enemyName + ", " + description +
-                ". Armed with: "+ weapon +", "+ weapon.getItemDescription();
+                " Armed with: " + weapon + ", " + weapon.getItemDescription();
     }
 }
 

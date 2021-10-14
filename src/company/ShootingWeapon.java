@@ -1,9 +1,9 @@
 package company;
 
-public class ShootingWeapon extends Weapon{
+public class ShootingWeapon extends Weapon {
     private int ammo;
 
-    public ShootingWeapon(String itemName, String itemDescription, int damage, int ammo){
+    public ShootingWeapon(String itemName, String itemDescription, int damage, int ammo) {
         super(itemName, itemDescription, damage);
         this.ammo = ammo;
     }

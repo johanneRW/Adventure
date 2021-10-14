@@ -103,13 +103,14 @@ public class Room {
     }
 
     public void putEnemyInRoom(Enemy enemy) {
-        this.enemy = enemy ;
+        this.enemy = enemy;
     }
+
     public void removeEnemyFromRoom() {
         this.enemy = null;
     }
 
-    public Enemy getEnemyInRoom(){
+    public Enemy getEnemyInRoom() {
         return enemy;
     }
 }
